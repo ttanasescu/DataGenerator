@@ -21,7 +21,7 @@ namespace DataGeneratorLibrary.Generators.Other
         
             public override object Generate()
             {
-                return new Guid();
+                return Guid.NewGuid();
             }
         }
     }
