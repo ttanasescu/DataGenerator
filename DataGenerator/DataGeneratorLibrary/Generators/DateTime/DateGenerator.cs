@@ -1,4 +1,6 @@
-﻿namespace DataGeneratorLibrary.Generators.DateTime
+﻿using DataGeneratorLibrary.Constrains.DateTime;
+
+namespace DataGeneratorLibrary.Generators.DateTime
 {
     public class DateGenerator : DataTypeGenerator
     {

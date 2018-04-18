@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Data.SqlTypes;
+using DataGeneratorLibrary.Constrains.Numerics;
 
 namespace DataGeneratorLibrary.Generators.Numerics
 {

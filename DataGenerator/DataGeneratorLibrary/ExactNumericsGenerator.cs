@@ -1,4 +1,5 @@
 ﻿using System;
+using DataGeneratorLibrary.Generators;
 
 namespace DataGeneratorLibrary
 {

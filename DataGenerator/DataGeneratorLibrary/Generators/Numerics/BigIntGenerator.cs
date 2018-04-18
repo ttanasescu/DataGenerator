@@ -1,6 +1,5 @@
-﻿using System;
-using System.Linq;
-using System.Numerics;
+﻿using System.Numerics;
+using DataGeneratorLibrary.Constrains.Numerics;
 
 namespace DataGeneratorLibrary.Generators.Numerics
 {
@@ -19,18 +18,6 @@ namespace DataGeneratorLibrary.Generators.Numerics
                 Constrains = new BigIntConstrains();
             }
         }
-
-//        public  object Generate()
-//        {
-//            var minValue = Constrains.MinValue;
-//            var maxValue = Constrains.MaxValue;
-//            
-//            var buffer = new byte[8];
-//            Random.NextBytes(buffer);
-//            var range = BitConverter.ToInt64(buffer, 0);
-//
-//            return Math.Abs(range % (maxValue - minValue)) + minValue;
-//        }
 
         public override object Generate()
         {

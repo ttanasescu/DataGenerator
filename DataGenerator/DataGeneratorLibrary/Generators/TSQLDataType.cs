@@ -1,4 +1,4 @@
-﻿namespace DataGeneratorLibrary
+﻿namespace DataGeneratorLibrary.Generators
 {
     public enum TSQLDataType
     {

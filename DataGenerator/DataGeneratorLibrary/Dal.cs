@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
+using DataGeneratorLibrary.Generators;
 
 namespace DataGeneratorLibrary
 {
@@ -164,7 +165,7 @@ namespace DataGeneratorLibrary
 
     public class Column
     {
-        public Constrains constrains { get; set; }
+        public Constrains.Constrains constrains { get; set; }
         public string Name { get; set; }
         public TSQLDataType DataType { get; set; }
         public int? CharMaxLength { get; set; }

@@ -1,4 +1,7 @@
-﻿namespace DataGeneratorLibrary
+﻿using DataGeneratorLibrary.Constrains.Numerics;
+using DataGeneratorLibrary.Constrains.Strings;
+
+namespace DataGeneratorLibrary.Generators.Strings
 {
     public class StringGenerator : DataTypeGenerator
     {

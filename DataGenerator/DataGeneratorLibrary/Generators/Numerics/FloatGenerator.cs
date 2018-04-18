@@ -1,4 +1,6 @@
-﻿namespace DataGeneratorLibrary.Generators.Numerics
+﻿using DataGeneratorLibrary.Constrains.Numerics;
+
+namespace DataGeneratorLibrary.Generators.Numerics
 {
     public class FloatGenerator : DataTypeGenerator
     {

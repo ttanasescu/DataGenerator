@@ -41,6 +41,32 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Constrains\Numerics\BigIntConstrains.cs" />
+    <Compile Include="Constrains\Numerics\BinaryConstrains.cs" />
+    <Compile Include="Constrains\Strings\CharConstrains.cs" />
+    <Compile Include="Constrains\Constrains.cs" />
+    <Compile Include="Constrains\DateTime\DateConstrains.cs" />
+    <Compile Include="Constrains\DateTime\Datetime2Constrains.cs" />
+    <Compile Include="Constrains\DateTime\DatetimeConstrains.cs" />
+    <Compile Include="Constrains\DateTime\DatetimeOffsetConstrains.cs" />
+    <Compile Include="Constrains\Numerics\DecimalConstrains.cs" />
+    <Compile Include="Constrains\Numerics\FloatConstrains.cs" />
+    <Compile Include="Constrains\Strings\ImageConstrains.cs" />
+    <Compile Include="Constrains\Numerics\IntConstrains.cs" />
+    <Compile Include="Constrains\Numerics\MoneyConstrains.cs" />
+    <Compile Include="Constrains\Strings\NtextConstrains.cs" />
+    <Compile Include="Constrains\Numerics\RealConstrains.cs" />
+    <Compile Include="Constrains\DateTime\SmallDatetimeConstrains.cs" />
+    <Compile Include="Constrains\Numerics\SmallIntConstrains.cs" />
+    <Compile Include="Constrains\Numerics\SmallMoneyConstrains.cs" />
+    <Compile Include="Constrains\Strings\StringConstrains.cs" />
+    <Compile Include="Constrains\Strings\TextConstrains.cs" />
+    <Compile Include="Constrains\DateTime\TimeConstrains.cs" />
+    <Compile Include="Constrains\Numerics\TinyIntConstrains.cs" />
+    <Compile Include="Constrains\Other\UniqueIdentifierConstrains.cs" />
+    <Compile Include="Constrains\Strings\VarbinaryConstrains.cs" />
+    <Compile Include="Constrains\Strings\VarcharConstrains.cs" />
+    <Compile Include="Generators\DataTypeGenerator.cs" />
     <Compile Include="Generators\Other\UniqueIdentifierGenerator.cs" />
     <Compile Include="Helpers\Extensions.cs" />
     <Compile Include="Generators\Numerics\BigIntGenerator.cs" />
@@ -61,11 +87,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Generators\Numerics\SmallIntGenerator.cs" />
     <Compile Include="Generators\Numerics\TinyIntGenerator.cs" />
-    <Compile Include="TSQLDataType.cs" />
-    <Compile Include="StringGenerator.cs" />
+    <Compile Include="Generators\TSQLDataType.cs" />
+    <Compile Include="Generators\Strings\StringGenerator.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Generators\Strings\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

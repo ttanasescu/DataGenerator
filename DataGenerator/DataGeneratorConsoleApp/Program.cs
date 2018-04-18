@@ -2,6 +2,8 @@
 using System.Data;
 using System.Linq;
 using DataGeneratorLibrary;
+using DataGeneratorLibrary.Constrains.Numerics;
+using DataGeneratorLibrary.Generators;
 
 namespace DataGeneratorConsoleApp
 {
@@ -9,7 +11,7 @@ namespace DataGeneratorConsoleApp
     {
         static void Main(string[] args)
         {
-            var tablename = "Table_3";
+            var tablename = "Table_4";
 
             var dal = new Dal();
             dal.ConnectToDatabase(".", "", "sa", "BDC");
