@@ -79,7 +79,6 @@
     <Compile Include="Generators\DateTime\SmallDatetimeGenerator.cs" />
     <Compile Include="Generators\DateTime\TimeGenerator.cs" />
     <Compile Include="Generators\Numerics\FloatGenerator.cs" />
-    <Compile Include="ExactNumericsGenerator.cs" />
     <Compile Include="Generator.cs" />
     <Compile Include="Generators\Numerics\IntGenerator.cs" />
     <Compile Include="Generators\Numerics\RealGenerator.cs" />

@@ -34,53 +34,54 @@ namespace DataGeneratorLibrary
             _username = username;
             _password = password;
         }
+        
+        private DataTable ExecuteQuery(string table, string query)
+        {
+            var dataTable = new DataTable(table);
+            using (var connection = new SqlConnection(ConnectionString))
+            {
+                connection.Open();
+                using (var command = new SqlCommand(query, connection))
+                {
+                    var dataAdapter = new SqlDataAdapter(command);
+                    dataAdapter.Fill(dataTable);
+                }
+            }
+
+            return dataTable;
+        }
 
         public IEnumerable<string> GetDataBases()
         {
-            var columnData = new List<string>();
-            using (var connection = new SqlConnection(ConnectionString))
+            var query = @"SELECT name FROM master.dbo.sysdatabases WHERE HAS_DBACCESS(name) = 1 ORDER BY name";
+            var table = ExecuteQuery("databases", query);
+
+            var databases = new List<string>();
+            var reader = new DataTableReader(table);
+
+            while (reader.Read())
             {
-                connection.Open();
-                var query = @"SELECT name FROM master.dbo.sysdatabases WHERE HAS_DBACCESS(name) = 1 ORDER BY name";
-                using (var command = new SqlCommand(query, connection))
-                {
-                    using (var reader = command.ExecuteReader())
-                    {
-                        while (reader.Read())
-                        {
-                            columnData.Add(reader.GetString(0));
-                        }
-                    }
-                }
+                databases.Add(reader.GetString(0));
             }
 
-            return columnData;
+            return databases;
         }
-
-
 
         public IEnumerable<string> GetTables()
         {
-            var columnData = new List<string>();
-            using (var connection = new SqlConnection(ConnectionString))
+            var query = @"SELECT name FROM sys.tables";
+            var table = ExecuteQuery("tables", query);
+
+            var tables = new List<string>();
+            var reader = new DataTableReader(table);
+
+            while (reader.Read())
             {
-                connection.Open();
-                var query = @"SELECT name FROM sys.tables";
-                using (var command = new SqlCommand(query, connection))
-                {
-                    using (var reader = command.ExecuteReader())
-                    {
-                        while (reader.Read())
-                        {
-                            columnData.Add(reader.GetString(0));
-                        }
-                    }
-                }
+                tables.Add(reader.GetString(0));
             }
 
-            return columnData;
+            return tables;
         }
-
 
         public void ClearTable(string tableName)
         {
@@ -97,19 +98,8 @@ namespace DataGeneratorLibrary
 
         public DataTable GetTable(string table)
         {
-            var dataTable = new DataTable(table);
-            using (var connection = new SqlConnection(ConnectionString))
-            {
-                connection.Open();
-                var query = $@"SELECT * FROM {table}";
-                using (var command = new SqlCommand(query, connection))
-                {
-                    var dataAdapter = new SqlDataAdapter(command);
-                    dataAdapter.Fill(dataTable);
-                }
-            }
-
-            return dataTable;
+            var query = $@"SELECT * FROM {table}";
+            return ExecuteQuery(table, query);
         }
 
         public void SaveTable(DataTable table)
@@ -121,32 +111,15 @@ namespace DataGeneratorLibrary
                 {
                     bulkCopy.DestinationTableName = table.TableName;
 
-//                    try
-//                    {
-//                        // Write from the source to the destination.
-                        bulkCopy.WriteToServer(table);
-//                    }
-//                    catch (Exception ex)
-//                    {
-//                        Console.WriteLine(ex.Message);
-//                    }
+                    bulkCopy.WriteToServer(table);
                 }
             }
         }
 
         public IEnumerable<Column> GetTableInformation(string table)
         {
-            var dataTable = new DataTable();
-            using (var connection = new SqlConnection(ConnectionString))
-            {
-                connection.Open();
-                var query = $@"SELECT * FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = '{table}'";
-                using (var command = new SqlCommand(query, connection))
-                {
-                    var dataAdapter = new SqlDataAdapter(command);
-                    dataAdapter.Fill(dataTable);
-                }
-            }
+            var query = $@"SELECT * FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = '{table}'";
+            var dataTable = ExecuteQuery(table, query);
 
             IList<Column> columnPropertieses = new List<Column>(dataTable.Rows.Count);
 
@@ -159,7 +132,6 @@ namespace DataGeneratorLibrary
                 properties.NumericPrecision = row.Field<byte?>("NUMERIC_PRECISION");
                 properties.NumericPrecisionRadix = row.Field<short?>("NUMERIC_PRECISION_RADIX");
                 properties.NumericScale = row.Field<int?>("NUMERIC_SCALE");
-
 
                 Enum.TryParse(row.Field<string>("DATA_TYPE"), out TSQLDataType dataType);
                 properties.DataType = dataType;

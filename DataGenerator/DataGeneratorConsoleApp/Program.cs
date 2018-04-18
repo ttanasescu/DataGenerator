@@ -26,7 +26,7 @@ namespace DataGeneratorConsoleApp
             
             var tables = dal.GetTables();
             Console.WriteLine();
-            Console.WriteLine("3ds Tables:");
+            Console.WriteLine($"{tablename} Tables:");
             foreach (var row in tables)
             {
                 Console.WriteLine($"  -{row}");
