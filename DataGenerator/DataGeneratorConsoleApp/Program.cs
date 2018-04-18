@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Configuration;
 using System.Data;
 using System.Linq;
 using DataGeneratorLibrary;
@@ -12,19 +13,17 @@ namespace DataGeneratorConsoleApp
         static void Main(string[] args)
         {
             var tablename = "Table_4";
+            string connectionString = ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString;
 
-            var dal = new Dal();
-            dal.ConnectToDatabase(".", "", "sa", "BDC");
+            var dal = new Dal(connectionString);
+            
             var dataBases = dal.GetDataBases();
-
             Console.WriteLine("Databases:");
             foreach (var row in dataBases)
             {
                 Console.WriteLine($"  -{row}");
             }
-
-
-            dal.ConnectToDatabase(".", "3ds", "sa", "BDC");
+            
             var tables = dal.GetTables();
             Console.WriteLine();
             Console.WriteLine("3ds Tables:");
@@ -33,35 +32,29 @@ namespace DataGeneratorConsoleApp
                 Console.WriteLine($"  -{row}");
             }
 
-
-
-            dal.ConnectToDatabase(".", "3ds", "sa", "BDC");
             var columns = dal.GetTableInformation(tablename);
-//            Console.WriteLine();
-//            Console.WriteLine("Titles Table:");
-//
-//            foreach (DataColumn column in tableInformation.Columns)
-//            {
-//                Console.Write($"{column.ColumnName}({column.DataType})|");
-//            }
-//
-//            for (var i = 0; i < 10; i++)
-//            {
-//                foreach (var cell in tableInformation.Rows[0].ItemArray)
-//                {
-//                    Console.Write($"{cell}|");
-//                }
-//
-//                Console.WriteLine();
-//            }
+            //            Console.WriteLine();
+            //            Console.WriteLine("Titles Table:");
+            //
+            //            foreach (DataColumn column in tableInformation.Columns)
+            //            {
+            //                Console.Write($"{column.ColumnName}({column.DataType})|");
+            //            }
+            //
+            //            for (var i = 0; i < 10; i++)
+            //            {
+            //                foreach (var cell in tableInformation.Rows[0].ItemArray)
+            //                {
+            //                    Console.Write($"{cell}|");
+            //                }
+            //
+            //                Console.WriteLine();
+            //            }
 
-
-
-            dal.ConnectToDatabase(".", "3ds", "sa", "BDC");
+            
             var table = dal.GetTable(tablename);
             Console.WriteLine();
             Console.WriteLine($"{tablename} Table:");
-
 
             var generator = new Generator();
 

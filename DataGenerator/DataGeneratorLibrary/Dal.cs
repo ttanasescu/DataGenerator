@@ -10,21 +10,29 @@ namespace DataGeneratorLibrary
     {
         //TODO: Singleton
 
-        private static string _server;
-        private static string _database;
-        private static string _username;
-        private static string _password;
+        private readonly string _server;
+        private readonly string _database;
+        private readonly string _username;
+        private readonly string _password;
+        private readonly string _connectionString;
 
-        private string ConnectionString =>
-            $"Server={_server};DataBase={_database};User Id={_username};Password={_password}";
+        private string ConnectionString => _connectionString ??
+                                           $"Server={_server};" +
+                                           $"DataBase={_database};" +
+                                           $"User Id={_username};" +
+                                           $"Password={_password}";
 
-        public void ConnectToDatabase(string server, string database, string username, string password)
+        public Dal(string connectionString)
+        {
+            _connectionString = connectionString;
+        }
+
+        public Dal(string server, string database, string username, string password)
         {
             _server = server;
             _database = database;
             _username = username;
             _password = password;
-            //Connection = new SqlConnection(ConnectionString);
         }
 
         public IEnumerable<string> GetDataBases()
