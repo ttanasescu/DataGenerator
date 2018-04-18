@@ -11,16 +11,22 @@ namespace DataGeneratorLibrary
         //TODO: Singleton
 
         private readonly string _server;
-        private readonly string _database;
+        private string _database;
         private readonly string _username;
         private readonly string _password;
         private readonly string _connectionString;
 
-        private string ConnectionString => _connectionString ??
-                                           $"Server={_server};" +
-                                           $"DataBase={_database};" +
-                                           $"User Id={_username};" +
-                                           $"Password={_password}";
+        private string ConnectionString => _connectionString == null
+            ? $"DataBase={_database};" +
+              $"Server={_server};" +
+              $"User Id={_username};" +
+              $"Password={_password}"
+            : (_database != null ? $"DataBase={_database};" + _connectionString : _connectionString);
+
+        public string Database
+        {
+            set => _database = value;
+        }
 
         public Dal(string connectionString)
         {
@@ -34,7 +40,7 @@ namespace DataGeneratorLibrary
             _username = username;
             _password = password;
         }
-        
+
         private DataTable ExecuteQuery(string table, string query)
         {
             var dataTable = new DataTable(table);
@@ -51,7 +57,7 @@ namespace DataGeneratorLibrary
             return dataTable;
         }
 
-        public IEnumerable<string> GetDataBases()
+        public IList<string> GetDataBases()
         {
             var query = @"SELECT name FROM master.dbo.sysdatabases WHERE HAS_DBACCESS(name) = 1 ORDER BY name";
             var table = ExecuteQuery("databases", query);
@@ -67,7 +73,7 @@ namespace DataGeneratorLibrary
             return databases;
         }
 
-        public IEnumerable<string> GetTables()
+        public IList<string> GetTables()
         {
             var query = @"SELECT name FROM sys.tables";
             var table = ExecuteQuery("tables", query);
@@ -116,7 +122,7 @@ namespace DataGeneratorLibrary
             }
         }
 
-        public IEnumerable<Column> GetTableInformation(string table)
+        public IList<Column> GetTableInformation(string table)
         {
             var query = $@"SELECT * FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = '{table}'";
             var dataTable = ExecuteQuery(table, query);

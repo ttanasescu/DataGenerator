@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Configuration;
 using System.Data;
-using System.Linq;
 using DataGeneratorLibrary;
 using DataGeneratorLibrary.Constrains.Numerics;
 using DataGeneratorLibrary.Generators;
@@ -12,62 +11,34 @@ namespace DataGeneratorConsoleApp
     {
         static void Main(string[] args)
         {
-            var tablename = "Table_4";
-            string connectionString = ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString;
-
+#if DEBUG
+            var connectionString = ConfigurationManager.ConnectionStrings["TestDBConnection"].ConnectionString;
             var dal = new Dal(connectionString);
-            
-            var dataBases = dal.GetDataBases();
-            Console.WriteLine("Databases:");
-            foreach (var row in dataBases)
-            {
-                Console.WriteLine($"  -{row}");
-            }
-            
-            var tables = dal.GetTables();
-            Console.WriteLine();
-            Console.WriteLine($"{tablename} Tables:");
-            foreach (var row in tables)
-            {
-                Console.WriteLine($"  -{row}");
-            }
+            var tablename = "Table_4";
+#else
+            var connectionString = ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString;
+            var dal = new Dal(connectionString);
+            GetDatabaseName(dal);
+            var tablename = GetTableName(dal);
+#endif
 
             var columns = dal.GetTableInformation(tablename);
-            //            Console.WriteLine();
-            //            Console.WriteLine("Titles Table:");
-            //
-            //            foreach (DataColumn column in tableInformation.Columns)
-            //            {
-            //                Console.Write($"{column.ColumnName}({column.DataType})|");
-            //            }
-            //
-            //            for (var i = 0; i < 10; i++)
-            //            {
-            //                foreach (var cell in tableInformation.Rows[0].ItemArray)
-            //                {
-            //                    Console.Write($"{cell}|");
-            //                }
-            //
-            //                Console.WriteLine();
-            //            }
 
-            
             var table = dal.GetTable(tablename);
             Console.WriteLine();
             Console.WriteLine($"{tablename} Table:");
 
             var generator = new Generator();
-
-            var enumerable = columns.ToList();
-            foreach (var column in enumerable)
+            
+            foreach (var column in columns)
             {
                 switch (column.DataType)
                 {
                     case TSQLDataType.@int:
-                        column.constrains = new IntConstrains();// { MinValue = 5, MaxValue = 300 };
+                        column.constrains = new IntConstrains(); // { MinValue = 5, MaxValue = 300 };
                         break;
                     case TSQLDataType.bigint:
-                        column.constrains = new BigIntConstrains { MinValue = 5, MaxValue = 300 }; //();
+                        column.constrains = new BigIntConstrains {MinValue = 5, MaxValue = 300}; //();
                         break;
                     case TSQLDataType.money:
                         column.constrains = new MoneyConstrains();
@@ -78,13 +49,14 @@ namespace DataGeneratorConsoleApp
                     case TSQLDataType.numeric:
                     case TSQLDataType.@decimal:
                         column.constrains = column.NumericPrecision != null && column.NumericScale != null
-                        ? new DecimalConstrains(column.NumericPrecision.Value, column.NumericScale.Value)
-                        : new DecimalConstrains();
+                            ? new DecimalConstrains(column.NumericPrecision.Value, column.NumericScale.Value)
+                            : new DecimalConstrains();
                         //column.constrains = new DecimalConstrains(column.NumericPrecision, column.NumericScale);
                         break;
                 }
             }
-            generator.FillTable(table, enumerable, 10, false);
+
+            generator.FillTable(table, columns, 10, false);
 
             dal.ClearTable(tablename);
 
@@ -113,5 +85,50 @@ namespace DataGeneratorConsoleApp
 
             Console.ReadKey();
         }
+#if !DEBUG
+        
+        private static string GetTableName(Dal dal)
+        {
+            var tables = dal.GetTables();
+            var tablename = "";
+
+            while (!tables.Contains(tablename))
+            {
+                Console.Clear();
+                Console.WriteLine("Tables:");
+                foreach (var name in tables)
+                {
+                    Console.WriteLine($"  -{name}");
+                }
+
+                Console.WriteLine("\nEnter table name:");
+                tablename = Console.ReadLine();
+            }
+
+            return tablename;
+        }
+
+        private static void GetDatabaseName(Dal dal)
+        {
+            var dataBases = dal.GetDataBases();
+            var database = "";
+
+            while (!dataBases.Contains(database))
+            {
+                Console.Clear();
+                Console.WriteLine("Databases:");
+                foreach (var name in dataBases)
+                {
+                    Console.WriteLine($"  -{name}");
+                }
+
+                Console.WriteLine("\nEnter database name:");
+
+                database = Console.ReadLine();
+            }
+
+            dal.Database = database;
+        }
+#endif
     }
 }
