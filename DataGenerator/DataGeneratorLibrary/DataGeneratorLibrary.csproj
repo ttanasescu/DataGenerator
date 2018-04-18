@@ -41,6 +41,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Generators\Other\UniqueIdentifierGenerator.cs" />
     <Compile Include="Helpers\Extensions.cs" />
     <Compile Include="Generators\Numerics\BigIntGenerator.cs" />
     <Compile Include="Generators\Numerics\BitGenerator.cs" />

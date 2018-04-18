@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Data;
 using DataGeneratorLibrary.Generators.DateTime;
 using DataGeneratorLibrary.Generators.Numerics;
+using DataGeneratorLibrary.Generators.Other;
 using DataGeneratorLibrary.Helpers;
 using static DataGeneratorLibrary.Helpers.Extensions;
 
@@ -139,6 +140,9 @@ namespace DataGeneratorLibrary
                 case TSQLDataType.varbinary:
                     return new BinaryGenerator(column);
 
+                case TSQLDataType.uniqueidentifier:
+                    return new UniqueIdentifierGenerator(column);
+
 
 
                 default:
@@ -272,6 +276,10 @@ namespace DataGeneratorLibrary
     {
         public long MinValue { get; set; } = long.MinValue;
         public long MaxValue { get; set; } = long.MaxValue;
+    }
+
+    public class UniqueIdentifierConstrains : Constrains
+    {
     }
 
     public class DecimalConstrains : Constrains

@@ -30,6 +30,8 @@
         ntext,
         text,
         image,
+
         //TODO: Add Other data types
+        uniqueidentifier
     }
 }
