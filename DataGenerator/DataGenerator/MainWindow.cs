@@ -1,12 +1,19 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Configuration;
+using System.Data;
 using System.Windows.Forms;
 using DataGeneratorLibrary;
+using DataGeneratorLibrary.Constrains.Numerics;
+using DataGeneratorLibrary.Generators;
 
 namespace DataGeneratorGUI
 {
     public partial class MainWindow : Form
     {
+        private DataTable table;
+            private IList<Column> columns;
+
         public MainWindow()
         {
             InitializeComponent();
@@ -26,17 +33,49 @@ namespace DataGeneratorGUI
             var tablename = GetTableName(dal);
 #endif
             
-            var columns = dal.GetTableInformation(tablename);
-            var table = dal.GetTable(tablename);
+            columns = dal.GetTableInformation(tablename);
+            LoadColums(columns);
 
-
+            table = dal.GetTable(tablename);
             tableDataGridView.DataSource = table;
 
 
-            LoadColums(columns);
+            var intConstrains = new IntConstrains();
+            var panel = new IntConstraintsPanel(intConstrains);
+
+
+            foreach (var column in columns)
+            {
+                switch (column.DataType)
+                {
+                    case TSQLDataType.@int:
+                        column.constrains = intConstrains; // { MinValue = 5, MaxValue = 300 };
+                        break;
+                    case TSQLDataType.bigint:
+                        column.constrains = new BigIntConstrains { MinValue = 5, MaxValue = 300 }; //();
+                        break;
+                    case TSQLDataType.money:
+                        column.constrains = new MoneyConstrains();
+                        break;
+                    case TSQLDataType.smallmoney:
+                        column.constrains = new SmallMoneyConstrains();
+                        break;
+                    case TSQLDataType.numeric:
+                    case TSQLDataType.@decimal:
+                        column.constrains = column.NumericPrecision != null && column.NumericScale != null
+                            ? new DecimalConstrains(column.NumericPrecision.Value, column.NumericScale.Value)
+                            : new DecimalConstrains();
+                        //column.constrains = new DecimalConstrains(column.NumericPrecision, column.NumericScale);
+                        break;
+                }
+            }
+
+
+            splitContainer2.Panel1.Controls.Add(panel);
+
         }
 
-        private void LoadColums(System.Collections.Generic.IList<Column> columns)
+        private void LoadColums(IList<Column> columns)
         {
             foreach (var column in columns)
             {
@@ -60,6 +99,14 @@ namespace DataGeneratorGUI
         private void listView1_SelectedIndexChanged(object sender, EventArgs e)
         {
 
+        }
+
+        private void generateToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var generator = new Generator();
+
+
+            generator.FillTable(table, columns, 10, false);
         }
     }
 }
