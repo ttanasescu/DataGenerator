@@ -49,10 +49,16 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="IntConstraintsPanel.cs">
+    <Compile Include="ConstraintsPanels\BigIntConstrintsPanel.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="IntConstraintsPanel.Designer.cs">
+    <Compile Include="ConstraintsPanels\BigIntConstrintsPanel.Designer.cs">
+      <DependentUpon>BigIntConstrintsPanel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ConstraintsPanels\IntConstraintsPanel.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="ConstraintsPanels\IntConstraintsPanel.Designer.cs">
       <DependentUpon>IntConstraintsPanel.cs</DependentUpon>
     </Compile>
     <Compile Include="MainWindow.cs">
@@ -63,8 +69,11 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="IntConstraintsPanel.resx">
+    <EmbeddedResource Include="ConstraintsPanels\IntConstraintsPanel.resx">
       <DependentUpon>IntConstraintsPanel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ConstraintsPanels\BigIntConstrintsPanel.resx">
+      <DependentUpon>BigIntConstrintsPanel.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="MainWindow.resx">
       <DependentUpon>MainWindow.cs</DependentUpon>

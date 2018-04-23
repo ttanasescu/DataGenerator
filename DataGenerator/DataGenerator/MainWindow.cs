@@ -2,7 +2,9 @@
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
+using System.Linq;
 using System.Windows.Forms;
+using DataGeneratorGUI.ConstraintsPanels;
 using DataGeneratorLibrary;
 using DataGeneratorLibrary.Constrains.Numerics;
 using DataGeneratorLibrary.Generators;
@@ -12,7 +14,7 @@ namespace DataGeneratorGUI
     public partial class MainWindow : Form
     {
         private DataTable table;
-            private IList<Column> columns;
+        private IList<Column> columns;
 
         public MainWindow()
         {
@@ -32,27 +34,22 @@ namespace DataGeneratorGUI
             GetDatabaseName(dal);
             var tablename = GetTableName(dal);
 #endif
-            
+
             columns = dal.GetTableInformation(tablename);
             LoadColums(columns);
 
             table = dal.GetTable(tablename);
             tableDataGridView.DataSource = table;
 
-
-            var intConstrains = new IntConstrains();
-            var panel = new IntConstraintsPanel(intConstrains);
-
-
             foreach (var column in columns)
             {
                 switch (column.DataType)
                 {
                     case TSQLDataType.@int:
-                        column.constrains = intConstrains; // { MinValue = 5, MaxValue = 300 };
+                        column.constrains = new IntConstrains(); // { MinValue = 5, MaxValue = 300 };
                         break;
                     case TSQLDataType.bigint:
-                        column.constrains = new BigIntConstrains { MinValue = 5, MaxValue = 300 }; //();
+                        column.constrains = new BigIntConstrains {MinValue = 5, MaxValue = 300}; //();
                         break;
                     case TSQLDataType.money:
                         column.constrains = new MoneyConstrains();
@@ -69,10 +66,6 @@ namespace DataGeneratorGUI
                         break;
                 }
             }
-
-
-            splitContainer2.Panel1.Controls.Add(panel);
-
         }
 
         private void LoadColums(IList<Column> columns)
@@ -98,7 +91,25 @@ namespace DataGeneratorGUI
 
         private void listView1_SelectedIndexChanged(object sender, EventArgs e)
         {
+            if (!(sender is ListView listView)) return;
+            if (listView.SelectedItems.Count == 0) return;
 
+            string name = listView.SelectedItems[0].Text;
+
+            var columnn = columns.Single(column => column.Name == name);
+
+            var panel = new UserControl();
+
+            if (columnn.DataType == TSQLDataType.bigint)
+            {
+                panel = new BigIntConstrintsPanel(columnn.constrains);
+            }
+            else if (columnn.DataType == TSQLDataType.@int)
+            {
+                panel = new IntConstraintsPanel(columnn.constrains);
+            }
+            splitContainer2.Panel1.Controls.Clear();
+            splitContainer2.Panel1.Controls.Add(panel);
         }
 
         private void generateToolStripMenuItem_Click(object sender, EventArgs e)

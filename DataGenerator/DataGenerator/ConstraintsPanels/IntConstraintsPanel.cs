@@ -22,11 +22,12 @@ namespace DataGeneratorGUI
 
         private void IntConstraintsPanel_Load(object sender, EventArgs e)
         {
+            Dock = DockStyle.Fill;
+
             minNumericUpDown.Minimum = int.MinValue;
             minNumericUpDown.Maximum = int.MaxValue;
             maxNumericUpDown.Minimum = int.MinValue;
             maxNumericUpDown.Maximum = int.MaxValue;
-
 
             minNumericUpDown.Value = _intConstrains.MinValue;
             maxNumericUpDown.Value = _intConstrains.MaxValue;
