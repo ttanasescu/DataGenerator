@@ -11,12 +11,12 @@ namespace DataGeneratorGUI.ConstraintsPanels.Numerics
 
         public IntConstraintsPanel(Constraints constraints)
         {
-            if (!(constraints is IntConstraints intConstrains))
+            if (!(constraints is IntConstraints constrains))
             {
                 throw new ArgumentException(nameof(constraints));
             }
 
-            _constraints = intConstrains;
+            _constraints = constrains;
             InitializeComponent();
         }
 
@@ -25,9 +25,9 @@ namespace DataGeneratorGUI.ConstraintsPanels.Numerics
             Dock = DockStyle.Fill;
 
             minNumericUpDown.Minimum = _constraints.MinPossibleValue;
-            minNumericUpDown.Maximum = _constraints.MaxPossibleValue;
+            minNumericUpDown.Maximum = _constraints.MaxPossibleValue-1;
             maxNumericUpDown.Minimum = _constraints.MinPossibleValue;
-            maxNumericUpDown.Maximum = _constraints.MaxPossibleValue;
+            maxNumericUpDown.Maximum = _constraints.MaxPossibleValue-1;
 
             minNumericUpDown.Value = _constraints.MinValue;
             maxNumericUpDown.Value = _constraints.MaxValue;
@@ -46,7 +46,7 @@ namespace DataGeneratorGUI.ConstraintsPanels.Numerics
 
         private void maxNumericUpDown_ValueChanged(object sender, EventArgs e)
         {
-            _constraints.MaxValue = (int) maxNumericUpDown.Value;
+            _constraints.MaxValue = (int) maxNumericUpDown.Value+1;
         }
 
         private void nullNumericUpDown_ValueChanged(object sender, EventArgs e)

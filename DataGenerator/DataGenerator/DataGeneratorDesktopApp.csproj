@@ -49,11 +49,35 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ConstraintsPanels\DateTime\DateConstraintsPanel.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="ConstraintsPanels\DateTime\DateConstraintsPanel.designer.cs">
+      <DependentUpon>DateConstraintsPanel.cs</DependentUpon>
+    </Compile>
     <Compile Include="ConstraintsPanels\DateTime\DateTime2ConstraintsPanel.cs">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="ConstraintsPanels\DateTime\DateTime2ConstraintsPanel.designer.cs">
       <DependentUpon>DateTime2ConstraintsPanel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ConstraintsPanels\DateTime\DateTimeOffsetConstraintsPanel.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="ConstraintsPanels\DateTime\DateTimeOffsetConstraintsPanel.designer.cs">
+      <DependentUpon>DateTimeOffsetConstraintsPanel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ConstraintsPanels\DateTime\SmallDatetimeConstraintsPanel.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="ConstraintsPanels\DateTime\SmallDatetimeConstraintsPanel.designer.cs">
+      <DependentUpon>SmallDatetimeConstraintsPanel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ConstraintsPanels\DateTime\TimeConstraintsPanel.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="ConstraintsPanels\DateTime\TimeConstraintsPanel.designer.cs">
+      <DependentUpon>TimeConstraintsPanel.cs</DependentUpon>
     </Compile>
     <Compile Include="ConstraintsPanels\Numerics\BigIntConstrintsPanel.cs">
       <SubType>UserControl</SubType>
@@ -105,8 +129,20 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="ConstraintsPanels\DateTime\DateConstraintsPanel.resx">
+      <DependentUpon>DateConstraintsPanel.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="ConstraintsPanels\DateTime\DateTime2ConstraintsPanel.resx">
       <DependentUpon>DateTime2ConstraintsPanel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ConstraintsPanels\DateTime\DateTimeOffsetConstraintsPanel.resx">
+      <DependentUpon>DateTimeOffsetConstraintsPanel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ConstraintsPanels\DateTime\SmallDatetimeConstraintsPanel.resx">
+      <DependentUpon>SmallDatetimeConstraintsPanel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ConstraintsPanels\DateTime\TimeConstraintsPanel.resx">
+      <DependentUpon>TimeConstraintsPanel.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="ConstraintsPanels\Numerics\DecimalConstraintsPanel.resx">
       <DependentUpon>DecimalConstraintsPanel.cs</DependentUpon>

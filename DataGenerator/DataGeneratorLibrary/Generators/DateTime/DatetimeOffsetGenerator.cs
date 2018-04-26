@@ -22,8 +22,13 @@ namespace DataGeneratorLibrary.Generators.DateTime
 
         public override object Generate()
         {
-            var minTicks = Constraints.MinDatetime.Ticks;
-            var maxTicks = Constraints.MaxDatetime.Ticks;
+            var minTicks = Constraints.MinDatetime.UtcTicks;
+            var maxTicks = Constraints.MaxDatetime.UtcTicks;
+
+            if (minTicks == maxTicks)
+            {
+                return new DateTimeOffset(minTicks, TimeSpan.Zero);
+            }
 
             var buffer = new byte[8];
             Random.NextBytes(buffer);
@@ -36,8 +41,13 @@ namespace DataGeneratorLibrary.Generators.DateTime
 
         private TimeSpan GenerateOffset()
         {
-            var minTicks = Constraints.MinOffset.Ticks;
-            var maxTicks = Constraints.MaxOffset.Ticks;
+            var minTicks = Constraints.MinDatetime.Offset.Ticks;
+            var maxTicks = Constraints.MaxDatetime.Offset.Ticks;
+
+            if (minTicks == maxTicks)
+            {
+                return new TimeSpan(minTicks);
+            }
 
             var buffer = new byte[8];
             Random.NextBytes(buffer);

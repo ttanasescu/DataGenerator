@@ -81,16 +81,20 @@ namespace DataGeneratorGUI
                         column.Constraints = new RealConstraints();
                         break;
                     case TSQLDataType.time:
+                        column.Constraints = new TimeConstraints();
                         break;
                     case TSQLDataType.date:
+                        column.Constraints = new DateConstraints();
                         break;
                     case TSQLDataType.datetime:
                     case TSQLDataType.datetime2:
                         column.Constraints = new Datetime2Constraints();
                         break;
                     case TSQLDataType.smalldatetime:
+                        column.Constraints = new SmallDatetimeConstraints();
                         break;
                     case TSQLDataType.datetimeoffset:
+                        column.Constraints = new DatetimeOffsetConstraints();
                         break;
                     case TSQLDataType.@char:
                         break;
@@ -183,16 +187,20 @@ namespace DataGeneratorGUI
                     panel = new DecimalConstraintsPanel(columnn.Constraints);
                     break;
                 case TSQLDataType.time:
+                    panel = new TimeConstraintsPanel(columnn.Constraints);
                     break;
                 case TSQLDataType.date:
+                    panel = new DateConstraintsPanel(columnn.Constraints);
                     break;
                 case TSQLDataType.datetime:
                 case TSQLDataType.datetime2:
                     panel = new DateTime2ConstraintsPanel(columnn.Constraints);
                     break;
                 case TSQLDataType.smalldatetime:
+                    panel = new SmallDatetimeConstraintsPanel(columnn.Constraints);
                     break;
                 case TSQLDataType.datetimeoffset:
+                    panel = new DateTimeOffsetConstraintsPanel(columnn.Constraints);
                     break;
                 case TSQLDataType.@char:
                     break;

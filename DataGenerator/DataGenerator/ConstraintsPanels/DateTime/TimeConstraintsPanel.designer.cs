@@ -1,6 +1,6 @@
 ﻿namespace DataGeneratorGUI.ConstraintsPanels.DateTime
 {
-    partial class DateTime2ConstraintsPanel
+    partial class TimeConstraintsPanel
     {
         /// <summary> 
         /// Required designer variable.
@@ -33,10 +33,7 @@
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.maxTimePicker = new System.Windows.Forms.DateTimePicker();
             this.minTimePicker = new System.Windows.Forms.DateTimePicker();
-            this.maxDatePicker = new System.Windows.Forms.DateTimePicker();
-            this.minDatePicker = new System.Windows.Forms.DateTimePicker();
             this.label4 = new System.Windows.Forms.Label();
-            this.label3 = new System.Windows.Forms.Label();
             this.nullPercentLabel = new System.Windows.Forms.Label();
             this.nullNumericUpDown = new System.Windows.Forms.NumericUpDown();
             this.groupBox1.SuspendLayout();
@@ -65,10 +62,7 @@
             // 
             this.groupBox1.Controls.Add(this.maxTimePicker);
             this.groupBox1.Controls.Add(this.minTimePicker);
-            this.groupBox1.Controls.Add(this.maxDatePicker);
-            this.groupBox1.Controls.Add(this.minDatePicker);
             this.groupBox1.Controls.Add(this.label4);
-            this.groupBox1.Controls.Add(this.label3);
             this.groupBox1.Controls.Add(this.nullPercentLabel);
             this.groupBox1.Controls.Add(this.nullNumericUpDown);
             this.groupBox1.Controls.Add(this.label2);
@@ -85,7 +79,7 @@
             // 
             this.maxTimePicker.CustomFormat = "";
             this.maxTimePicker.Format = System.Windows.Forms.DateTimePickerFormat.Time;
-            this.maxTimePicker.Location = new System.Drawing.Point(196, 56);
+            this.maxTimePicker.Location = new System.Drawing.Point(100, 56);
             this.maxTimePicker.Name = "maxTimePicker";
             this.maxTimePicker.ShowUpDown = true;
             this.maxTimePicker.Size = new System.Drawing.Size(80, 20);
@@ -95,45 +89,20 @@
             // 
             this.minTimePicker.CustomFormat = "";
             this.minTimePicker.Format = System.Windows.Forms.DateTimePickerFormat.Time;
-            this.minTimePicker.Location = new System.Drawing.Point(196, 30);
+            this.minTimePicker.Location = new System.Drawing.Point(100, 30);
             this.minTimePicker.Name = "minTimePicker";
             this.minTimePicker.ShowUpDown = true;
             this.minTimePicker.Size = new System.Drawing.Size(80, 20);
             this.minTimePicker.TabIndex = 14;
             // 
-            // maxDatePicker
-            // 
-            this.maxDatePicker.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            this.maxDatePicker.Location = new System.Drawing.Point(100, 56);
-            this.maxDatePicker.Name = "maxDatePicker";
-            this.maxDatePicker.Size = new System.Drawing.Size(90, 20);
-            this.maxDatePicker.TabIndex = 13;
-            // 
-            // minDatePicker
-            // 
-            this.minDatePicker.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            this.minDatePicker.Location = new System.Drawing.Point(100, 30);
-            this.minDatePicker.Name = "minDatePicker";
-            this.minDatePicker.Size = new System.Drawing.Size(90, 20);
-            this.minDatePicker.TabIndex = 12;
-            // 
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(193, 11);
+            this.label4.Location = new System.Drawing.Point(97, 11);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(30, 13);
             this.label4.TabIndex = 11;
             this.label4.Text = "Time";
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(100, 11);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(30, 13);
-            this.label3.TabIndex = 10;
-            this.label3.Text = "Date";
             // 
             // nullPercentLabel
             // 
@@ -152,14 +121,14 @@
             this.nullNumericUpDown.TabIndex = 8;
             this.nullNumericUpDown.ValueChanged += new System.EventHandler(this.nullNumericUpDown_ValueChanged);
             // 
-            // DateTime2ConstraintsPanel
+            // TimeConstraintsPanel
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoScroll = true;
             this.AutoScrollMinSize = new System.Drawing.Size(500, 150);
             this.Controls.Add(this.groupBox1);
-            this.Name = "DateTime2ConstraintsPanel";
+            this.Name = "TimeConstraintsPanel";
             this.Size = new System.Drawing.Size(500, 150);
             this.Load += new System.EventHandler(this.DateTimeConstraintsPanel_Load);
             this.groupBox1.ResumeLayout(false);
@@ -176,10 +145,7 @@
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.Label nullPercentLabel;
         private System.Windows.Forms.NumericUpDown nullNumericUpDown;
-        private System.Windows.Forms.DateTimePicker minDatePicker;
         private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.DateTimePicker maxDatePicker;
         private System.Windows.Forms.DateTimePicker maxTimePicker;
         private System.Windows.Forms.DateTimePicker minTimePicker;
     }

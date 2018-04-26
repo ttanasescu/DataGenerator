@@ -5,13 +5,13 @@ using DataGeneratorLibrary.Constrains.DateTime;
 
 namespace DataGeneratorGUI.ConstraintsPanels.DateTime
 {
-    public partial class DateTime2ConstraintsPanel : UserControl
+    public partial class SmallDatetimeConstraintsPanel : UserControl
     {
-        private readonly Datetime2Constraints _constraints;
+        private readonly SmallDatetimeConstraints _constraints;
 
-        public DateTime2ConstraintsPanel(Constraints constraints)
+        public SmallDatetimeConstraintsPanel(Constraints constraints)
         {
-            if (!(constraints is Datetime2Constraints constrains))
+            if (!(constraints is SmallDatetimeConstraints constrains))
             {
                 throw new ArgumentException(nameof(constraints));
             }
@@ -20,7 +20,7 @@ namespace DataGeneratorGUI.ConstraintsPanels.DateTime
             InitializeComponent();
         }
 
-        private void DateTimeConstraintsPanel_Load(object sender, EventArgs e)
+        private void SmallDatetimeConstraintsPanel_Load(object sender, EventArgs e)
         {
             Dock = DockStyle.Fill;
 

@@ -1,6 +1,6 @@
 ﻿namespace DataGeneratorGUI.ConstraintsPanels.DateTime
 {
-    partial class DateTime2ConstraintsPanel
+    partial class SmallDatetimeConstraintsPanel
     {
         /// <summary> 
         /// Required designer variable.
@@ -152,16 +152,16 @@
             this.nullNumericUpDown.TabIndex = 8;
             this.nullNumericUpDown.ValueChanged += new System.EventHandler(this.nullNumericUpDown_ValueChanged);
             // 
-            // DateTime2ConstraintsPanel
+            // SmallDatetimeConstraintsPanel
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoScroll = true;
             this.AutoScrollMinSize = new System.Drawing.Size(500, 150);
             this.Controls.Add(this.groupBox1);
-            this.Name = "DateTime2ConstraintsPanel";
+            this.Name = "SmallDatetimeConstraintsPanel";
             this.Size = new System.Drawing.Size(500, 150);
-            this.Load += new System.EventHandler(this.DateTimeConstraintsPanel_Load);
+            this.Load += new System.EventHandler(this.SmallDatetimeConstraintsPanel_Load);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nullNumericUpDown)).EndInit();
