@@ -151,7 +151,7 @@ namespace DataGeneratorLibrary
 
     public class Column
     {
-        public Constrains.Constrains constrains { get; set; }
+        public Constrains.Constraints Constraints { get; set; }
         public string Name { get; set; }
         public TSQLDataType DataType { get; set; }
         public int? CharMaxLength { get; set; }

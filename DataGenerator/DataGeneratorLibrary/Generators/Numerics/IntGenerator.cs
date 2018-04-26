@@ -4,23 +4,23 @@ namespace DataGeneratorLibrary.Generators.Numerics
 {
     public class IntGenerator : DataTypeGenerator
     {
-        private IntConstrains Constrains { get; set; }
+        private IntConstraints Constraints { get; set; }
 
         public IntGenerator(Column column) : base(column)
         {
-            if (Column.constrains is IntConstrains constrains)
+            if (Column.Constraints is IntConstraints constrains)
             {
-                Constrains = constrains;
+                Constraints = constrains;
             }
             else
             {
-                Constrains = new IntConstrains();
+                Constraints = new IntConstraints();
             }
         }
 
         public override object Generate()
         {
-            return Random.Next(Constrains.MinValue, Constrains.MaxValue);
+            return Random.Next(Constraints.MinValue, Constraints.MaxValue);
         }
     }
 }

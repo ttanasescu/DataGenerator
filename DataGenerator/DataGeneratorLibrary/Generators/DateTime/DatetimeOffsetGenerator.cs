@@ -6,24 +6,24 @@ namespace DataGeneratorLibrary.Generators.DateTime
     //TODO: Check precissions
     public class DatetimeOffsetGenerator : DataTypeGenerator
     {
-        private DatetimeOffsetConstrains Constrains { get; set; }
+        private DatetimeOffsetConstraints Constraints { get; set; }
 
         public DatetimeOffsetGenerator(Column column) : base(column)
         {
-            if (column.constrains is DatetimeOffsetConstrains constrains)
+            if (column.Constraints is DatetimeOffsetConstraints constrains)
             {
-                Constrains = constrains;
+                Constraints = constrains;
             }
             else
             {
-                Constrains = new DatetimeOffsetConstrains();
+                Constraints = new DatetimeOffsetConstraints();
             }
         }
 
         public override object Generate()
         {
-            var minTicks = Constrains.MinDatetime.Ticks;
-            var maxTicks = Constrains.MaxDatetime.Ticks;
+            var minTicks = Constraints.MinDatetime.Ticks;
+            var maxTicks = Constraints.MaxDatetime.Ticks;
 
             var buffer = new byte[8];
             Random.NextBytes(buffer);
@@ -36,8 +36,8 @@ namespace DataGeneratorLibrary.Generators.DateTime
 
         private TimeSpan GenerateOffset()
         {
-            var minTicks = Constrains.MinOffset.Ticks;
-            var maxTicks = Constrains.MaxOffset.Ticks;
+            var minTicks = Constraints.MinOffset.Ticks;
+            var maxTicks = Constraints.MaxOffset.Ticks;
 
             var buffer = new byte[8];
             Random.NextBytes(buffer);

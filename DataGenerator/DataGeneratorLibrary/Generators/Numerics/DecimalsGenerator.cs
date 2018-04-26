@@ -6,24 +6,24 @@ namespace DataGeneratorLibrary.Generators.Numerics
 {
     public class DecimalsGenerator : DataTypeGenerator
     {
-        private DecimalConstrains Constrains { get; set; }
+        private DecimalConstraints Constraints { get; set; }
 
         public DecimalsGenerator(Column column) : base(column)
         {
-            if (Column.constrains is DecimalConstrains constrains)
+            if (Column.Constraints is DecimalConstraints constrains)
             {
-                Constrains = constrains;
+                Constraints = constrains;
             }
             else
             {
-                Constrains = new DecimalConstrains();
+                Constraints = new DecimalConstraints();
             }
         }
 
         public override object Generate()
         {
-            var minValue = Constrains.MinValue;
-            var maxValue = Constrains.MaxValue;
+            var minValue = Constraints.MinValue;
+            var maxValue = Constraints.MaxValue;
 
             var minValueScale = new SqlDecimal(minValue).Scale;
             var maxValueScale = new SqlDecimal(maxValue).Scale;

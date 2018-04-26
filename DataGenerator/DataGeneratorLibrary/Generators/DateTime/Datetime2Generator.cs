@@ -5,32 +5,32 @@ namespace DataGeneratorLibrary.Generators.DateTime
 {
     public class Datetime2Generator : DataTypeGenerator
     {
-        private Datetime2Constrains Constrains { get; set; }
+        private Datetime2Constraints Constraints { get; set; }
 
         public Datetime2Generator(Column column) : base(column)
         {
-            if (column.constrains is Datetime2Constrains constrains)
+            if (column.Constraints is Datetime2Constraints constrains)
             {
-                Constrains = constrains;
+                Constraints = constrains;
             }
             else if (column.DataType == TSQLDataType.datetime)
             {
-                Constrains = new DatetimeConstrains();
+                Constraints = new DatetimeConstraints();
             }
             else if (column.DataType == TSQLDataType.smallint)
             {
-                Constrains = new SmallDatetimeConstrains();
+                Constraints = new SmallDatetimeConstraints();
             }
             else
             {
-                Constrains = new Datetime2Constrains();
+                Constraints = new Datetime2Constraints();
             }
         }
 
         public override object Generate()
         {
-            var minTicks = Constrains.MinDatetime.Ticks;
-            var maxTicks = Constrains.MaxDatetime.Ticks;
+            var minTicks = Constraints.MinDatetime.Ticks;
+            var maxTicks = Constraints.MaxDatetime.Ticks;
 
             var buffer = new byte[8];
             Random.NextBytes(buffer);

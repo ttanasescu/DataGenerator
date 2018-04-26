@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             this.tableDataGridView = new System.Windows.Forms.DataGridView();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.listView1 = new System.Windows.Forms.ListView();
@@ -61,16 +61,16 @@
             this.tableDataGridView.Location = new System.Drawing.Point(0, 0);
             this.tableDataGridView.Name = "tableDataGridView";
             this.tableDataGridView.ReadOnly = true;
-            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            this.tableDataGridView.RowHeadersDefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            this.tableDataGridView.RowHeadersDefaultCellStyle = dataGridViewCellStyle1;
             this.tableDataGridView.RowHeadersVisible = false;
             this.tableDataGridView.RowHeadersWidth = 40;
             this.tableDataGridView.RowTemplate.ReadOnly = true;
-            this.tableDataGridView.Size = new System.Drawing.Size(876, 264);
+            this.tableDataGridView.Size = new System.Drawing.Size(988, 419);
             this.tableDataGridView.TabIndex = 0;
             this.tableDataGridView.DataBindingComplete += new System.Windows.Forms.DataGridViewBindingCompleteEventHandler(this.tableDataGridView_DataBindingComplete);
             // 
@@ -89,7 +89,7 @@
             // 
             this.splitContainer1.Panel2.Controls.Add(this.splitContainer2);
             this.splitContainer1.Size = new System.Drawing.Size(1249, 573);
-            this.splitContainer1.SplitterDistance = 369;
+            this.splitContainer1.SplitterDistance = 257;
             this.splitContainer1.TabIndex = 1;
             // 
             // listView1
@@ -103,7 +103,7 @@
             this.listView1.Location = new System.Drawing.Point(0, 0);
             this.listView1.MultiSelect = false;
             this.listView1.Name = "listView1";
-            this.listView1.Size = new System.Drawing.Size(369, 573);
+            this.listView1.Size = new System.Drawing.Size(257, 573);
             this.listView1.TabIndex = 0;
             this.listView1.UseCompatibleStateImageBehavior = false;
             this.listView1.View = System.Windows.Forms.View.Details;
@@ -134,8 +134,8 @@
             // splitContainer2.Panel2
             // 
             this.splitContainer2.Panel2.Controls.Add(this.tableDataGridView);
-            this.splitContainer2.Size = new System.Drawing.Size(876, 573);
-            this.splitContainer2.SplitterDistance = 305;
+            this.splitContainer2.Size = new System.Drawing.Size(988, 573);
+            this.splitContainer2.SplitterDistance = 150;
             this.splitContainer2.TabIndex = 1;
             // 
             // menuStrip1

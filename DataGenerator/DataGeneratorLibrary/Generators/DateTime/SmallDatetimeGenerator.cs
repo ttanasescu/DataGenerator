@@ -5,24 +5,24 @@ namespace DataGeneratorLibrary.Generators.DateTime
 {
     public class SmallDatetimeGenerator : DataTypeGenerator
     {
-        private SmallDatetimeConstrains Constrains { get; set; }
+        private SmallDatetimeConstraints Constraints { get; set; }
 
         public SmallDatetimeGenerator(Column column) : base(column)
         {
-            if (column.constrains is SmallDatetimeConstrains constrains)
+            if (column.Constraints is SmallDatetimeConstraints constrains)
             {
-                Constrains = constrains;
+                Constraints = constrains;
             }
             else
             {
-                Constrains = new SmallDatetimeConstrains();
+                Constraints = new SmallDatetimeConstraints();
             }
         }
 
         public override object Generate()
         {
-            var minTicks = Constrains.MinDatetime.Ticks;
-            var maxTicks = Constrains.MaxDatetime.Ticks;
+            var minTicks = Constraints.MinDatetime.Ticks;
+            var maxTicks = Constraints.MaxDatetime.Ticks;
 
             var buffer = new byte[8];
             Random.NextBytes(buffer);

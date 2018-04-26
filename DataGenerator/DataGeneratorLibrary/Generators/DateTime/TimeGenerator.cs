@@ -5,24 +5,24 @@ namespace DataGeneratorLibrary.Generators.DateTime
 {
     public class TimeGenerator : DataTypeGenerator
     {
-        private TimeConstrains Constrains { get; set; }
+        private TimeConstraints Constraints { get; set; }
 
         public TimeGenerator(Column column) : base(column)
         {
-            if (column.constrains is TimeConstrains constrains)
+            if (column.Constraints is TimeConstraints constrains)
             {
-                Constrains = constrains;
+                Constraints = constrains;
             }
             else
             {
-                Constrains = new TimeConstrains();
+                Constraints = new TimeConstraints();
             }
         }
 
         public override object Generate()
         {
-            var minTicks = Constrains.MinTime.Ticks;
-            var maxTicks = Constrains.MaxTime.Ticks;
+            var minTicks = Constraints.MinTime.Ticks;
+            var maxTicks = Constraints.MaxTime.Ticks;
 
             var buffer = new byte[8];
             Random.NextBytes(buffer);

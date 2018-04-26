@@ -5,20 +5,20 @@ namespace DataGeneratorLibrary.Generators.Numerics
 {
     public class SmallIntGenerator : DataTypeGenerator
     {
-        private SmallIntConstrains Constrains { get; set; }
+        private SmallIntConstraints Constraints { get; set; }
 
         public SmallIntGenerator(Column column) : base(column)
         {
-            if (Column.constrains is SmallIntConstrains constrains)
+            if (Column.Constraints is SmallIntConstraints constrains)
             {
-                Constrains = constrains;
+                Constraints = constrains;
             }
         }
 
         public override object Generate()
         {
-            var minValue = Constrains.MinValue;
-            var maxValue = Constrains.MaxValue;
+            var minValue = Constraints.MinValue;
+            var maxValue = Constraints.MaxValue;
 
             var buffer = new byte[2];
             Random.NextBytes(buffer);

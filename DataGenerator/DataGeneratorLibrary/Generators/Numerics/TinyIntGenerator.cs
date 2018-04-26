@@ -5,24 +5,24 @@ namespace DataGeneratorLibrary.Generators.Numerics
 {
     public class TinyIntGenerator : DataTypeGenerator
     {
-        private TinyIntConstrains Constrains { get; set; }
+        private TinyIntConstraints Constraints { get; set; }
 
         public TinyIntGenerator(Column column) : base(column)
         {
-            if (Column.constrains is TinyIntConstrains constrains)
+            if (Column.Constraints is TinyIntConstraints constrains)
             {
-                Constrains = constrains;
+                Constraints = constrains;
             }
             else
             {
-                Constrains = new TinyIntConstrains();
+                Constraints = new TinyIntConstraints();
             }
         }
 
         public override object Generate()
         {
-            var minValue = Constrains.MinValue;
-            var maxValue = Constrains.MaxValue;
+            var minValue = Constraints.MinValue;
+            var maxValue = Constraints.MaxValue;
 
             var buffer = new byte[1];
             Random.NextBytes(buffer);

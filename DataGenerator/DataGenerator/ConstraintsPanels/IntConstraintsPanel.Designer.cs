@@ -81,7 +81,7 @@
             this.groupBox1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.groupBox1.Location = new System.Drawing.Point(0, 0);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(500, 250);
+            this.groupBox1.Size = new System.Drawing.Size(500, 150);
             this.groupBox1.TabIndex = 8;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Settings";
@@ -91,10 +91,10 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoScroll = true;
-            this.AutoScrollMinSize = new System.Drawing.Size(500, 250);
+            this.AutoScrollMinSize = new System.Drawing.Size(500, 150);
             this.Controls.Add(this.groupBox1);
             this.Name = "IntConstraintsPanel";
-            this.Size = new System.Drawing.Size(500, 250);
+            this.Size = new System.Drawing.Size(500, 150);
             this.Load += new System.EventHandler(this.IntConstraintsPanel_Load);
             ((System.ComponentModel.ISupportInitialize)(this.maxNumericUpDown)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.minNumericUpDown)).EndInit();

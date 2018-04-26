@@ -4,25 +4,25 @@ namespace DataGeneratorLibrary.Generators.DateTime
 {
     public class DateGenerator : DataTypeGenerator
     {
-        private DateConstrains DateConstrains { get; }
+        private DateConstraints DateConstraints { get; }
 
         public DateGenerator(Column column) : base(column)
         {
-            if (column.constrains is DateConstrains constrains)
+            if (column.Constraints is DateConstraints constrains)
             {
-                DateConstrains = constrains;
+                DateConstraints = constrains;
             }
             else
             {
-                DateConstrains = new DateConstrains();
+                DateConstraints = new DateConstraints();
             }
         }
 
         public override object Generate()
         {
-            var range = (DateConstrains.MaxDate - DateConstrains.MinDate).Days;
+            var range = (DateConstraints.MaxDate - DateConstraints.MinDate).Days;
 
-            return DateConstrains.MinDate.AddDays(Random.Next(range));
+            return DateConstraints.MinDate.AddDays(Random.Next(range));
         }
     }
 }

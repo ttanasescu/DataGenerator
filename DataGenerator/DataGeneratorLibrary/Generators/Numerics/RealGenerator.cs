@@ -4,24 +4,24 @@ namespace DataGeneratorLibrary.Generators.Numerics
 {
     public class RealGenerator : DataTypeGenerator
     {
-        private RealConstrains Constrains { get; set; }
+        private RealConstraints Constraints { get; set; }
 
         public RealGenerator(Column column) : base(column)
         {
-            if (Column.constrains is RealConstrains constrains)
+            if (Column.Constraints is RealConstraints constrains)
             {
-                Constrains = constrains;
+                Constraints = constrains;
             }
             else
             {
-                Constrains = new RealConstrains();
+                Constraints = new RealConstraints();
             }
         }
 
         public override object Generate()
         {
-            double minValue = Constrains.MinValue;
-            double maxValue = Constrains.MaxValue;
+            double minValue = Constraints.MinValue;
+            double maxValue = Constraints.MaxValue;
 
             return (float)(Random.NextDouble() * (maxValue - minValue) + minValue);
         }

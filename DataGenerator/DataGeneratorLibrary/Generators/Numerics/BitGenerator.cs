@@ -4,17 +4,17 @@ namespace DataGeneratorLibrary.Generators.Numerics
 {
     public class BitGenerator : DataTypeGenerator
     {
-        private IntConstrains Constrains { get; set; }
+        private IntConstraints Constraints { get; set; }
 
         public BitGenerator(Column column) : base(column)
         {
-            if (Column.constrains is IntConstrains constrains)
+            if (Column.Constraints is IntConstraints constrains)
             {
-                Constrains = constrains;
+                Constraints = constrains;
             }
             else
             {
-                Constrains = new IntConstrains();
+                Constraints = new IntConstraints();
             }
         }
 

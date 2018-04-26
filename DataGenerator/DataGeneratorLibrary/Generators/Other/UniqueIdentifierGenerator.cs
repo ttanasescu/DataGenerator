@@ -5,17 +5,17 @@ namespace DataGeneratorLibrary.Generators.Other
 {
     class UniqueIdentifierGenerator : DataTypeGenerator
         {
-            private UniqueIdentifierConstrains Constrains { get; set; }
+            private UniqueIdentifierConstraints Constraints { get; set; }
 
             public UniqueIdentifierGenerator(Column column) : base(column)
             {
-                if (Column.constrains is UniqueIdentifierConstrains constrains)
+                if (Column.Constraints is UniqueIdentifierConstraints constrains)
                 {
-                    Constrains = constrains;
+                    Constraints = constrains;
                 }
                 else
                 {
-                    Constrains = new UniqueIdentifierConstrains();
+                    Constraints = new UniqueIdentifierConstraints();
                 }
             }
         

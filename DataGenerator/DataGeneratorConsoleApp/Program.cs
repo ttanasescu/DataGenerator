@@ -35,22 +35,22 @@ namespace DataGeneratorConsoleApp
                 switch (column.DataType)
                 {
                     case TSQLDataType.@int:
-                        column.constrains = new IntConstrains(); // { MinValue = 5, MaxValue = 300 };
+                        column.Constraints = new IntConstraints(); // { MinValue = 5, MaxValue = 300 };
                         break;
                     case TSQLDataType.bigint:
-                        column.constrains = new BigIntConstrains {MinValue = 5, MaxValue = 300}; //();
+                        column.Constraints = new BigIntConstraints {MinValue = 5, MaxValue = 300}; //();
                         break;
                     case TSQLDataType.money:
-                        column.constrains = new MoneyConstrains();
+                        column.Constraints = new MoneyConstraints();
                         break;
                     case TSQLDataType.smallmoney:
-                        column.constrains = new SmallMoneyConstrains();
+                        column.Constraints = new SmallMoneyConstraints();
                         break;
                     case TSQLDataType.numeric:
                     case TSQLDataType.@decimal:
-                        column.constrains = column.NumericPrecision != null && column.NumericScale != null
-                            ? new DecimalConstrains(column.NumericPrecision.Value, column.NumericScale.Value)
-                            : new DecimalConstrains();
+                        column.Constraints = column.NumericPrecision != null && column.NumericScale != null
+                            ? new DecimalConstraints(column.NumericPrecision.Value, column.NumericScale.Value)
+                            : new DecimalConstraints();
                         //column.constrains = new DecimalConstrains(column.NumericPrecision, column.NumericScale);
                         break;
                 }
