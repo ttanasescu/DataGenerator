@@ -1,6 +1,6 @@
-﻿namespace DataGeneratorGUI.ConstraintsPanels
+﻿namespace DataGeneratorGUI.ConstraintsPanels.Numerics
 {
-    partial class BigIntConstrintsPanel
+    partial class TinyIntConstraintsPanel
     {
         /// <summary> 
         /// Required designer variable.
@@ -47,9 +47,8 @@
             this.label2.Location = new System.Drawing.Point(37, 58);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(57, 13);
-            this.label2.TabIndex = 11;
+            this.label2.TabIndex = 7;
             this.label2.Text = "Max Value";
-            this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // label1
             // 
@@ -57,16 +56,15 @@
             this.label1.Location = new System.Drawing.Point(40, 32);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(54, 13);
-            this.label1.TabIndex = 10;
+            this.label1.TabIndex = 6;
             this.label1.Text = "Min Value";
-            this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // maxNumericUpDown
             // 
             this.maxNumericUpDown.Location = new System.Drawing.Point(100, 56);
             this.maxNumericUpDown.Name = "maxNumericUpDown";
             this.maxNumericUpDown.Size = new System.Drawing.Size(120, 20);
-            this.maxNumericUpDown.TabIndex = 9;
+            this.maxNumericUpDown.TabIndex = 5;
             this.maxNumericUpDown.ValueChanged += new System.EventHandler(this.maxNumericUpDown_ValueChanged);
             // 
             // minNumericUpDown
@@ -74,52 +72,51 @@
             this.minNumericUpDown.Location = new System.Drawing.Point(100, 30);
             this.minNumericUpDown.Name = "minNumericUpDown";
             this.minNumericUpDown.Size = new System.Drawing.Size(120, 20);
-            this.minNumericUpDown.TabIndex = 8;
+            this.minNumericUpDown.TabIndex = 4;
             this.minNumericUpDown.ValueChanged += new System.EventHandler(this.minNumericUpDown_ValueChanged);
             // 
             // groupBox1
             // 
             this.groupBox1.Controls.Add(this.nullPercentLabel);
-            this.groupBox1.Controls.Add(this.label1);
             this.groupBox1.Controls.Add(this.nullNumericUpDown);
-            this.groupBox1.Controls.Add(this.label2);
             this.groupBox1.Controls.Add(this.minNumericUpDown);
+            this.groupBox1.Controls.Add(this.label2);
             this.groupBox1.Controls.Add(this.maxNumericUpDown);
+            this.groupBox1.Controls.Add(this.label1);
             this.groupBox1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.groupBox1.Location = new System.Drawing.Point(0, 0);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(500, 150);
-            this.groupBox1.TabIndex = 12;
+            this.groupBox1.TabIndex = 8;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Settings";
             // 
             // nullPercentLabel
             // 
             this.nullPercentLabel.AutoSize = true;
-            this.nullPercentLabel.Location = new System.Drawing.Point(48, 102);
+            this.nullPercentLabel.Location = new System.Drawing.Point(48, 101);
             this.nullPercentLabel.Name = "nullPercentLabel";
             this.nullPercentLabel.Size = new System.Drawing.Size(46, 13);
-            this.nullPercentLabel.TabIndex = 14;
+            this.nullPercentLabel.TabIndex = 11;
             this.nullPercentLabel.Text = "% NULL";
             // 
             // nullNumericUpDown
             // 
-            this.nullNumericUpDown.Location = new System.Drawing.Point(100, 100);
+            this.nullNumericUpDown.Location = new System.Drawing.Point(100, 99);
             this.nullNumericUpDown.Name = "nullNumericUpDown";
             this.nullNumericUpDown.Size = new System.Drawing.Size(60, 20);
-            this.nullNumericUpDown.TabIndex = 13;
+            this.nullNumericUpDown.TabIndex = 10;
             // 
-            // BigIntConstrintsPanel
+            // TinyIntConstraintsPanel
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoScroll = true;
             this.AutoScrollMinSize = new System.Drawing.Size(500, 150);
-            this.BackColor = System.Drawing.SystemColors.Control;
             this.Controls.Add(this.groupBox1);
-            this.Name = "BigIntConstrintsPanel";
+            this.Name = "TinyIntConstraintsPanel";
             this.Size = new System.Drawing.Size(500, 150);
-            this.Load += new System.EventHandler(this.BigIntConstrintsPanel_Load);
+            this.Load += new System.EventHandler(this.TinyIntConstraintsPanel_Load);
             ((System.ComponentModel.ISupportInitialize)(this.maxNumericUpDown)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.minNumericUpDown)).EndInit();
             this.groupBox1.ResumeLayout(false);

@@ -3,24 +3,24 @@ using System.Windows.Forms;
 using DataGeneratorLibrary.Constrains;
 using DataGeneratorLibrary.Constrains.Numerics;
 
-namespace DataGeneratorGUI.ConstraintsPanels
+namespace DataGeneratorGUI.ConstraintsPanels.Numerics
 {
-    public partial class SmallIntConstraintsPanel : UserControl
+    public partial class BigIntConstrintsPanel : UserControl
     {
-        private readonly SmallIntConstraints _constraints;
+        private readonly BigIntConstraints _constraints;
 
-        public SmallIntConstraintsPanel(Constraints constraints)
+        public BigIntConstrintsPanel(Constraints constraints)
         {
-            if (!(constraints is SmallIntConstraints intConstrains))
+            if (!(constraints is BigIntConstraints bigIntConstrains))
             {
                 throw new ArgumentException(nameof(constraints));
             }
 
-            _constraints = intConstrains;
+            _constraints = bigIntConstrains;
             InitializeComponent();
         }
 
-        private void SmallIntConstraintsPanel_Load(object sender, EventArgs e)
+        private void BigIntConstrintsPanel_Load(object sender, EventArgs e)
         {
             Dock = DockStyle.Fill;
 
@@ -41,12 +41,13 @@ namespace DataGeneratorGUI.ConstraintsPanels
 
         private void minNumericUpDown_ValueChanged(object sender, EventArgs e)
         {
-            _constraints.MinValue = (short) minNumericUpDown.Value;
+            _constraints.MinValue = (long) minNumericUpDown.Value;
         }
 
         private void maxNumericUpDown_ValueChanged(object sender, EventArgs e)
         {
-            _constraints.MaxValue = (short) maxNumericUpDown.Value;
+            _constraints.MaxValue = (long) maxNumericUpDown.Value;
         }
+
     }
 }

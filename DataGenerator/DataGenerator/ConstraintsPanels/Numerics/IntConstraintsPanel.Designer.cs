@@ -1,6 +1,6 @@
-﻿namespace DataGeneratorGUI.ConstraintsPanels
+﻿namespace DataGeneratorGUI.ConstraintsPanels.Numerics
 {
-    partial class DecimalConstraintsPanel
+    partial class IntConstraintsPanel
     {
         /// <summary> 
         /// Required designer variable.
@@ -63,7 +63,7 @@
             // 
             this.maxNumericUpDown.Location = new System.Drawing.Point(100, 56);
             this.maxNumericUpDown.Name = "maxNumericUpDown";
-            this.maxNumericUpDown.Size = new System.Drawing.Size(250, 20);
+            this.maxNumericUpDown.Size = new System.Drawing.Size(120, 20);
             this.maxNumericUpDown.TabIndex = 5;
             this.maxNumericUpDown.ValueChanged += new System.EventHandler(this.maxNumericUpDown_ValueChanged);
             // 
@@ -71,15 +71,15 @@
             // 
             this.minNumericUpDown.Location = new System.Drawing.Point(100, 30);
             this.minNumericUpDown.Name = "minNumericUpDown";
-            this.minNumericUpDown.Size = new System.Drawing.Size(250, 20);
+            this.minNumericUpDown.Size = new System.Drawing.Size(120, 20);
             this.minNumericUpDown.TabIndex = 4;
             this.minNumericUpDown.ValueChanged += new System.EventHandler(this.minNumericUpDown_ValueChanged);
             // 
             // groupBox1
             // 
             this.groupBox1.Controls.Add(this.nullPercentLabel);
-            this.groupBox1.Controls.Add(this.minNumericUpDown);
             this.groupBox1.Controls.Add(this.nullNumericUpDown);
+            this.groupBox1.Controls.Add(this.minNumericUpDown);
             this.groupBox1.Controls.Add(this.label2);
             this.groupBox1.Controls.Add(this.maxNumericUpDown);
             this.groupBox1.Controls.Add(this.label1);
@@ -94,29 +94,30 @@
             // nullPercentLabel
             // 
             this.nullPercentLabel.AutoSize = true;
-            this.nullPercentLabel.Location = new System.Drawing.Point(48, 103);
+            this.nullPercentLabel.Location = new System.Drawing.Point(48, 102);
             this.nullPercentLabel.Name = "nullPercentLabel";
             this.nullPercentLabel.Size = new System.Drawing.Size(46, 13);
-            this.nullPercentLabel.TabIndex = 11;
+            this.nullPercentLabel.TabIndex = 9;
             this.nullPercentLabel.Text = "% NULL";
             // 
             // nullNumericUpDown
             // 
-            this.nullNumericUpDown.Location = new System.Drawing.Point(100, 101);
+            this.nullNumericUpDown.Location = new System.Drawing.Point(100, 100);
             this.nullNumericUpDown.Name = "nullNumericUpDown";
             this.nullNumericUpDown.Size = new System.Drawing.Size(60, 20);
-            this.nullNumericUpDown.TabIndex = 10;
+            this.nullNumericUpDown.TabIndex = 8;
+            this.nullNumericUpDown.ValueChanged += new System.EventHandler(this.nullNumericUpDown_ValueChanged);
             // 
-            // DecimalConstraintsPanel
+            // IntConstraintsPanel
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoScroll = true;
             this.AutoScrollMinSize = new System.Drawing.Size(500, 150);
             this.Controls.Add(this.groupBox1);
-            this.Name = "DecimalConstraintsPanel";
+            this.Name = "IntConstraintsPanel";
             this.Size = new System.Drawing.Size(500, 150);
-            this.Load += new System.EventHandler(this.DecimalConstraintsPanel_Load);
+            this.Load += new System.EventHandler(this.IntConstraintsPanel_Load);
             ((System.ComponentModel.ISupportInitialize)(this.maxNumericUpDown)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.minNumericUpDown)).EndInit();
             this.groupBox1.ResumeLayout(false);

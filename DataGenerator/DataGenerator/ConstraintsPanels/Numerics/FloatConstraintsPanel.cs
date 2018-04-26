@@ -3,24 +3,24 @@ using System.Windows.Forms;
 using DataGeneratorLibrary.Constrains;
 using DataGeneratorLibrary.Constrains.Numerics;
 
-namespace DataGeneratorGUI.ConstraintsPanels
+namespace DataGeneratorGUI.ConstraintsPanels.Numerics
 {
-    public partial class RealConstraintsPanel : UserControl
+    public partial class FloatConstraintsPanel : UserControl
     {
-        private readonly RealConstraints _constraints;
+        private readonly FloatConstraints _constraints;
 
-        public RealConstraintsPanel(Constraints constrains)
+        public FloatConstraintsPanel(Constraints constrains)
         {
-            if (!(constrains is RealConstraints realConstraints))
+            if (!(constrains is FloatConstraints floatConstraints))
             {
                 throw new ArgumentException(nameof(constrains));
             }
 
-            _constraints = realConstraints;
+            _constraints = floatConstraints;
             InitializeComponent();
         }
 
-        private void RealConstraintsPanel_Load(object sender, EventArgs e)
+        private void FloatConstraintsPanel_Load(object sender, EventArgs e)
         {
             Dock = DockStyle.Fill;
 
@@ -41,12 +41,12 @@ namespace DataGeneratorGUI.ConstraintsPanels
 
         private void minNumericUpDown_ValueChanged(object sender, EventArgs e)
         {
-            _constraints.MinValue = (float) minNumericUpDown.Value;
+            _constraints.MinValue = (double) minNumericUpDown.Value;
         }
 
         private void maxNumericUpDown_ValueChanged(object sender, EventArgs e)
         {
-            _constraints.MaxValue = (float) maxNumericUpDown.Value;
+            _constraints.MaxValue = (double) maxNumericUpDown.Value;
         }
     }
 }

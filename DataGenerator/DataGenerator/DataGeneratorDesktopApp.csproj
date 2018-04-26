@@ -49,46 +49,46 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ConstraintsPanels\BigIntConstrintsPanel.cs">
+    <Compile Include="ConstraintsPanels\Numerics\BigIntConstrintsPanel.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="ConstraintsPanels\BigIntConstrintsPanel.Designer.cs">
+    <Compile Include="ConstraintsPanels\Numerics\BigIntConstrintsPanel.Designer.cs">
       <DependentUpon>BigIntConstrintsPanel.cs</DependentUpon>
     </Compile>
-    <Compile Include="ConstraintsPanels\DecimalConstraintsPanel.cs">
+    <Compile Include="ConstraintsPanels\Numerics\DecimalConstraintsPanel.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="ConstraintsPanels\DecimalConstraintsPanel.designer.cs">
+    <Compile Include="ConstraintsPanels\Numerics\DecimalConstraintsPanel.designer.cs">
       <DependentUpon>DecimalConstraintsPanel.cs</DependentUpon>
     </Compile>
-    <Compile Include="ConstraintsPanels\FloatConstraintsPanel.cs">
+    <Compile Include="ConstraintsPanels\Numerics\FloatConstraintsPanel.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="ConstraintsPanels\FloatConstraintsPanel.designer.cs">
+    <Compile Include="ConstraintsPanels\Numerics\FloatConstraintsPanel.designer.cs">
       <DependentUpon>FloatConstraintsPanel.cs</DependentUpon>
     </Compile>
-    <Compile Include="ConstraintsPanels\IntConstraintsPanel.cs">
+    <Compile Include="ConstraintsPanels\Numerics\IntConstraintsPanel.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="ConstraintsPanels\IntConstraintsPanel.Designer.cs">
+    <Compile Include="ConstraintsPanels\Numerics\IntConstraintsPanel.Designer.cs">
       <DependentUpon>IntConstraintsPanel.cs</DependentUpon>
     </Compile>
-    <Compile Include="ConstraintsPanels\RealConstraintsPanel.cs">
+    <Compile Include="ConstraintsPanels\Numerics\RealConstraintsPanel.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="ConstraintsPanels\RealConstraintsPanel.designer.cs">
+    <Compile Include="ConstraintsPanels\Numerics\RealConstraintsPanel.designer.cs">
       <DependentUpon>RealConstraintsPanel.cs</DependentUpon>
     </Compile>
-    <Compile Include="ConstraintsPanels\SmallIntConstraintsPanel.cs">
+    <Compile Include="ConstraintsPanels\Numerics\SmallIntConstraintsPanel.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="ConstraintsPanels\SmallIntConstraintsPanel.Designer.cs">
+    <Compile Include="ConstraintsPanels\Numerics\SmallIntConstraintsPanel.Designer.cs">
       <DependentUpon>SmallIntConstraintsPanel.cs</DependentUpon>
     </Compile>
-    <Compile Include="ConstraintsPanels\TinyIntConstraintsPanel.cs">
+    <Compile Include="ConstraintsPanels\Numerics\TinyIntConstraintsPanel.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="ConstraintsPanels\TinyIntConstraintsPanel.Designer.cs">
+    <Compile Include="ConstraintsPanels\Numerics\TinyIntConstraintsPanel.Designer.cs">
       <DependentUpon>TinyIntConstraintsPanel.cs</DependentUpon>
     </Compile>
     <Compile Include="MainWindow.cs">
@@ -99,25 +99,25 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="ConstraintsPanels\DecimalConstraintsPanel.resx">
+    <EmbeddedResource Include="ConstraintsPanels\Numerics\DecimalConstraintsPanel.resx">
       <DependentUpon>DecimalConstraintsPanel.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="ConstraintsPanels\FloatConstraintsPanel.resx">
+    <EmbeddedResource Include="ConstraintsPanels\Numerics\FloatConstraintsPanel.resx">
       <DependentUpon>FloatConstraintsPanel.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="ConstraintsPanels\IntConstraintsPanel.resx">
+    <EmbeddedResource Include="ConstraintsPanels\Numerics\IntConstraintsPanel.resx">
       <DependentUpon>IntConstraintsPanel.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="ConstraintsPanels\BigIntConstrintsPanel.resx">
+    <EmbeddedResource Include="ConstraintsPanels\Numerics\BigIntConstrintsPanel.resx">
       <DependentUpon>BigIntConstrintsPanel.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="ConstraintsPanels\RealConstraintsPanel.resx">
+    <EmbeddedResource Include="ConstraintsPanels\Numerics\RealConstraintsPanel.resx">
       <DependentUpon>RealConstraintsPanel.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="ConstraintsPanels\SmallIntConstraintsPanel.resx">
+    <EmbeddedResource Include="ConstraintsPanels\Numerics\SmallIntConstraintsPanel.resx">
       <DependentUpon>SmallIntConstraintsPanel.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="ConstraintsPanels\TinyIntConstraintsPanel.resx">
+    <EmbeddedResource Include="ConstraintsPanels\Numerics\TinyIntConstraintsPanel.resx">
       <DependentUpon>TinyIntConstraintsPanel.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="MainWindow.resx">

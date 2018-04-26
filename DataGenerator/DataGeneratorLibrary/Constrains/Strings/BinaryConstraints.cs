@@ -1,6 +1,4 @@
-﻿using DataGeneratorLibrary.Constrains.Strings;
-
-namespace DataGeneratorLibrary.Constrains.Numerics
+﻿namespace DataGeneratorLibrary.Constrains.Strings
 {
     public class BinaryConstraints : CharConstraints
     {

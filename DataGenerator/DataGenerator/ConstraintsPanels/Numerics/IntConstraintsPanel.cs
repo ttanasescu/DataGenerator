@@ -3,24 +3,24 @@ using System.Windows.Forms;
 using DataGeneratorLibrary.Constrains;
 using DataGeneratorLibrary.Constrains.Numerics;
 
-namespace DataGeneratorGUI.ConstraintsPanels
+namespace DataGeneratorGUI.ConstraintsPanels.Numerics
 {
-    public partial class DecimalConstraintsPanel : UserControl
+    public partial class IntConstraintsPanel : UserControl
     {
-        private readonly DecimalConstraints _constraints;
+        private readonly IntConstraints _constraints;
 
-        public DecimalConstraintsPanel(Constraints constrains)
+        public IntConstraintsPanel(Constraints constraints)
         {
-            if (!(constrains is DecimalConstraints intConstrains))
+            if (!(constraints is IntConstraints intConstrains))
             {
-                throw new ArgumentException(nameof(constrains));
+                throw new ArgumentException(nameof(constraints));
             }
 
             _constraints = intConstrains;
             InitializeComponent();
         }
 
-        private void DecimalConstraintsPanel_Load(object sender, EventArgs e)
+        private void IntConstraintsPanel_Load(object sender, EventArgs e)
         {
             Dock = DockStyle.Fill;
 
@@ -41,12 +41,17 @@ namespace DataGeneratorGUI.ConstraintsPanels
 
         private void minNumericUpDown_ValueChanged(object sender, EventArgs e)
         {
-            _constraints.MinValue = minNumericUpDown.Value;
+            _constraints.MinValue = (int) minNumericUpDown.Value;
         }
 
         private void maxNumericUpDown_ValueChanged(object sender, EventArgs e)
         {
-            _constraints.MaxValue = maxNumericUpDown.Value;
+            _constraints.MaxValue = (int) maxNumericUpDown.Value;
+        }
+
+        private void nullNumericUpDown_ValueChanged(object sender, EventArgs e)
+        {
+            _constraints.PercentOfNulls = (int) nullNumericUpDown.Value;
         }
     }
 }

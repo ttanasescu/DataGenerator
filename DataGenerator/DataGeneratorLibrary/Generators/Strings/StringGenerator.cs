@@ -1,5 +1,4 @@
-﻿using DataGeneratorLibrary.Constrains.Numerics;
-using DataGeneratorLibrary.Constrains.Strings;
+﻿using DataGeneratorLibrary.Constrains.Strings;
 
 namespace DataGeneratorLibrary.Generators.Strings
 {

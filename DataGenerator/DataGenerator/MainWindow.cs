@@ -4,7 +4,7 @@ using System.Configuration;
 using System.Data;
 using System.Linq;
 using System.Windows.Forms;
-using DataGeneratorGUI.ConstraintsPanels;
+using DataGeneratorGUI.ConstraintsPanels.Numerics;
 using DataGeneratorLibrary;
 using DataGeneratorLibrary.Constrains.Numerics;
 using DataGeneratorLibrary.Generators;

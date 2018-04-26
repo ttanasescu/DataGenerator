@@ -1,4 +1,4 @@
-﻿namespace DataGeneratorGUI.ConstraintsPanels
+﻿namespace DataGeneratorGUI.ConstraintsPanels.Numerics
 {
     partial class RealConstraintsPanel
     {
