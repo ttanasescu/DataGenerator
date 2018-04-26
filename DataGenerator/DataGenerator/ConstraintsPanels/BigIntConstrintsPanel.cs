@@ -19,14 +19,15 @@ namespace DataGeneratorGUI.ConstraintsPanels
             _bigIntConstrains = bigIntConstrains;
             InitializeComponent();
         }
+
         private void BigIntConstrintsPanel_Load(object sender, EventArgs e)
         {
             Dock = DockStyle.Fill;
 
-            minNumericUpDown.Minimum = long.MinValue;
-            minNumericUpDown.Maximum = long.MaxValue;
-            maxNumericUpDown.Minimum = long.MinValue;
-            maxNumericUpDown.Maximum = long.MaxValue;
+            minNumericUpDown.Minimum = _bigIntConstrains.MinPossibleValue;
+            minNumericUpDown.Maximum = _bigIntConstrains.MaxPossibleValue;
+            maxNumericUpDown.Minimum = _bigIntConstrains.MinPossibleValue;
+            maxNumericUpDown.Maximum = _bigIntConstrains.MaxPossibleValue;
 
             minNumericUpDown.Value = _bigIntConstrains.MinValue;
             maxNumericUpDown.Value = _bigIntConstrains.MaxValue;
@@ -34,13 +35,11 @@ namespace DataGeneratorGUI.ConstraintsPanels
 
         private void minNumericUpDown_ValueChanged(object sender, EventArgs e)
         {
-
             _bigIntConstrains.MinValue = (long) minNumericUpDown.Value;
         }
 
         private void maxNumericUpDown_ValueChanged(object sender, EventArgs e)
         {
-
             _bigIntConstrains.MaxValue = (long) maxNumericUpDown.Value;
         }
 

@@ -2,7 +2,7 @@
 
 namespace DataGeneratorLibrary.Constrains.Numerics
 {
-    public class DecimalConstrains : Constrains
+    public class DecimalConstrains : NumericConstrains<decimal>
     {
         private decimal _minValue = decimal.MinValue;
         private decimal _maxValue = decimal.MaxValue;
@@ -36,10 +36,15 @@ namespace DataGeneratorLibrary.Constrains.Numerics
             decimal.TryParse(maxValueString, out var maxValue);
             _minValue = decimal.Negate(maxValue);
             _maxValue = maxValue;
+
+            MaxPossibleValue = decimal.MaxValue;
+            MinPossibleValue = decimal.MinValue;
         }
 
         public DecimalConstrains()
         {
+            MaxPossibleValue = decimal.MaxValue;
+            MinPossibleValue = decimal.MinValue;
         }
     }
 }

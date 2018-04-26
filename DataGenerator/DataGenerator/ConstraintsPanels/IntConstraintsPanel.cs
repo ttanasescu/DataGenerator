@@ -3,7 +3,7 @@ using System.Windows.Forms;
 using DataGeneratorLibrary.Constrains;
 using DataGeneratorLibrary.Constrains.Numerics;
 
-namespace DataGeneratorGUI
+namespace DataGeneratorGUI.ConstraintsPanels
 {
     public partial class IntConstraintsPanel : UserControl
     {
@@ -24,10 +24,10 @@ namespace DataGeneratorGUI
         {
             Dock = DockStyle.Fill;
 
-            minNumericUpDown.Minimum = int.MinValue;
-            minNumericUpDown.Maximum = int.MaxValue;
-            maxNumericUpDown.Minimum = int.MinValue;
-            maxNumericUpDown.Maximum = int.MaxValue;
+            minNumericUpDown.Minimum = _intConstrains.MinPossibleValue;
+            minNumericUpDown.Maximum = _intConstrains.MaxPossibleValue;
+            maxNumericUpDown.Minimum = _intConstrains.MinPossibleValue;
+            maxNumericUpDown.Maximum = _intConstrains.MaxPossibleValue;
 
             minNumericUpDown.Value = _intConstrains.MinValue;
             maxNumericUpDown.Value = _intConstrains.MaxValue;

@@ -78,7 +78,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Constrains\Numerics\BigIntConstrains.cs" />
-    <Compile Include="Constrains\Numerics\BinaryConstrains.cs" />
+    <Compile Include="Constrains\Numerics\NumericConstrains.cs" />
+    <Compile Include="Constrains\Strings\BinaryConstrains.cs" />
     <Compile Include="Constrains\Strings\CharConstrains.cs" />
     <Compile Include="Constrains\Constrains.cs" />
     <Compile Include="Constrains\DateTime\DateConstrains.cs" />
