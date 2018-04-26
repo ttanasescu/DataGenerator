@@ -49,6 +49,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ConstraintsPanels\DateTime\DateTime2ConstraintsPanel.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="ConstraintsPanels\DateTime\DateTime2ConstraintsPanel.designer.cs">
+      <DependentUpon>DateTime2ConstraintsPanel.cs</DependentUpon>
+    </Compile>
     <Compile Include="ConstraintsPanels\Numerics\BigIntConstrintsPanel.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -99,6 +105,9 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="ConstraintsPanels\DateTime\DateTime2ConstraintsPanel.resx">
+      <DependentUpon>DateTime2ConstraintsPanel.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="ConstraintsPanels\Numerics\DecimalConstraintsPanel.resx">
       <DependentUpon>DecimalConstraintsPanel.cs</DependentUpon>
     </EmbeddedResource>

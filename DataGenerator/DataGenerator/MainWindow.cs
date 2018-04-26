@@ -4,8 +4,10 @@ using System.Configuration;
 using System.Data;
 using System.Linq;
 using System.Windows.Forms;
+using DataGeneratorGUI.ConstraintsPanels.DateTime;
 using DataGeneratorGUI.ConstraintsPanels.Numerics;
 using DataGeneratorLibrary;
+using DataGeneratorLibrary.Constrains.DateTime;
 using DataGeneratorLibrary.Constrains.Numerics;
 using DataGeneratorLibrary.Generators;
 
@@ -83,8 +85,8 @@ namespace DataGeneratorGUI
                     case TSQLDataType.date:
                         break;
                     case TSQLDataType.datetime:
-                        break;
                     case TSQLDataType.datetime2:
+                        column.Constraints = new Datetime2Constraints();
                         break;
                     case TSQLDataType.smalldatetime:
                         break;
@@ -185,8 +187,8 @@ namespace DataGeneratorGUI
                 case TSQLDataType.date:
                     break;
                 case TSQLDataType.datetime:
-                    break;
                 case TSQLDataType.datetime2:
+                    panel = new DateTime2ConstraintsPanel(columnn.Constraints);
                     break;
                 case TSQLDataType.smalldatetime:
                     break;

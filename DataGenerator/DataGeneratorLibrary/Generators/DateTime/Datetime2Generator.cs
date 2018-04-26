@@ -32,6 +32,11 @@ namespace DataGeneratorLibrary.Generators.DateTime
             var minTicks = Constraints.MinDatetime.Ticks;
             var maxTicks = Constraints.MaxDatetime.Ticks;
 
+            if (minTicks == maxTicks)
+            {
+                return new System.DateTime(minTicks);
+            }
+
             var buffer = new byte[8];
             Random.NextBytes(buffer);
             var longRandom = BitConverter.ToInt64(buffer, 0);
