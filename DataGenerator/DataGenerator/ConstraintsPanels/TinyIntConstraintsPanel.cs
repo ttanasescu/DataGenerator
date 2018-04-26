@@ -7,7 +7,7 @@ namespace DataGeneratorGUI.ConstraintsPanels
 {
     public partial class TinyIntConstraintsPanel : UserControl
     {
-        private readonly TinyIntConstraints _tinyIntConstraints;
+        private readonly TinyIntConstraints _constraints;
 
         public TinyIntConstraintsPanel(Constraints constraints)
         {
@@ -16,7 +16,7 @@ namespace DataGeneratorGUI.ConstraintsPanels
                 throw new ArgumentException(nameof(constraints));
             }
 
-            _tinyIntConstraints = tinyIntConstrains;
+            _constraints = tinyIntConstrains;
             InitializeComponent();
         }
 
@@ -24,23 +24,29 @@ namespace DataGeneratorGUI.ConstraintsPanels
         {
             Dock = DockStyle.Fill;
 
-            minNumericUpDown.Minimum = _tinyIntConstraints.MinPossibleValue;
-            minNumericUpDown.Maximum = _tinyIntConstraints.MaxPossibleValue;
-            maxNumericUpDown.Minimum = _tinyIntConstraints.MinPossibleValue;
-            maxNumericUpDown.Maximum = _tinyIntConstraints.MaxPossibleValue;
+            minNumericUpDown.Minimum = _constraints.MinPossibleValue;
+            minNumericUpDown.Maximum = _constraints.MaxPossibleValue;
+            maxNumericUpDown.Minimum = _constraints.MinPossibleValue;
+            maxNumericUpDown.Maximum = _constraints.MaxPossibleValue;
 
-            minNumericUpDown.Value = _tinyIntConstraints.MinValue;
-            maxNumericUpDown.Value = _tinyIntConstraints.MaxValue;
+            minNumericUpDown.Value = _constraints.MinValue;
+            maxNumericUpDown.Value = _constraints.MaxValue;
+
+            if (!_constraints.AllowsNulls)
+            {
+                nullNumericUpDown.Enabled = false;
+                nullPercentLabel.Enabled = false;
+            }
         }
 
         private void minNumericUpDown_ValueChanged(object sender, EventArgs e)
         {
-            _tinyIntConstraints.MinValue = (byte) minNumericUpDown.Value;
+            _constraints.MinValue = (byte) minNumericUpDown.Value;
         }
 
         private void maxNumericUpDown_ValueChanged(object sender, EventArgs e)
         {
-            _tinyIntConstraints.MaxValue = (byte) maxNumericUpDown.Value;
+            _constraints.MaxValue = (byte) maxNumericUpDown.Value;
         }
     }
 }

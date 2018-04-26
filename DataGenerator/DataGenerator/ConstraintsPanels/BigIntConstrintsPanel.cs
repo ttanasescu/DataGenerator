@@ -7,7 +7,7 @@ namespace DataGeneratorGUI.ConstraintsPanels
 {
     public partial class BigIntConstrintsPanel : UserControl
     {
-        private readonly BigIntConstraints _bigIntConstraints;
+        private readonly BigIntConstraints _constraints;
 
         public BigIntConstrintsPanel(Constraints constraints)
         {
@@ -16,7 +16,7 @@ namespace DataGeneratorGUI.ConstraintsPanels
                 throw new ArgumentException(nameof(constraints));
             }
 
-            _bigIntConstraints = bigIntConstrains;
+            _constraints = bigIntConstrains;
             InitializeComponent();
         }
 
@@ -24,23 +24,29 @@ namespace DataGeneratorGUI.ConstraintsPanels
         {
             Dock = DockStyle.Fill;
 
-            minNumericUpDown.Minimum = _bigIntConstraints.MinPossibleValue;
-            minNumericUpDown.Maximum = _bigIntConstraints.MaxPossibleValue;
-            maxNumericUpDown.Minimum = _bigIntConstraints.MinPossibleValue;
-            maxNumericUpDown.Maximum = _bigIntConstraints.MaxPossibleValue;
+            minNumericUpDown.Minimum = _constraints.MinPossibleValue;
+            minNumericUpDown.Maximum = _constraints.MaxPossibleValue;
+            maxNumericUpDown.Minimum = _constraints.MinPossibleValue;
+            maxNumericUpDown.Maximum = _constraints.MaxPossibleValue;
 
-            minNumericUpDown.Value = _bigIntConstraints.MinValue;
-            maxNumericUpDown.Value = _bigIntConstraints.MaxValue;
+            minNumericUpDown.Value = _constraints.MinValue;
+            maxNumericUpDown.Value = _constraints.MaxValue;
+
+            if (!_constraints.AllowsNulls)
+            {
+                nullNumericUpDown.Enabled = false;
+                nullPercentLabel.Enabled = false;
+            }
         }
 
         private void minNumericUpDown_ValueChanged(object sender, EventArgs e)
         {
-            _bigIntConstraints.MinValue = (long) minNumericUpDown.Value;
+            _constraints.MinValue = (long) minNumericUpDown.Value;
         }
 
         private void maxNumericUpDown_ValueChanged(object sender, EventArgs e)
         {
-            _bigIntConstraints.MaxValue = (long) maxNumericUpDown.Value;
+            _constraints.MaxValue = (long) maxNumericUpDown.Value;
         }
 
     }

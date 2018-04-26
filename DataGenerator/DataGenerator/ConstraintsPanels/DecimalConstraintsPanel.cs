@@ -7,7 +7,7 @@ namespace DataGeneratorGUI.ConstraintsPanels
 {
     public partial class DecimalConstraintsPanel : UserControl
     {
-        private readonly DecimalConstraints _decimalConstraints;
+        private readonly DecimalConstraints _constraints;
 
         public DecimalConstraintsPanel(Constraints constrains)
         {
@@ -16,7 +16,7 @@ namespace DataGeneratorGUI.ConstraintsPanels
                 throw new ArgumentException(nameof(constrains));
             }
 
-            _decimalConstraints = intConstrains;
+            _constraints = intConstrains;
             InitializeComponent();
         }
 
@@ -24,23 +24,29 @@ namespace DataGeneratorGUI.ConstraintsPanels
         {
             Dock = DockStyle.Fill;
 
-            minNumericUpDown.Minimum = _decimalConstraints.MinPossibleValue;
-            minNumericUpDown.Maximum = _decimalConstraints.MaxPossibleValue;
-            maxNumericUpDown.Minimum = _decimalConstraints.MinPossibleValue;
-            maxNumericUpDown.Maximum = _decimalConstraints.MaxPossibleValue;
+            minNumericUpDown.Minimum = _constraints.MinPossibleValue;
+            minNumericUpDown.Maximum = _constraints.MaxPossibleValue;
+            maxNumericUpDown.Minimum = _constraints.MinPossibleValue;
+            maxNumericUpDown.Maximum = _constraints.MaxPossibleValue;
 
-            minNumericUpDown.Value = _decimalConstraints.MinValue;
-            maxNumericUpDown.Value = _decimalConstraints.MaxValue;
+            minNumericUpDown.Value = _constraints.MinValue;
+            maxNumericUpDown.Value = _constraints.MaxValue;
+
+            if (!_constraints.AllowsNulls)
+            {
+                nullNumericUpDown.Enabled = false;
+                nullPercentLabel.Enabled = false;
+            }
         }
 
         private void minNumericUpDown_ValueChanged(object sender, EventArgs e)
         {
-            _decimalConstraints.MinValue = minNumericUpDown.Value;
+            _constraints.MinValue = minNumericUpDown.Value;
         }
 
         private void maxNumericUpDown_ValueChanged(object sender, EventArgs e)
         {
-            _decimalConstraints.MaxValue = maxNumericUpDown.Value;
+            _constraints.MaxValue = maxNumericUpDown.Value;
         }
     }
 }

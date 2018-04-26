@@ -27,7 +27,7 @@ namespace DataGeneratorGUI
 #if DEBUG
             var connectionString = ConfigurationManager.ConnectionStrings["TestDBConnection"].ConnectionString;
             var dal = new Dal(connectionString);
-            var tablename = "Table_5";
+            var tablename = "Table_9";
 #else
             var connectionString = ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString;
             var dal = new Dal(connectionString);
@@ -78,17 +78,17 @@ namespace DataGeneratorGUI
                     case TSQLDataType.real:
                         column.Constraints = new RealConstraints();
                         break;
+                    case TSQLDataType.time:
+                        break;
                     case TSQLDataType.date:
                         break;
                     case TSQLDataType.datetime:
                         break;
                     case TSQLDataType.datetime2:
                         break;
-                    case TSQLDataType.datetimeoffset:
-                        break;
                     case TSQLDataType.smalldatetime:
                         break;
-                    case TSQLDataType.time:
+                    case TSQLDataType.datetimeoffset:
                         break;
                     case TSQLDataType.@char:
                         break;
@@ -180,17 +180,17 @@ namespace DataGeneratorGUI
                 case TSQLDataType.money:
                     panel = new DecimalConstraintsPanel(columnn.Constraints);
                     break;
+                case TSQLDataType.time:
+                    break;
                 case TSQLDataType.date:
                     break;
                 case TSQLDataType.datetime:
                     break;
                 case TSQLDataType.datetime2:
                     break;
-                case TSQLDataType.datetimeoffset:
-                    break;
                 case TSQLDataType.smalldatetime:
                     break;
-                case TSQLDataType.time:
+                case TSQLDataType.datetimeoffset:
                     break;
                 case TSQLDataType.@char:
                     break;

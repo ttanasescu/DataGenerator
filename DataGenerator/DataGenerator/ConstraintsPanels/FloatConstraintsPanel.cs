@@ -7,7 +7,7 @@ namespace DataGeneratorGUI.ConstraintsPanels
 {
     public partial class FloatConstraintsPanel : UserControl
     {
-        private readonly FloatConstraints _floatConstraints;
+        private readonly FloatConstraints _constraints;
 
         public FloatConstraintsPanel(Constraints constrains)
         {
@@ -16,7 +16,7 @@ namespace DataGeneratorGUI.ConstraintsPanels
                 throw new ArgumentException(nameof(constrains));
             }
 
-            _floatConstraints = floatConstraints;
+            _constraints = floatConstraints;
             InitializeComponent();
         }
 
@@ -24,23 +24,29 @@ namespace DataGeneratorGUI.ConstraintsPanels
         {
             Dock = DockStyle.Fill;
 
-            minNumericUpDown.Minimum = (decimal) _floatConstraints.MinPossibleValue;
-            minNumericUpDown.Maximum = (decimal) _floatConstraints.MaxPossibleValue;
-            maxNumericUpDown.Minimum = (decimal) _floatConstraints.MinPossibleValue;
-            maxNumericUpDown.Maximum = (decimal) _floatConstraints.MaxPossibleValue;
+            minNumericUpDown.Minimum = (decimal) _constraints.MinPossibleValue;
+            minNumericUpDown.Maximum = (decimal) _constraints.MaxPossibleValue;
+            maxNumericUpDown.Minimum = (decimal) _constraints.MinPossibleValue;
+            maxNumericUpDown.Maximum = (decimal) _constraints.MaxPossibleValue;
 
-            minNumericUpDown.Value = (decimal) _floatConstraints.MinValue;
-            maxNumericUpDown.Value = (decimal) _floatConstraints.MaxValue;
+            minNumericUpDown.Value = (decimal) _constraints.MinValue;
+            maxNumericUpDown.Value = (decimal) _constraints.MaxValue;
+
+            if (!_constraints.AllowsNulls)
+            {
+                nullNumericUpDown.Enabled = false;
+                nullPercentLabel.Enabled = false;
+            }
         }
 
         private void minNumericUpDown_ValueChanged(object sender, EventArgs e)
         {
-            _floatConstraints.MinValue = (double) minNumericUpDown.Value;
+            _constraints.MinValue = (double) minNumericUpDown.Value;
         }
 
         private void maxNumericUpDown_ValueChanged(object sender, EventArgs e)
         {
-            _floatConstraints.MaxValue = (double) maxNumericUpDown.Value;
+            _constraints.MaxValue = (double) maxNumericUpDown.Value;
         }
     }
 }

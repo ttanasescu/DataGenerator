@@ -33,9 +33,12 @@
             this.maxNumericUpDown = new System.Windows.Forms.NumericUpDown();
             this.minNumericUpDown = new System.Windows.Forms.NumericUpDown();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.nullPercentLabel = new System.Windows.Forms.Label();
+            this.nullNumericUpDown = new System.Windows.Forms.NumericUpDown();
             ((System.ComponentModel.ISupportInitialize)(this.maxNumericUpDown)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.minNumericUpDown)).BeginInit();
             this.groupBox1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.nullNumericUpDown)).BeginInit();
             this.SuspendLayout();
             // 
             // label2
@@ -74,7 +77,9 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.nullPercentLabel);
             this.groupBox1.Controls.Add(this.minNumericUpDown);
+            this.groupBox1.Controls.Add(this.nullNumericUpDown);
             this.groupBox1.Controls.Add(this.label2);
             this.groupBox1.Controls.Add(this.maxNumericUpDown);
             this.groupBox1.Controls.Add(this.label1);
@@ -85,6 +90,22 @@
             this.groupBox1.TabIndex = 8;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Settings";
+            // 
+            // nullPercentLabel
+            // 
+            this.nullPercentLabel.AutoSize = true;
+            this.nullPercentLabel.Location = new System.Drawing.Point(48, 107);
+            this.nullPercentLabel.Name = "nullPercentLabel";
+            this.nullPercentLabel.Size = new System.Drawing.Size(46, 13);
+            this.nullPercentLabel.TabIndex = 11;
+            this.nullPercentLabel.Text = "% NULL";
+            // 
+            // nullNumericUpDown
+            // 
+            this.nullNumericUpDown.Location = new System.Drawing.Point(100, 105);
+            this.nullNumericUpDown.Name = "nullNumericUpDown";
+            this.nullNumericUpDown.Size = new System.Drawing.Size(60, 20);
+            this.nullNumericUpDown.TabIndex = 10;
             // 
             // RealConstraintsPanel
             // 
@@ -100,6 +121,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.minNumericUpDown)).EndInit();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.nullNumericUpDown)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -111,5 +133,7 @@
         private System.Windows.Forms.NumericUpDown maxNumericUpDown;
         private System.Windows.Forms.NumericUpDown minNumericUpDown;
         private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.Label nullPercentLabel;
+        private System.Windows.Forms.NumericUpDown nullNumericUpDown;
     }
 }
