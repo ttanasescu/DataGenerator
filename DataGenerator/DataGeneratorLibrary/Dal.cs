@@ -2,6 +2,9 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
+using DataGeneratorLibrary.Constrains.DateTime;
+using DataGeneratorLibrary.Constrains.Numerics;
+using DataGeneratorLibrary.Constrains.Strings;
 using DataGeneratorLibrary.Generators;
 
 namespace DataGeneratorLibrary
@@ -131,18 +134,92 @@ namespace DataGeneratorLibrary
 
             foreach (DataRow row in dataTable.Rows)
             {
-                var properties = new Column();
+                var column = new Column();
 
-                properties.Name = row.Field<string>("COLUMN_NAME");
-                properties.CharMaxLength = row.Field<int?>("CHARACTER_MAXIMUM_LENGTH");
-                properties.NumericPrecision = row.Field<byte?>("NUMERIC_PRECISION");
-                properties.NumericPrecisionRadix = row.Field<short?>("NUMERIC_PRECISION_RADIX");
-                properties.NumericScale = row.Field<int?>("NUMERIC_SCALE");
+                column.Name = row.Field<string>("COLUMN_NAME");
+                column.CharMaxLength = row.Field<int?>("CHARACTER_MAXIMUM_LENGTH");
+                column.NumericPrecision = row.Field<byte?>("NUMERIC_PRECISION");
+                column.NumericPrecisionRadix = row.Field<short?>("NUMERIC_PRECISION_RADIX");
+                column.NumericScale = row.Field<int?>("NUMERIC_SCALE");
 
                 Enum.TryParse(row.Field<string>("DATA_TYPE"), out TSQLDataType dataType);
-                properties.DataType = dataType;
+                column.DataType = dataType;
 
-                columnPropertieses.Add(properties);
+                switch (column.DataType)
+                {
+                    case TSQLDataType.@int:
+                        column.Constraints = new IntConstraints();
+                        break;
+                    case TSQLDataType.bigint:
+                        column.Constraints = new BigIntConstraints();
+                        break;
+                    case TSQLDataType.tinyint:
+                        column.Constraints = new TinyIntConstraints();
+                        break;
+                    case TSQLDataType.money:
+                        column.Constraints = new MoneyConstraints();
+                        break;
+                    case TSQLDataType.smallmoney:
+                        column.Constraints = new SmallMoneyConstraints();
+                        break;
+                    case TSQLDataType.numeric:
+                    case TSQLDataType.@decimal:
+                        column.Constraints = column.NumericPrecision != null && column.NumericScale != null
+                            ? new DecimalConstraints(column.NumericPrecision.Value, column.NumericScale.Value)
+                            : new DecimalConstraints();
+                        //column.constrains = new DecimalConstrains(column.NumericPrecision, column.NumericScale);
+                        break;
+                    case TSQLDataType.bit:
+                        break;
+                    case TSQLDataType.smallint:
+                        column.Constraints = new SmallIntConstraints();
+                        break;
+                    case TSQLDataType.@float:
+                        column.Constraints = new FloatConstraints();
+                        break;
+                    case TSQLDataType.real:
+                        column.Constraints = new RealConstraints();
+                        break;
+                    case TSQLDataType.time:
+                        column.Constraints = new TimeConstraints();
+                        break;
+                    case TSQLDataType.date:
+                        column.Constraints = new DateConstraints();
+                        break;
+                    case TSQLDataType.datetime:
+                    case TSQLDataType.datetime2:
+                        column.Constraints = new Datetime2Constraints();
+                        break;
+                    case TSQLDataType.smalldatetime:
+                        column.Constraints = new SmallDatetimeConstraints();
+                        break;
+                    case TSQLDataType.datetimeoffset:
+                        column.Constraints = new DatetimeOffsetConstraints();
+                        break;
+                    case TSQLDataType.@char:
+                    case TSQLDataType.nchar:
+                    case TSQLDataType.binary:
+                        column.Constraints = new CharConstraints(column.CharMaxLength);
+                        break;
+                    case TSQLDataType.text:
+                    case TSQLDataType.ntext:
+                    case TSQLDataType.nvarchar:
+                    case TSQLDataType.varchar:
+                        column.Constraints = new VarcharConstraints(column.CharMaxLength);
+                        break;
+                    case TSQLDataType.image:
+                    case TSQLDataType.varbinary:
+                        column.Constraints = new VarbinaryConstraints(column.CharMaxLength);
+                        break;
+                    case TSQLDataType.uniqueidentifier:
+                        break;
+                    default:
+                        throw new ArgumentOutOfRangeException();
+                }
+
+                column.Constraints.AllowsNulls = row.Field<string>("IS_NULLABLE") == "YES";
+
+                columnPropertieses.Add(column);
             }
 
             return columnPropertieses;

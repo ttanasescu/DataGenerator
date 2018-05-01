@@ -25,9 +25,9 @@ namespace DataGeneratorGUI.ConstraintsPanels.Numerics
             Dock = DockStyle.Fill;
 
             minNumericUpDown.Minimum = _constraints.MinPossibleValue;
-            minNumericUpDown.Maximum = _constraints.MaxPossibleValue-1;
+            minNumericUpDown.Maximum = _constraints.MaxPossibleValue;
             maxNumericUpDown.Minimum = _constraints.MinPossibleValue;
-            maxNumericUpDown.Maximum = _constraints.MaxPossibleValue-1;
+            maxNumericUpDown.Maximum = _constraints.MaxPossibleValue;
 
             minNumericUpDown.Value = _constraints.MinValue;
             maxNumericUpDown.Value = _constraints.MaxValue;
@@ -46,7 +46,7 @@ namespace DataGeneratorGUI.ConstraintsPanels.Numerics
 
         private void maxNumericUpDown_ValueChanged(object sender, EventArgs e)
         {
-            _constraints.MaxValue = (int) maxNumericUpDown.Value+1;
+            _constraints.MaxValue = (int) maxNumericUpDown.Value;
         }
 
         private void nullNumericUpDown_ValueChanged(object sender, EventArgs e)

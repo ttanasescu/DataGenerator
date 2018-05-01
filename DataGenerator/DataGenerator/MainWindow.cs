@@ -8,9 +8,6 @@ using DataGeneratorGUI.ConstraintsPanels.DateTime;
 using DataGeneratorGUI.ConstraintsPanels.Numerics;
 using DataGeneratorGUI.ConstraintsPanels.Strings;
 using DataGeneratorLibrary;
-using DataGeneratorLibrary.Constrains.DateTime;
-using DataGeneratorLibrary.Constrains.Numerics;
-using DataGeneratorLibrary.Constrains.Strings;
 using DataGeneratorLibrary.Generators;
 
 namespace DataGeneratorGUI
@@ -27,11 +24,10 @@ namespace DataGeneratorGUI
 
         private void MainWindow_Load(object sender, EventArgs e)
         {
-
 #if DEBUG
             var connectionString = ConfigurationManager.ConnectionStrings["TestDBConnection"].ConnectionString;
             var dal = new Dal(connectionString);
-            var tablename = "Table_6";
+            var tablename = "Table_9";
 #else
             var connectionString = ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString;
             var dal = new Dal(connectionString);
@@ -44,81 +40,6 @@ namespace DataGeneratorGUI
 
             _table = dal.GetTable(tablename);
             tableDataGridView.DataSource = _table;
-
-            foreach (var column in _columns)
-            {
-                switch (column.DataType)
-                {
-                    case TSQLDataType.@int:
-                        column.Constraints = new IntConstraints(); // { MinValue = 5, MaxValue = 300 };
-                        break;
-                    case TSQLDataType.bigint:
-                        column.Constraints = new BigIntConstraints { MinValue = 5, MaxValue = 300 }; //();
-                        break;
-                    case TSQLDataType.tinyint:
-                        column.Constraints = new TinyIntConstraints { MinValue = 5, MaxValue = 100 }; //();
-                        break;
-                    case TSQLDataType.money:
-                        column.Constraints = new MoneyConstraints();
-                        break;
-                    case TSQLDataType.smallmoney:
-                        column.Constraints = new SmallMoneyConstraints();
-                        break;
-                    case TSQLDataType.numeric:
-                    case TSQLDataType.@decimal:
-                        column.Constraints = column.NumericPrecision != null && column.NumericScale != null
-                            ? new DecimalConstraints(column.NumericPrecision.Value, column.NumericScale.Value)
-                            : new DecimalConstraints();
-                        //column.constrains = new DecimalConstrains(column.NumericPrecision, column.NumericScale);
-                        break;
-                    case TSQLDataType.bit:
-                        break;
-                    case TSQLDataType.smallint:
-                        column.Constraints = new SmallIntConstraints();
-                        break;
-                    case TSQLDataType.@float:
-                        column.Constraints = new FloatConstraints();
-                        break;
-                    case TSQLDataType.real:
-                        column.Constraints = new RealConstraints();
-                        break;
-                    case TSQLDataType.time:
-                        column.Constraints = new TimeConstraints();
-                        break;
-                    case TSQLDataType.date:
-                        column.Constraints = new DateConstraints();
-                        break;
-                    case TSQLDataType.datetime:
-                    case TSQLDataType.datetime2:
-                        column.Constraints = new Datetime2Constraints();
-                        break;
-                    case TSQLDataType.smalldatetime:
-                        column.Constraints = new SmallDatetimeConstraints();
-                        break;
-                    case TSQLDataType.datetimeoffset:
-                        column.Constraints = new DatetimeOffsetConstraints();
-                        break;
-                    case TSQLDataType.@char:
-                    case TSQLDataType.nchar:
-                    case TSQLDataType.binary:
-                        column.Constraints = new CharConstraints(column.CharMaxLength);
-                        break;
-                    case TSQLDataType.text:
-                    case TSQLDataType.ntext:
-                    case TSQLDataType.nvarchar:
-                    case TSQLDataType.varchar:
-                        column.Constraints = new VarcharConstraints(column.CharMaxLength);
-                        break;
-                    case TSQLDataType.image:
-                    case TSQLDataType.varbinary:
-                        column.Constraints = new VarbinaryConstraints(column.CharMaxLength);
-                        break;
-                    case TSQLDataType.uniqueidentifier:
-                        break;
-                    default:
-                        throw new ArgumentOutOfRangeException();
-                }
-            }
         }
 
         private void LoadColums(IList<Column> columns)
@@ -126,7 +47,30 @@ namespace DataGeneratorGUI
             foreach (var column in columns)
             {
                 var item = new ListViewItem(column.Name);
-                item.SubItems.Add(column.DataType.ToString());
+
+                var typeName = column.DataType.ToString();
+
+                switch (column.DataType)
+                {
+                    case TSQLDataType.@decimal:
+                    case TSQLDataType.numeric:
+                        typeName += $"({column.NumericPrecision}, {column.NumericScale})";
+                        break;
+                    case TSQLDataType.time:
+                    case TSQLDataType.datetime:
+                    case TSQLDataType.datetime2:
+                    case TSQLDataType.datetimeoffset:
+                    case TSQLDataType.@char:
+                    case TSQLDataType.nchar:
+                    case TSQLDataType.binary:
+                    case TSQLDataType.varchar:
+                    case TSQLDataType.nvarchar:
+                    case TSQLDataType.varbinary:
+                        typeName += $"({column.CharMaxLength})";
+                        break;
+                }
+
+                item.SubItems.Add(typeName);
                 item.SubItems.Add(column.Constraints.AllowsNulls.ToString());
                 listView1.Items.Add(item);
             }
@@ -229,7 +173,6 @@ namespace DataGeneratorGUI
         private void generateToolStripMenuItem_Click(object sender, EventArgs e)
         {
             var generator = new Generator();
-
 
             generator.FillTable(_table, _columns, 10, false);
         }

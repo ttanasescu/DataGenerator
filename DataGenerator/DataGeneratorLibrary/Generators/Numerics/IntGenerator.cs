@@ -20,7 +20,7 @@ namespace DataGeneratorLibrary.Generators.Numerics
 
         public override object Generate()
         {
-            return Random.Next(Constraints.MinValue, Constraints.MaxValue);
+            return Random.Next(Constraints.MinValue, Constraints.MaxValue+1);
         }
     }
 }
