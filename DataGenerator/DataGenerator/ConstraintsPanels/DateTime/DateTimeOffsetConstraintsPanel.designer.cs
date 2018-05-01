@@ -31,6 +31,8 @@
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.maxOffsetPicker = new System.Windows.Forms.DateTimePicker();
+            this.minOffsetPicker = new System.Windows.Forms.DateTimePicker();
             this.maxTimePicker = new System.Windows.Forms.DateTimePicker();
             this.minTimePicker = new System.Windows.Forms.DateTimePicker();
             this.maxDatePicker = new System.Windows.Forms.DateTimePicker();
@@ -39,8 +41,7 @@
             this.label3 = new System.Windows.Forms.Label();
             this.nullPercentLabel = new System.Windows.Forms.Label();
             this.nullNumericUpDown = new System.Windows.Forms.NumericUpDown();
-            this.maxOffsetPicker = new System.Windows.Forms.DateTimePicker();
-            this.minOffsetPicker = new System.Windows.Forms.DateTimePicker();
+            this.label5 = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nullNumericUpDown)).BeginInit();
             this.SuspendLayout();
@@ -65,6 +66,7 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.label5);
             this.groupBox1.Controls.Add(this.maxOffsetPicker);
             this.groupBox1.Controls.Add(this.minOffsetPicker);
             this.groupBox1.Controls.Add(this.maxTimePicker);
@@ -84,6 +86,32 @@
             this.groupBox1.TabIndex = 8;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Settings";
+            // 
+            // maxOffsetPicker
+            // 
+            this.maxOffsetPicker.CustomFormat = "+hh:mm";
+            this.maxOffsetPicker.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
+            this.maxOffsetPicker.Location = new System.Drawing.Point(282, 56);
+            this.maxOffsetPicker.MaxDate = new System.DateTime(2000, 1, 3, 0, 0, 0, 0);
+            this.maxOffsetPicker.MinDate = new System.DateTime(2000, 1, 1, 0, 0, 0, 0);
+            this.maxOffsetPicker.Name = "maxOffsetPicker";
+            this.maxOffsetPicker.ShowUpDown = true;
+            this.maxOffsetPicker.Size = new System.Drawing.Size(80, 20);
+            this.maxOffsetPicker.TabIndex = 17;
+            this.maxOffsetPicker.Value = new System.DateTime(2000, 1, 2, 0, 0, 0, 0);
+            // 
+            // minOffsetPicker
+            // 
+            this.minOffsetPicker.CustomFormat = "-hh:mm";
+            this.minOffsetPicker.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
+            this.minOffsetPicker.Location = new System.Drawing.Point(282, 30);
+            this.minOffsetPicker.MaxDate = new System.DateTime(2000, 1, 3, 0, 0, 0, 0);
+            this.minOffsetPicker.MinDate = new System.DateTime(2000, 1, 1, 0, 0, 0, 0);
+            this.minOffsetPicker.Name = "minOffsetPicker";
+            this.minOffsetPicker.ShowUpDown = true;
+            this.minOffsetPicker.Size = new System.Drawing.Size(80, 20);
+            this.minOffsetPicker.TabIndex = 16;
+            this.minOffsetPicker.Value = new System.DateTime(2000, 1, 2, 0, 0, 0, 0);
             // 
             // maxTimePicker
             // 
@@ -156,31 +184,14 @@
             this.nullNumericUpDown.TabIndex = 8;
             this.nullNumericUpDown.ValueChanged += new System.EventHandler(this.nullNumericUpDown_ValueChanged);
             // 
-            // maxOffsetPicker
+            // label5
             // 
-            this.maxOffsetPicker.CustomFormat = "+hh:mm";
-            this.maxOffsetPicker.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
-            this.maxOffsetPicker.Location = new System.Drawing.Point(282, 56);
-            this.maxOffsetPicker.MaxDate = new System.DateTime(2000, 1, 3, 0, 0, 0, 0);
-            this.maxOffsetPicker.MinDate = new System.DateTime(2000, 1, 1, 0, 0, 0, 0);
-            this.maxOffsetPicker.Name = "maxOffsetPicker";
-            this.maxOffsetPicker.ShowUpDown = true;
-            this.maxOffsetPicker.Size = new System.Drawing.Size(80, 20);
-            this.maxOffsetPicker.TabIndex = 17;
-            this.maxOffsetPicker.Value = new System.DateTime(2000, 1, 2, 0, 0, 0, 0);
-            // 
-            // minOffsetPicker
-            // 
-            this.minOffsetPicker.CustomFormat = "-hh:mm";
-            this.minOffsetPicker.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
-            this.minOffsetPicker.Location = new System.Drawing.Point(282, 30);
-            this.minOffsetPicker.MaxDate = new System.DateTime(2000, 1, 3, 0, 0, 0, 0);
-            this.minOffsetPicker.MinDate = new System.DateTime(2000, 1, 1, 0, 0, 0, 0);
-            this.minOffsetPicker.Name = "minOffsetPicker";
-            this.minOffsetPicker.ShowUpDown = true;
-            this.minOffsetPicker.Size = new System.Drawing.Size(80, 20);
-            this.minOffsetPicker.TabIndex = 16;
-            this.minOffsetPicker.Value = new System.DateTime(2000, 1, 2, 0, 0, 0, 0);
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(279, 11);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(56, 13);
+            this.label5.TabIndex = 18;
+            this.label5.Text = "Time zone";
             // 
             // DateTimeOffsetConstraintsPanel
             // 
@@ -214,5 +225,6 @@
         private System.Windows.Forms.DateTimePicker minTimePicker;
         private System.Windows.Forms.DateTimePicker maxOffsetPicker;
         private System.Windows.Forms.DateTimePicker minOffsetPicker;
+        private System.Windows.Forms.Label label5;
     }
 }

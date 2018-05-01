@@ -39,6 +39,8 @@
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.menuToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.connectToDatabaseToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.selectTableToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.generateToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.tableDataGridView)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
@@ -152,6 +154,8 @@
             // 
             this.menuToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.connectToDatabaseToolStripMenuItem,
+            this.selectTableToolStripMenuItem,
+            this.toolStripSeparator1,
             this.generateToolStripMenuItem});
             this.menuToolStripMenuItem.Name = "menuToolStripMenuItem";
             this.menuToolStripMenuItem.Size = new System.Drawing.Size(50, 20);
@@ -162,6 +166,19 @@
             this.connectToDatabaseToolStripMenuItem.Name = "connectToDatabaseToolStripMenuItem";
             this.connectToDatabaseToolStripMenuItem.Size = new System.Drawing.Size(183, 22);
             this.connectToDatabaseToolStripMenuItem.Text = "Connect to database";
+            this.connectToDatabaseToolStripMenuItem.Click += new System.EventHandler(this.connectToDatabaseToolStripMenuItem_Click);
+            // 
+            // selectTableToolStripMenuItem
+            // 
+            this.selectTableToolStripMenuItem.Name = "selectTableToolStripMenuItem";
+            this.selectTableToolStripMenuItem.Size = new System.Drawing.Size(183, 22);
+            this.selectTableToolStripMenuItem.Text = "Select table";
+            this.selectTableToolStripMenuItem.Click += new System.EventHandler(this.selectTableToolStripMenuItem_Click);
+            // 
+            // toolStripSeparator1
+            // 
+            this.toolStripSeparator1.Name = "toolStripSeparator1";
+            this.toolStripSeparator1.Size = new System.Drawing.Size(180, 6);
             // 
             // generateToolStripMenuItem
             // 
@@ -181,7 +198,7 @@
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "MainWindow";
             this.Text = "DataGenerator";
-            this.Load += new System.EventHandler(this.MainWindow_Load);
+            this.Shown += new System.EventHandler(this.MainWindow_Load);
             ((System.ComponentModel.ISupportInitialize)(this.tableDataGridView)).EndInit();
             this.splitContainer1.Panel1.ResumeLayout(false);
             this.splitContainer1.Panel2.ResumeLayout(false);
@@ -210,6 +227,8 @@
         private System.Windows.Forms.ToolStripMenuItem menuToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem connectToDatabaseToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem generateToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem selectTableToolStripMenuItem;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
     }
 }
 

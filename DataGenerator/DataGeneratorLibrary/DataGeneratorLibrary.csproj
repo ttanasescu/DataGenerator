@@ -78,6 +78,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Constrains\Numerics\BigIntConstraints.cs" />
+    <Compile Include="Constrains\Numerics\BitConstraints.cs" />
     <Compile Include="Constrains\Numerics\NumericConstraints.cs" />
     <Compile Include="Constrains\Strings\BinaryConstraints.cs" />
     <Compile Include="Constrains\Strings\CharConstraints.cs" />

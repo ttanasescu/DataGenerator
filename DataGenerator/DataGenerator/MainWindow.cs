@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Configuration;
 using System.Data;
+using System.Diagnostics;
 using System.Linq;
 using System.Windows.Forms;
 using DataGeneratorGUI.ConstraintsPanels.DateTime;
@@ -9,6 +9,9 @@ using DataGeneratorGUI.ConstraintsPanels.Numerics;
 using DataGeneratorGUI.ConstraintsPanels.Strings;
 using DataGeneratorLibrary;
 using DataGeneratorLibrary.Generators;
+using System.Data.SqlClient;
+using DataGeneratorGUI.ConstraintsPanels.Other;
+using DataGeneratorGUI.Forms;
 
 namespace DataGeneratorGUI
 {
@@ -16,6 +19,9 @@ namespace DataGeneratorGUI
     {
         private DataTable _table;
         private IList<Column> _columns;
+        private Dal _dal;
+        private string _tablename;
+        private string _serverName;
 
         public MainWindow()
         {
@@ -24,22 +30,7 @@ namespace DataGeneratorGUI
 
         private void MainWindow_Load(object sender, EventArgs e)
         {
-#if DEBUG
-            var connectionString = ConfigurationManager.ConnectionStrings["TestDBConnection"].ConnectionString;
-            var dal = new Dal(connectionString);
-            var tablename = "Table_9";
-#else
-            var connectionString = ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString;
-            var dal = new Dal(connectionString);
-            GetDatabaseName(dal);
-            var tablename = GetTableName(dal);
-#endif
-
-            _columns = dal.GetTableInformation(tablename);
-            LoadColums(_columns);
-
-            _table = dal.GetTable(tablename);
-            tableDataGridView.DataSource = _table;
+            connectToDatabaseToolStripMenuItem_Click(null, null);
         }
 
         private void LoadColums(IList<Column> columns)
@@ -94,74 +85,76 @@ namespace DataGeneratorGUI
 
             string name = listView.SelectedItems[0].Text;
 
-            var columnn = _columns.Single(column => column.Name == name);
+            var currentColumn = _columns.Single(column => column.Name == name);
 
-            var panel = new UserControl();
+            UserControl panel;
 
-            switch (columnn.DataType)
+            switch (currentColumn.DataType)
             {
                 case TSQLDataType.bigint:
-                    panel = new BigIntConstrintsPanel(columnn.Constraints);
+                    panel = new BigIntConstrintsPanel(currentColumn.Constraints);
                     break;
                 case TSQLDataType.@int:
-                    panel = new IntConstraintsPanel(columnn.Constraints);
+                    panel = new IntConstraintsPanel(currentColumn.Constraints);
                     break;
                 case TSQLDataType.tinyint:
-                    panel = new TinyIntConstraintsPanel(columnn.Constraints);
+                    panel = new TinyIntConstraintsPanel(currentColumn.Constraints);
                     break;
                 case TSQLDataType.smallint:
-                    panel = new SmallIntConstraintsPanel(columnn.Constraints);
+                    panel = new SmallIntConstraintsPanel(currentColumn.Constraints);
                     break;
                 case TSQLDataType.numeric:
                 case TSQLDataType.@decimal:
-                    panel = new DecimalConstraintsPanel(columnn.Constraints);
+                    panel = new DecimalConstraintsPanel(currentColumn.Constraints);
                     break;
                 case TSQLDataType.bit:
+                    panel = new BitConstraintsPanel(currentColumn.Constraints);
                     break;
                 case TSQLDataType.@float:
-                    panel = new FloatConstraintsPanel(columnn.Constraints);
+                    panel = new FloatConstraintsPanel(currentColumn.Constraints);
                     break;
                 case TSQLDataType.real:
-                    panel = new RealConstraintsPanel(columnn.Constraints);
+                    panel = new RealConstraintsPanel(currentColumn.Constraints);
                     break;
                 case TSQLDataType.smallmoney:
-                    panel = new DecimalConstraintsPanel(columnn.Constraints);
+                    panel = new DecimalConstraintsPanel(currentColumn.Constraints);
                     break;
                 case TSQLDataType.money:
-                    panel = new DecimalConstraintsPanel(columnn.Constraints);
+                    panel = new DecimalConstraintsPanel(currentColumn.Constraints);
                     break;
                 case TSQLDataType.time:
-                    panel = new TimeConstraintsPanel(columnn.Constraints);
+                    panel = new TimeConstraintsPanel(currentColumn.Constraints);
                     break;
                 case TSQLDataType.date:
-                    panel = new DateConstraintsPanel(columnn.Constraints);
+                    panel = new DateConstraintsPanel(currentColumn.Constraints);
                     break;
                 case TSQLDataType.datetime:
                 case TSQLDataType.datetime2:
-                    panel = new DateTime2ConstraintsPanel(columnn.Constraints);
+                    panel = new DateTime2ConstraintsPanel(currentColumn.Constraints);
                     break;
                 case TSQLDataType.smalldatetime:
-                    panel = new SmallDatetimeConstraintsPanel(columnn.Constraints);
+                    panel = new SmallDatetimeConstraintsPanel(currentColumn.Constraints);
                     break;
                 case TSQLDataType.datetimeoffset:
-                    panel = new DateTimeOffsetConstraintsPanel(columnn.Constraints);
+                    panel = new DateTimeOffsetConstraintsPanel(currentColumn.Constraints);
                     break;
                 case TSQLDataType.nchar:
                 case TSQLDataType.@char:
                 case TSQLDataType.binary:
-                    panel = new CharConstraintsPanel(columnn.Constraints);
+                    panel = new CharConstraintsPanel(currentColumn.Constraints);
                     break;
                 case TSQLDataType.text:
                 case TSQLDataType.ntext:
                 case TSQLDataType.varchar:
                 case TSQLDataType.nvarchar:
-                    panel = new VarcharConstraintsPanel(columnn.Constraints);
+                    panel = new VarcharConstraintsPanel(currentColumn.Constraints);
                     break;
                 case TSQLDataType.image:
                 case TSQLDataType.varbinary:
-                    panel = new VarbinaryConstraintsPanel(columnn.Constraints);
+                    panel = new VarbinaryConstraintsPanel(currentColumn.Constraints);
                     break;
                 case TSQLDataType.uniqueidentifier:
+                    panel = new UniqueIdentifierConstraintsPanel(currentColumn.Constraints);
                     break;
                 default:
                     throw new ArgumentOutOfRangeException();
@@ -172,9 +165,78 @@ namespace DataGeneratorGUI
 
         private void generateToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            if (string.IsNullOrEmpty(_serverName?.Trim() ?? _serverName))
+            {
+                System.Media.SystemSounds.Asterisk.Play();
+                connectToDatabaseToolStripMenuItem_Click(null, null);
+                return;
+            }
+
+            if (string.IsNullOrEmpty(_tablename?.Trim() ?? _tablename))
+            {
+                System.Media.SystemSounds.Asterisk.Play();
+                selectTableToolStripMenuItem_Click(null, null);
+                return;
+            }
+
             var generator = new Generator();
 
             generator.FillTable(_table, _columns, 10, false);
+        }
+
+        private void connectToDatabaseToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var form = new ConnectToDataBaseForm();
+            var result = form.ShowDialog(this);
+            if (result == DialogResult.OK)
+            {
+                Debug.WriteLine(form.ServerName);
+                Debug.WriteLine(form.WindowsAuthentication);
+                Debug.WriteLine(form.UserName);
+                Debug.WriteLine(form.Password);
+
+                var builder = new SqlConnectionStringBuilder
+                {
+                    Password = form.Password,
+                    UserID = form.UserName,
+                    DataSource = form.ServerName,
+                    IntegratedSecurity = form.WindowsAuthentication
+                };
+                
+                _dal = new Dal(builder.ConnectionString);
+
+                _serverName = _dal.GetServerName();
+                Text = $@"DataGenerator - {_serverName}";
+
+                selectTableToolStripMenuItem_Click(null, null);
+            }
+        }
+
+        private void selectTableToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (string.IsNullOrEmpty(_serverName?.Trim() ?? _serverName))
+            {
+                System.Media.SystemSounds.Asterisk.Play();
+                connectToDatabaseToolStripMenuItem_Click(null, null);
+                return;
+            }
+
+            var form = new SelectTableForm(_dal) {ServerName = _serverName};
+
+            var result = form.ShowDialog(this);
+            if (result == DialogResult.OK)
+            {
+                _dal.Database = form.DataBase;
+                _tablename = form.TableName;
+
+                Text = $@"DataGenerator - {_serverName}\{form.DataBase}\{_tablename}";
+                
+                _columns = _dal.GetTableInformation(_tablename);
+                LoadColums(_columns);
+
+                _table = _dal.GetTable(_tablename);
+                tableDataGridView.DataSource = _table;
+            }
         }
     }
 }

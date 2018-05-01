@@ -85,6 +85,12 @@
     <Compile Include="ConstraintsPanels\Numerics\BigIntConstrintsPanel.Designer.cs">
       <DependentUpon>BigIntConstrintsPanel.cs</DependentUpon>
     </Compile>
+    <Compile Include="ConstraintsPanels\Numerics\BitConstraintsPanel.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="ConstraintsPanels\Numerics\BitConstraintsPanel.designer.cs">
+      <DependentUpon>BitConstraintsPanel.cs</DependentUpon>
+    </Compile>
     <Compile Include="ConstraintsPanels\Numerics\DecimalConstraintsPanel.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -121,6 +127,12 @@
     <Compile Include="ConstraintsPanels\Numerics\TinyIntConstraintsPanel.Designer.cs">
       <DependentUpon>TinyIntConstraintsPanel.cs</DependentUpon>
     </Compile>
+    <Compile Include="ConstraintsPanels\Other\UniqueIdentifierConstraintsPanel.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="ConstraintsPanels\Other\UniqueIdentifierConstraintsPanel.designer.cs">
+      <DependentUpon>UniqueIdentifierConstraintsPanel.cs</DependentUpon>
+    </Compile>
     <Compile Include="ConstraintsPanels\Strings\CharConstraintsPanel.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -138,6 +150,18 @@
     </Compile>
     <Compile Include="ConstraintsPanels\Strings\VarcharConstraintsPanel.designer.cs">
       <DependentUpon>VarcharConstraintsPanel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\ConnectToDataBaseForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\ConnectToDataBaseForm.Designer.cs">
+      <DependentUpon>ConnectToDataBaseForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\SelectTableForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\SelectTableForm.Designer.cs">
+      <DependentUpon>SelectTableForm.cs</DependentUpon>
     </Compile>
     <Compile Include="MainWindow.cs">
       <SubType>Form</SubType>
@@ -162,6 +186,9 @@
     <EmbeddedResource Include="ConstraintsPanels\DateTime\TimeConstraintsPanel.resx">
       <DependentUpon>TimeConstraintsPanel.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="ConstraintsPanels\Numerics\BitConstraintsPanel.resx">
+      <DependentUpon>BitConstraintsPanel.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="ConstraintsPanels\Numerics\DecimalConstraintsPanel.resx">
       <DependentUpon>DecimalConstraintsPanel.cs</DependentUpon>
     </EmbeddedResource>
@@ -183,6 +210,9 @@
     <EmbeddedResource Include="ConstraintsPanels\Numerics\TinyIntConstraintsPanel.resx">
       <DependentUpon>TinyIntConstraintsPanel.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="ConstraintsPanels\Other\UniqueIdentifierConstraintsPanel.resx">
+      <DependentUpon>UniqueIdentifierConstraintsPanel.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="ConstraintsPanels\Strings\CharConstraintsPanel.resx">
       <DependentUpon>CharConstraintsPanel.cs</DependentUpon>
     </EmbeddedResource>
@@ -191,6 +221,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="ConstraintsPanels\Strings\VarcharConstraintsPanel.resx">
       <DependentUpon>VarcharConstraintsPanel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\ConnectToDataBaseForm.resx">
+      <DependentUpon>ConnectToDataBaseForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\SelectTableForm.resx">
+      <DependentUpon>SelectTableForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="MainWindow.resx">
       <DependentUpon>MainWindow.cs</DependentUpon>

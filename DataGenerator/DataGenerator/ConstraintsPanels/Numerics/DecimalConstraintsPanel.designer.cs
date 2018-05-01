@@ -94,7 +94,7 @@
             // nullPercentLabel
             // 
             this.nullPercentLabel.AutoSize = true;
-            this.nullPercentLabel.Location = new System.Drawing.Point(48, 103);
+            this.nullPercentLabel.Location = new System.Drawing.Point(48, 102);
             this.nullPercentLabel.Name = "nullPercentLabel";
             this.nullPercentLabel.Size = new System.Drawing.Size(46, 13);
             this.nullPercentLabel.TabIndex = 11;
@@ -102,7 +102,7 @@
             // 
             // nullNumericUpDown
             // 
-            this.nullNumericUpDown.Location = new System.Drawing.Point(100, 101);
+            this.nullNumericUpDown.Location = new System.Drawing.Point(100, 100);
             this.nullNumericUpDown.Name = "nullNumericUpDown";
             this.nullNumericUpDown.Size = new System.Drawing.Size(60, 20);
             this.nullNumericUpDown.TabIndex = 10;

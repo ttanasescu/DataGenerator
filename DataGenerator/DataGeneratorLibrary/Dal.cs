@@ -4,6 +4,7 @@ using System.Data;
 using System.Data.SqlClient;
 using DataGeneratorLibrary.Constrains.DateTime;
 using DataGeneratorLibrary.Constrains.Numerics;
+using DataGeneratorLibrary.Constrains.Other;
 using DataGeneratorLibrary.Constrains.Strings;
 using DataGeneratorLibrary.Generators;
 
@@ -19,12 +20,15 @@ namespace DataGeneratorLibrary
         private readonly string _password;
         private readonly string _connectionString;
 
-        private string ConnectionString => _connectionString == null
-            ? $"DataBase={_database};" +
-              $"Server={_server};" +
-              $"User Id={_username};" +
-              $"Password={_password}"
-            : (_database != null ? $"DataBase={_database};" + _connectionString : _connectionString);
+        public string ConnectionString
+        {
+            get => _connectionString == null
+                ? $"DataBase={_database};" +
+                  $"Server={_server};" +
+                  $"User Id={_username};" +
+                  $"Password={_password}"
+                : (_database != null ? $"DataBase={_database};" + _connectionString : _connectionString);
+        }
 
         public string Database
         {
@@ -60,20 +64,32 @@ namespace DataGeneratorLibrary
             return dataTable;
         }
 
+        public string GetServerName()
+        {
+            var query = @"SELECT CAST(serverproperty(N'Servername') AS sysname)";
+            var table = ExecuteQuery("databases", query);
+
+            var reader = new DataTableReader(table);
+
+            reader.Read();
+
+            return reader.GetString(0);
+        }
+
         public IList<string> GetDataBases()
         {
             var query = @"SELECT name FROM master.dbo.sysdatabases WHERE HAS_DBACCESS(name) = 1 ORDER BY name";
-            var table = ExecuteQuery("databases", query);
+            var table = ExecuteQuery("",query);
 
-            var databases = new List<string>();
+            var servername = new List<string>();
             var reader = new DataTableReader(table);
 
             while (reader.Read())
             {
-                databases.Add(reader.GetString(0));
+                servername.Add(reader.GetString(0));
             }
 
-            return databases;
+            return servername;
         }
 
         public IList<string> GetTables()
@@ -170,6 +186,7 @@ namespace DataGeneratorLibrary
                         //column.constrains = new DecimalConstrains(column.NumericPrecision, column.NumericScale);
                         break;
                     case TSQLDataType.bit:
+                        column.Constraints = new BitConstraints();
                         break;
                     case TSQLDataType.smallint:
                         column.Constraints = new SmallIntConstraints();
@@ -212,6 +229,7 @@ namespace DataGeneratorLibrary
                         column.Constraints = new VarbinaryConstraints(column.CharMaxLength);
                         break;
                     case TSQLDataType.uniqueidentifier:
+                        column.Constraints = new UniqueIdentifierConstraints();
                         break;
                     default:
                         throw new ArgumentOutOfRangeException();
