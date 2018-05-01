@@ -32,11 +32,14 @@ namespace DataGeneratorGUI.ConstraintsPanels.DateTime
             minDatePicker.Value = _constraints.MinDate;
             maxDatePicker.Value = _constraints.MaxDate;
 
+
             if (!_constraints.AllowsNulls)
             {
                 nullNumericUpDown.Enabled = false;
                 nullPercentLabel.Enabled = false;
             }
+
+            nullNumericUpDown.Value = _constraints.PercentOfNulls;
 
             minDatePicker.ValueChanged += minDateTimePicker_ValueChanged;
             maxDatePicker.ValueChanged += maxDateTimePicker_ValueChanged;

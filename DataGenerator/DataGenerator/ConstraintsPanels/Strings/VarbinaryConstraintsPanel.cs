@@ -41,6 +41,8 @@ namespace DataGeneratorGUI.ConstraintsPanels.Strings
                 nullNumericUpDown.Enabled = false;
                 nullPercentLabel.Enabled = false;
             }
+
+            nullNumericUpDown.Value = _constraints.PercentOfNulls;
         }
 
         private void minNumericUpDown_ValueChanged(object sender, EventArgs e)

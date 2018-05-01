@@ -23,13 +23,14 @@ namespace DataGeneratorGUI.ConstraintsPanels.Strings
         private void CharConstraintsPanel_Load(object sender, EventArgs e)
         {
             Dock = DockStyle.Fill;
-            
 
             if (!_constraints.AllowsNulls)
             {
                 nullNumericUpDown.Enabled = false;
                 nullPercentLabel.Enabled = false;
             }
+
+            nullNumericUpDown.Value = _constraints.PercentOfNulls;
         }
         
         private void nullNumericUpDown_ValueChanged(object sender, EventArgs e)

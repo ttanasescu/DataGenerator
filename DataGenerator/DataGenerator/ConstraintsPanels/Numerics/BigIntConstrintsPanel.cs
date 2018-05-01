@@ -37,11 +37,19 @@ namespace DataGeneratorGUI.ConstraintsPanels.Numerics
                 nullNumericUpDown.Enabled = false;
                 nullPercentLabel.Enabled = false;
             }
+            
+            nullNumericUpDown.Value = _constraints.PercentOfNulls;
+            nullNumericUpDown.ValueChanged += nullNumericUpDown_ValueChanged;
+        }
+
+        private void nullNumericUpDown_ValueChanged(object sender, EventArgs e)
+        {
+            _constraints.PercentOfNulls = (int) nullNumericUpDown.Value;
         }
 
         private void minNumericUpDown_ValueChanged(object sender, EventArgs e)
         {
-            _constraints.MinValue = (long) minNumericUpDown.Value;
+            _constraints.MinValue = (long)minNumericUpDown.Value;
         }
 
         private void maxNumericUpDown_ValueChanged(object sender, EventArgs e)

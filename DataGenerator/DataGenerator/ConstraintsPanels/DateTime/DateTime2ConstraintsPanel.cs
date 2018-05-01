@@ -46,6 +46,8 @@ namespace DataGeneratorGUI.ConstraintsPanels.DateTime
                 nullPercentLabel.Enabled = false;
             }
 
+            nullNumericUpDown.Value = _constraints.PercentOfNulls;
+
             minDatePicker.ValueChanged += minDateTimePicker_ValueChanged;
             maxDatePicker.ValueChanged += maxDateTimePicker_ValueChanged;
             minTimePicker.ValueChanged += minDateTimePicker_ValueChanged;

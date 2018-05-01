@@ -24,9 +24,27 @@ namespace DataGeneratorLibrary.Generators
         public IList<object> Generate(int count)
         {
             var values = new List<object>(count);
-            for (var i = 0; i < count; i++)
+
+            var nullCount = (int) (count * Column.Constraints.PercentOfNulls / 100f);
+
+            for (var i = 0; i < count-nullCount; i++)
             {
                 values.Add(Generate());
+            }
+
+            for (var i = 0; i < nullCount; i++)
+            {
+                //values.Insert(Random.Next(values.Count), DBNull.Value);
+                values.Add(DBNull.Value);
+            }
+            int n = count;
+            while (n > 1)
+            {
+                n--;
+                var k = Random.Next(n + 1);
+                var value = values[k];
+                values[k] = values[n];
+                values[n] = value;
             }
 
             return values;
