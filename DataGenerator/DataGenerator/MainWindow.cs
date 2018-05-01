@@ -6,9 +6,11 @@ using System.Linq;
 using System.Windows.Forms;
 using DataGeneratorGUI.ConstraintsPanels.DateTime;
 using DataGeneratorGUI.ConstraintsPanels.Numerics;
+using DataGeneratorGUI.ConstraintsPanels.Strings;
 using DataGeneratorLibrary;
 using DataGeneratorLibrary.Constrains.DateTime;
 using DataGeneratorLibrary.Constrains.Numerics;
+using DataGeneratorLibrary.Constrains.Strings;
 using DataGeneratorLibrary.Generators;
 
 namespace DataGeneratorGUI
@@ -29,7 +31,7 @@ namespace DataGeneratorGUI
 #if DEBUG
             var connectionString = ConfigurationManager.ConnectionStrings["TestDBConnection"].ConnectionString;
             var dal = new Dal(connectionString);
-            var tablename = "Table_9";
+            var tablename = "Table_6";
 #else
             var connectionString = ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString;
             var dal = new Dal(connectionString);
@@ -97,22 +99,19 @@ namespace DataGeneratorGUI
                         column.Constraints = new DatetimeOffsetConstraints();
                         break;
                     case TSQLDataType.@char:
-                        break;
-                    case TSQLDataType.varchar:
-                        break;
                     case TSQLDataType.nchar:
-                        break;
-                    case TSQLDataType.nvarchar:
-                        break;
                     case TSQLDataType.binary:
-                        break;
-                    case TSQLDataType.varbinary:
-                        break;
-                    case TSQLDataType.ntext:
+                        column.Constraints = new CharConstraints(column.CharMaxLength);
                         break;
                     case TSQLDataType.text:
+                    case TSQLDataType.ntext:
+                    case TSQLDataType.nvarchar:
+                    case TSQLDataType.varchar:
+                        column.Constraints = new VarcharConstraints(column.CharMaxLength);
                         break;
                     case TSQLDataType.image:
+                    case TSQLDataType.varbinary:
+                        column.Constraints = new VarbinaryConstraints(column.CharMaxLength);
                         break;
                     case TSQLDataType.uniqueidentifier:
                         break;
@@ -128,6 +127,7 @@ namespace DataGeneratorGUI
             {
                 var item = new ListViewItem(column.Name);
                 item.SubItems.Add(column.DataType.ToString());
+                item.SubItems.Add(column.Constraints.AllowsNulls.ToString());
                 listView1.Items.Add(item);
             }
         }
@@ -202,23 +202,20 @@ namespace DataGeneratorGUI
                 case TSQLDataType.datetimeoffset:
                     panel = new DateTimeOffsetConstraintsPanel(columnn.Constraints);
                     break;
-                case TSQLDataType.@char:
-                    break;
-                case TSQLDataType.varchar:
-                    break;
                 case TSQLDataType.nchar:
-                    break;
-                case TSQLDataType.nvarchar:
-                    break;
+                case TSQLDataType.@char:
                 case TSQLDataType.binary:
-                    break;
-                case TSQLDataType.varbinary:
-                    break;
-                case TSQLDataType.ntext:
+                    panel = new CharConstraintsPanel(columnn.Constraints);
                     break;
                 case TSQLDataType.text:
+                case TSQLDataType.ntext:
+                case TSQLDataType.varchar:
+                case TSQLDataType.nvarchar:
+                    panel = new VarcharConstraintsPanel(columnn.Constraints);
                     break;
                 case TSQLDataType.image:
+                case TSQLDataType.varbinary:
+                    panel = new VarbinaryConstraintsPanel(columnn.Constraints);
                     break;
                 case TSQLDataType.uniqueidentifier:
                     break;

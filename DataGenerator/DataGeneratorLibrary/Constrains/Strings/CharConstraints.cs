@@ -10,9 +10,12 @@ namespace DataGeneratorLibrary.Constrains.Strings
             set => MaxLengthValue = value;
         }
 
-        public CharConstraints(int maxLength) : base(maxLength)
+        public CharConstraints(int? maxLength) : base(maxLength)
         {
-            MaxPossibleLength = 8000;
+        }
+
+        public CharConstraints()
+        {
         }
     }
 }

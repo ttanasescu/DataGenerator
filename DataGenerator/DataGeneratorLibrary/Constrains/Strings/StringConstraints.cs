@@ -5,10 +5,10 @@ namespace DataGeneratorLibrary.Constrains.Strings
     public class StringConstraints : Constraints
     {
         protected int MinLengthValue = 1;
-        protected int MaxLengthValue;
+        protected int MaxLengthValue = 8000;
 
-        protected int MinPossibleLength = 1;
-        protected int MaxPossibleLength = int.MaxValue;
+        public int MinPossibleLength { get; } = 1;
+        public int MaxPossibleLength { get; set; } = 8000;
 
         public int MaxLength
         {
@@ -22,9 +22,14 @@ namespace DataGeneratorLibrary.Constrains.Strings
             set => MinLengthValue = value;
         }
 
-        public StringConstraints(int maxLength)
+        public StringConstraints(int? maxLength)
         {
-            MaxLength = maxLength;
+            MaxPossibleLength = Extensions.Constrain(maxLength ?? MaxPossibleLength, MinPossibleLength, MaxPossibleLength);
+            MaxLength = MaxPossibleLength;
+        }
+
+        public StringConstraints()
+        {
         }
     }
 }

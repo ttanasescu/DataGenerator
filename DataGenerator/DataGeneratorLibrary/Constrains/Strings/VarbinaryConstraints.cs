@@ -2,7 +2,7 @@
 {
     public class VarbinaryConstraints : VarcharConstraints
     {
-        public VarbinaryConstraints(int maxLength) : base(maxLength)
+        public VarbinaryConstraints(int? maxLength) : base(maxLength)
         {
         }
     }

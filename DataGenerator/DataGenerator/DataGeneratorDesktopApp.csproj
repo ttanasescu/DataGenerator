@@ -121,6 +121,24 @@
     <Compile Include="ConstraintsPanels\Numerics\TinyIntConstraintsPanel.Designer.cs">
       <DependentUpon>TinyIntConstraintsPanel.cs</DependentUpon>
     </Compile>
+    <Compile Include="ConstraintsPanels\Strings\CharConstraintsPanel.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="ConstraintsPanels\Strings\CharConstraintsPanel.designer.cs">
+      <DependentUpon>CharConstraintsPanel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ConstraintsPanels\Strings\VarbinaryConstraintsPanel.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="ConstraintsPanels\Strings\VarbinaryConstraintsPanel.designer.cs">
+      <DependentUpon>VarbinaryConstraintsPanel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ConstraintsPanels\Strings\VarcharConstraintsPanel.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="ConstraintsPanels\Strings\VarcharConstraintsPanel.designer.cs">
+      <DependentUpon>VarcharConstraintsPanel.cs</DependentUpon>
+    </Compile>
     <Compile Include="MainWindow.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -164,6 +182,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="ConstraintsPanels\Numerics\TinyIntConstraintsPanel.resx">
       <DependentUpon>TinyIntConstraintsPanel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ConstraintsPanels\Strings\CharConstraintsPanel.resx">
+      <DependentUpon>CharConstraintsPanel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ConstraintsPanels\Strings\VarbinaryConstraintsPanel.resx">
+      <DependentUpon>VarbinaryConstraintsPanel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ConstraintsPanels\Strings\VarcharConstraintsPanel.resx">
+      <DependentUpon>VarcharConstraintsPanel.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="MainWindow.resx">
       <DependentUpon>MainWindow.cs</DependentUpon>

@@ -2,9 +2,9 @@
 {
     public class NtextConstraints : VarcharConstraints
     {
-        public NtextConstraints(int maxLength = 50) : base(maxLength)
+        public NtextConstraints(int? maxLength) : base(maxLength)
         {
-            MaxPossibleLength = 1073741823;
+            MaxPossibleLength = maxLength ?? 1073741823;
         }
     }
 }

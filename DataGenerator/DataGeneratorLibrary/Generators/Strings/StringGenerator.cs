@@ -39,7 +39,7 @@ namespace DataGeneratorLibrary.Generators.Strings
 
         public override object Generate()
         {
-            var lenght = Random.Next(Constraints.MinLength, Constraints.MaxLength + 1);
+            var lenght = Random.Next(Constraints.MinLength-1, Constraints.MaxLength) + 1;
 
             var chars = new char[lenght];
 
