@@ -113,7 +113,7 @@ namespace DataGeneratorLibrary
             using (var connection = new SqlConnection(ConnectionString))
             {
                 connection.Open();
-                var query = @"TRUNCATE TABLE " + tableName;
+                var query = $@"TRUNCATE TABLE [{tableName}]";
                 using (var command = new SqlCommand(query, connection))
                 {
                     command.ExecuteNonQuery();
@@ -123,7 +123,7 @@ namespace DataGeneratorLibrary
 
         public DataTable GetTable(string table)
         {
-            var query = $@"SELECT * FROM {table}";
+            var query = $@"SELECT * FROM [{table}]";
             return ExecuteQuery(table, query);
         }
 
@@ -134,7 +134,7 @@ namespace DataGeneratorLibrary
                 connection.Open();
                 using (var bulkCopy = new SqlBulkCopy(connection))
                 {
-                    bulkCopy.DestinationTableName = table.TableName;
+                    bulkCopy.DestinationTableName = "["+table.TableName+"]";
 
                     bulkCopy.WriteToServer(table);
                 }
@@ -152,6 +152,7 @@ namespace DataGeneratorLibrary
             {
                 var column = new Column();
 
+                column.Schema = row.Field<string>("TABLE_SCHEMA");
                 column.Name = row.Field<string>("COLUMN_NAME");
                 column.CharMaxLength = row.Field<int?>("CHARACTER_MAXIMUM_LENGTH");
                 column.NumericPrecision = row.Field<byte?>("NUMERIC_PRECISION");
@@ -247,6 +248,7 @@ namespace DataGeneratorLibrary
     public class Column
     {
         public Constrains.Constraints Constraints { get; set; }
+        public string Schema { get; set; }
         public string Name { get; set; }
         public TSQLDataType DataType { get; set; }
         public int? CharMaxLength { get; set; }

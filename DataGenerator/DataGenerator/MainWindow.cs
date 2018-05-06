@@ -10,6 +10,8 @@ using DataGeneratorGUI.ConstraintsPanels.Strings;
 using DataGeneratorLibrary;
 using DataGeneratorLibrary.Generators;
 using System.Data.SqlClient;
+using System.IO;
+using System.Text;
 using DataGeneratorGUI.ConstraintsPanels.Other;
 using DataGeneratorGUI.Forms;
 
@@ -237,6 +239,79 @@ namespace DataGeneratorGUI
                 _table = _dal.GetTable(_tablename);
                 tableDataGridView.DataSource = _table;
             }
+        }
+
+        private void fillDatabaseToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            _dal.ClearTable(_tablename);
+            _dal.SaveTable(_table);
+        }
+
+        private void exportToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void insertsOnlyToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var builder = new StringBuilder();
+            
+            builder.Append("INSERT ");
+            builder.Append($"[{_columns[0].Schema}].[{_tablename}] "); //TODO Schema
+
+            builder.Append("( ");
+            foreach (var column in _columns)
+            {
+                builder.Append($"[{column.Name}], ");
+            }
+
+            if (builder[builder.Length - 1] == ' ')
+            {
+                builder.Length--;
+            }
+
+            if (builder[builder.Length - 1] == ',')
+            {
+                builder.Length--;
+            }
+
+            builder.Append(")");
+
+            var columns = builder.ToString();
+            builder.Clear();
+
+            foreach (DataRow row in _table.Rows)
+            {
+                builder.Append(columns);
+                builder.Append(" VALUES (");
+
+                foreach (var o in row.ItemArray)
+                {
+                    builder.Append($"N\'{o}\', ");
+                }
+
+                if (builder[builder.Length - 1] == ' ')
+                {
+                    builder.Length--;
+                }
+
+                if (builder[builder.Length - 1] == ',')
+                {
+                    builder.Length--;
+                }
+
+                builder.Append(")");
+                builder.Append("\r\n");
+            }
+            
+
+            File.WriteAllText(@"C:\Users\Tudor\Desktop\output.sql", builder.ToString());
+
+        }
+
+        private void withCreateTableToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }
