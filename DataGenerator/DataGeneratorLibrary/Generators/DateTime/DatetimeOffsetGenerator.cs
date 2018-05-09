@@ -1,5 +1,6 @@
 ﻿using System;
 using DataGeneratorLibrary.Constrains.DateTime;
+using DataGeneratorLibrary.DAL;
 
 namespace DataGeneratorLibrary.Generators.DateTime
 {

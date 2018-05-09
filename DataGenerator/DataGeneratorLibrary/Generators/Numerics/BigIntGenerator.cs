@@ -1,5 +1,6 @@
 ﻿using System.Numerics;
 using DataGeneratorLibrary.Constrains.Numerics;
+using DataGeneratorLibrary.DAL;
 
 namespace DataGeneratorLibrary.Generators.Numerics
 {

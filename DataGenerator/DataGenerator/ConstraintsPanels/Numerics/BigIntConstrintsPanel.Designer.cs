@@ -65,7 +65,7 @@
             // 
             this.maxNumericUpDown.Location = new System.Drawing.Point(100, 56);
             this.maxNumericUpDown.Name = "maxNumericUpDown";
-            this.maxNumericUpDown.Size = new System.Drawing.Size(120, 20);
+            this.maxNumericUpDown.Size = new System.Drawing.Size(200, 20);
             this.maxNumericUpDown.TabIndex = 9;
             this.maxNumericUpDown.ValueChanged += new System.EventHandler(this.maxNumericUpDown_ValueChanged);
             // 
@@ -73,7 +73,7 @@
             // 
             this.minNumericUpDown.Location = new System.Drawing.Point(100, 30);
             this.minNumericUpDown.Name = "minNumericUpDown";
-            this.minNumericUpDown.Size = new System.Drawing.Size(120, 20);
+            this.minNumericUpDown.Size = new System.Drawing.Size(200, 20);
             this.minNumericUpDown.TabIndex = 8;
             this.minNumericUpDown.ValueChanged += new System.EventHandler(this.minNumericUpDown_ValueChanged);
             // 
@@ -91,7 +91,7 @@
             this.groupBox1.Size = new System.Drawing.Size(500, 150);
             this.groupBox1.TabIndex = 12;
             this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "Settings";
+            this.groupBox1.Text = "Constraints";
             // 
             // nullPercentLabel
             // 

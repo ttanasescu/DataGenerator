@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using DataGeneratorLibrary.DAL;
 using DataGeneratorLibrary.Generators.DateTime;
 using DataGeneratorLibrary.Generators.Numerics;
 using DataGeneratorLibrary.Generators.Other;

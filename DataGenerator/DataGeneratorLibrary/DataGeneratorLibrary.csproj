@@ -104,12 +104,15 @@
     <Compile Include="Constrains\Other\UniqueIdentifierConstraints.cs" />
     <Compile Include="Constrains\Strings\VarbinaryConstraints.cs" />
     <Compile Include="Constrains\Strings\VarcharConstraints.cs" />
+    <Compile Include="DAL\Column.cs" />
+    <Compile Include="DataExport\Formatter.cs" />
     <Compile Include="Generators\DataTypeGenerator.cs" />
     <Compile Include="Generators\Other\UniqueIdentifierGenerator.cs" />
+    <Compile Include="Generators\Strings\BinaryGenerator.cs" />
     <Compile Include="Helpers\Extensions.cs" />
     <Compile Include="Generators\Numerics\BigIntGenerator.cs" />
     <Compile Include="Generators\Numerics\BitGenerator.cs" />
-    <Compile Include="Dal.cs" />
+    <Compile Include="DAL\Dal.cs" />
     <Compile Include="Generators\DateTime\DateGenerator.cs" />
     <Compile Include="Generators\DateTime\DatetimeOffsetGenerator.cs" />
     <Compile Include="Generators\Numerics\DecimalsGenerator.cs" />
@@ -126,6 +129,8 @@
     <Compile Include="Generators\Numerics\TinyIntGenerator.cs" />
     <Compile Include="Generators\TSQLDataType.cs" />
     <Compile Include="Generators\Strings\StringGenerator.cs" />
+    <Compile Include="DataExport\SQLScriptGeneraor.cs" />
+    <Compile Include="DAL\TableInformation.cs" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Linq;
 using System.Windows.Forms;
-using DataGeneratorLibrary;
+using DataGeneratorLibrary.DAL;
 
 namespace DataGeneratorGUI.Forms
 {
@@ -12,9 +12,9 @@ namespace DataGeneratorGUI.Forms
         public string TableName { get; set; }
         public string ServerName { get; set; }
 
-        public SelectTableForm(Dal dal)
+        public SelectTableForm()
         {
-            _dal = dal;
+            _dal = Dal.Instance;
             InitializeComponent();
         }
 
@@ -35,6 +35,17 @@ namespace DataGeneratorGUI.Forms
             }
 
             root.Expand();
+            if (!string.IsNullOrEmpty(DataBase))
+            {
+                foreach (TreeNode o in root.Nodes)
+                {
+                    if (o.Text == DataBase)
+                    {
+                        o.Expand();
+                    }
+                }
+                
+            }
         }
 
         void OnBeforeExpand(object o, TreeViewCancelEventArgs args)
@@ -43,11 +54,11 @@ namespace DataGeneratorGUI.Forms
             if (node.Nodes.ContainsKey("%dummy%"))
             {
                 node.Nodes.RemoveByKey("%dummy%");
-                _dal.Database = node.Text;
+                _dal.SqlConnectionStringBuilder.InitialCatalog = node.Text;
                 var tables = _dal.GetTables().OrderBy(s => s);
                 foreach (var table in tables)
                 {
-                    node.Nodes.Add("table", table);
+                    node.Nodes.Add(table, table);
                 }
             }
         }

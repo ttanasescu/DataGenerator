@@ -1,5 +1,6 @@
 ﻿using System;
 using DataGeneratorLibrary.Constrains.Other;
+using DataGeneratorLibrary.DAL;
 
 namespace DataGeneratorLibrary.Generators.Other
 {

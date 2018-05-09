@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Data;
+using DataGeneratorLibrary.DAL;
 using DataGeneratorLibrary.Generators;
 
 namespace DataGeneratorLibrary

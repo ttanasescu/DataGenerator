@@ -3,6 +3,7 @@ using System.Configuration;
 using System.Data;
 using DataGeneratorLibrary;
 using DataGeneratorLibrary.Constrains.Numerics;
+using DataGeneratorLibrary.DAL;
 using DataGeneratorLibrary.Generators;
 
 namespace DataGeneratorConsoleApp
@@ -13,7 +14,7 @@ namespace DataGeneratorConsoleApp
         {
 #if DEBUG
             var connectionString = ConfigurationManager.ConnectionStrings["TestDBConnection"].ConnectionString;
-            var dal = new Dal(connectionString);
+            var dal = Dal.Instance;//new Dal(connectionString);
             var tablename = "Table_4";
 #else
             var connectionString = ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString;

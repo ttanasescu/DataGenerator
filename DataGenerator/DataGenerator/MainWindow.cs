@@ -1,32 +1,24 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Data;
-using System.Diagnostics;
 using System.Linq;
 using System.Windows.Forms;
-using DataGeneratorGUI.ConstraintsPanels.DateTime;
-using DataGeneratorGUI.ConstraintsPanels.Numerics;
-using DataGeneratorGUI.ConstraintsPanels.Strings;
 using DataGeneratorLibrary;
 using DataGeneratorLibrary.Generators;
 using System.Data.SqlClient;
-using System.IO;
-using System.Text;
-using DataGeneratorGUI.ConstraintsPanels.Other;
+using DataGeneratorGUI.ConstraintsPanels;
 using DataGeneratorGUI.Forms;
+using DataGeneratorLibrary.DataExport;
+using DataGeneratorLibrary.DAL;
 
 namespace DataGeneratorGUI
 {
     public partial class MainWindow : Form
     {
-        private DataTable _table;
-        private IList<Column> _columns;
-        private Dal _dal;
-        private string _tablename;
-        private string _serverName;
+        private TableInformation TableInformation {get; set; }
 
         public MainWindow()
         {
+            TableInformation = new TableInformation();
             InitializeComponent();
         }
 
@@ -37,6 +29,8 @@ namespace DataGeneratorGUI
 
         private void LoadColums(IList<Column> columns)
         {
+            columnsListView.Items.Clear();
+
             foreach (var column in columns)
             {
                 var item = new ListViewItem(column.Name);
@@ -47,7 +41,9 @@ namespace DataGeneratorGUI
                 {
                     case TSQLDataType.@decimal:
                     case TSQLDataType.numeric:
-                        typeName += $"({column.NumericPrecision}, {column.NumericScale})";
+                        if (column.NumericPrecision != null)
+                            if (column.NumericScale != null)
+                                typeName += $"({column.NumericPrecision}, {column.NumericScale})";
                         break;
                     case TSQLDataType.time:
                     case TSQLDataType.datetime:
@@ -59,14 +55,16 @@ namespace DataGeneratorGUI
                     case TSQLDataType.varchar:
                     case TSQLDataType.nvarchar:
                     case TSQLDataType.varbinary:
-                        typeName += $"({column.CharMaxLength})";
+                        if (column.CharMaxLength != null) typeName += $"({column.CharMaxLength})";
                         break;
                 }
 
                 item.SubItems.Add(typeName);
                 item.SubItems.Add(column.Constraints.AllowsNulls.ToString());
-                listView1.Items.Add(item);
+                columnsListView.Items.Add(item);
             }
+
+            if (columnsListView.Items.Count > 0) columnsListView.Items[0].Selected = true;
         }
 
         private void tableDataGridView_DataBindingComplete(object sender, DataGridViewBindingCompleteEventArgs e)
@@ -80,101 +78,30 @@ namespace DataGeneratorGUI
             }
         }
 
-        private void listView1_SelectedIndexChanged(object sender, EventArgs e)
+        private void tablesListView_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (!(sender is ListView listView)) return;
-            if (listView.SelectedItems.Count == 0) return;
+            if (!(sender is ListView tablesListView)) return;
+            if (tablesListView.SelectedItems.Count == 0) return;
 
-            string name = listView.SelectedItems[0].Text;
+            var name = tablesListView.SelectedItems[0].Text;
 
-            var currentColumn = _columns.Single(column => column.Name == name);
+            var currentColumn = TableInformation.Columns.Single(column => column.Name == name);
 
-            UserControl panel;
-
-            switch (currentColumn.DataType)
-            {
-                case TSQLDataType.bigint:
-                    panel = new BigIntConstrintsPanel(currentColumn.Constraints);
-                    break;
-                case TSQLDataType.@int:
-                    panel = new IntConstraintsPanel(currentColumn.Constraints);
-                    break;
-                case TSQLDataType.tinyint:
-                    panel = new TinyIntConstraintsPanel(currentColumn.Constraints);
-                    break;
-                case TSQLDataType.smallint:
-                    panel = new SmallIntConstraintsPanel(currentColumn.Constraints);
-                    break;
-                case TSQLDataType.numeric:
-                case TSQLDataType.@decimal:
-                    panel = new DecimalConstraintsPanel(currentColumn.Constraints);
-                    break;
-                case TSQLDataType.bit:
-                    panel = new BitConstraintsPanel(currentColumn.Constraints);
-                    break;
-                case TSQLDataType.@float:
-                    panel = new FloatConstraintsPanel(currentColumn.Constraints);
-                    break;
-                case TSQLDataType.real:
-                    panel = new RealConstraintsPanel(currentColumn.Constraints);
-                    break;
-                case TSQLDataType.smallmoney:
-                    panel = new DecimalConstraintsPanel(currentColumn.Constraints);
-                    break;
-                case TSQLDataType.money:
-                    panel = new DecimalConstraintsPanel(currentColumn.Constraints);
-                    break;
-                case TSQLDataType.time:
-                    panel = new TimeConstraintsPanel(currentColumn.Constraints);
-                    break;
-                case TSQLDataType.date:
-                    panel = new DateConstraintsPanel(currentColumn.Constraints);
-                    break;
-                case TSQLDataType.datetime:
-                case TSQLDataType.datetime2:
-                    panel = new DateTime2ConstraintsPanel(currentColumn.Constraints);
-                    break;
-                case TSQLDataType.smalldatetime:
-                    panel = new SmallDatetimeConstraintsPanel(currentColumn.Constraints);
-                    break;
-                case TSQLDataType.datetimeoffset:
-                    panel = new DateTimeOffsetConstraintsPanel(currentColumn.Constraints);
-                    break;
-                case TSQLDataType.nchar:
-                case TSQLDataType.@char:
-                case TSQLDataType.binary:
-                    panel = new CharConstraintsPanel(currentColumn.Constraints);
-                    break;
-                case TSQLDataType.text:
-                case TSQLDataType.ntext:
-                case TSQLDataType.varchar:
-                case TSQLDataType.nvarchar:
-                    panel = new VarcharConstraintsPanel(currentColumn.Constraints);
-                    break;
-                case TSQLDataType.image:
-                case TSQLDataType.varbinary:
-                    panel = new VarbinaryConstraintsPanel(currentColumn.Constraints);
-                    break;
-                case TSQLDataType.uniqueidentifier:
-                    panel = new UniqueIdentifierConstraintsPanel(currentColumn.Constraints);
-                    break;
-                default:
-                    throw new ArgumentOutOfRangeException();
-            }
+            var panel = PanelProvider.GetPanel(currentColumn);
             splitContainer2.Panel1.Controls.Clear();
             splitContainer2.Panel1.Controls.Add(panel);
         }
 
         private void generateToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (string.IsNullOrEmpty(_serverName?.Trim() ?? _serverName))
+            if (string.IsNullOrEmpty(TableInformation.ServerName?.Trim() ?? TableInformation.ServerName))
             {
                 System.Media.SystemSounds.Asterisk.Play();
                 connectToDatabaseToolStripMenuItem_Click(null, null);
                 return;
             }
 
-            if (string.IsNullOrEmpty(_tablename?.Trim() ?? _tablename))
+            if (string.IsNullOrEmpty(TableInformation.Tablename?.Trim() ?? TableInformation.Tablename))
             {
                 System.Media.SystemSounds.Asterisk.Play();
                 selectTableToolStripMenuItem_Click(null, null);
@@ -183,7 +110,7 @@ namespace DataGeneratorGUI
 
             var generator = new Generator();
 
-            generator.FillTable(_table, _columns, 10, false);
+            generator.FillTable(TableInformation.Table, TableInformation.Columns, (int) rowCountUpDown.Value, false);
         }
 
         private void connectToDatabaseToolStripMenuItem_Click(object sender, EventArgs e)
@@ -192,11 +119,6 @@ namespace DataGeneratorGUI
             var result = form.ShowDialog(this);
             if (result == DialogResult.OK)
             {
-                Debug.WriteLine(form.ServerName);
-                Debug.WriteLine(form.WindowsAuthentication);
-                Debug.WriteLine(form.UserName);
-                Debug.WriteLine(form.Password);
-
                 var builder = new SqlConnectionStringBuilder
                 {
                     Password = form.Password,
@@ -204,114 +126,96 @@ namespace DataGeneratorGUI
                     DataSource = form.ServerName,
                     IntegratedSecurity = form.WindowsAuthentication
                 };
-                
-                _dal = new Dal(builder.ConnectionString);
 
-                _serverName = _dal.GetServerName();
-                Text = $@"DataGenerator - {_serverName}";
+                Dal.Instance.SetConnectionSctring(builder.ConnectionString);
 
+                TableInformation.ServerName = Dal.Instance.GetServerName();
+                Text = $@"DataGenerator - {TableInformation.ServerName}";
                 selectTableToolStripMenuItem_Click(null, null);
             }
         }
 
         private void selectTableToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (string.IsNullOrEmpty(_serverName?.Trim() ?? _serverName))
+            if (string.IsNullOrEmpty(TableInformation.ServerName?.Trim() ?? TableInformation.ServerName))
             {
                 System.Media.SystemSounds.Asterisk.Play();
                 connectToDatabaseToolStripMenuItem_Click(null, null);
                 return;
             }
 
-            var form = new SelectTableForm(_dal) {ServerName = _serverName};
+            var form = new SelectTableForm {ServerName = TableInformation.ServerName, DataBase = TableInformation.Database, TableName = TableInformation.Tablename};
 
             var result = form.ShowDialog(this);
             if (result == DialogResult.OK)
             {
-                _dal.Database = form.DataBase;
-                _tablename = form.TableName;
+                TableInformation.Database = form.DataBase;
+                TableInformation.Tablename = form.TableName;
 
-                Text = $@"DataGenerator - {_serverName}\{form.DataBase}\{_tablename}";
+                Text = $@"DataGenerator - {TableInformation.ServerName}\{form.DataBase}\{TableInformation.Tablename}";
+
                 
-                _columns = _dal.GetTableInformation(_tablename);
-                LoadColums(_columns);
+                TableInformation.Columns = Dal.Instance.GetTableInformation(TableInformation.Tablename);
+                LoadColums(TableInformation.Columns);
 
-                _table = _dal.GetTable(_tablename);
-                tableDataGridView.DataSource = _table;
+                TableInformation.Table = Dal.Instance.GetTable(TableInformation.Tablename);
+                tableDataGridView.DataSource = TableInformation.Table;
             }
         }
 
         private void fillDatabaseToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            _dal.ClearTable(_tablename);
-            _dal.SaveTable(_table);
-        }
-
-        private void exportToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-
+            try
+            {
+                Dal.Instance.ClearTable(TableInformation.Tablename);
+                Dal.Instance.SaveTable(TableInformation.Table);
+                MessageBox.Show(@"Data successfuly loaded to DataBase!", @"Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            catch (Exception)
+            {
+                MessageBox.Show(@"Could not save date to DataBase.", @"Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         private void insertsOnlyToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            var builder = new StringBuilder();
-            
-            builder.Append("INSERT ");
-            builder.Append($"[{_columns[0].Schema}].[{_tablename}] "); //TODO Schema
-
-            builder.Append("( ");
-            foreach (var column in _columns)
+            var dialog = new SaveFileDialog
             {
-                builder.Append($"[{column.Name}], ");
-            }
-
-            if (builder[builder.Length - 1] == ' ')
+                Filter = @"Sql|*.sql",
+                Title = @"Save Sql script"
+            };
+            var dialogResult = dialog.ShowDialog();
+            if (dialogResult == DialogResult.OK)
             {
-                builder.Length--;
-            }
-
-            if (builder[builder.Length - 1] == ',')
-            {
-                builder.Length--;
-            }
-
-            builder.Append(")");
-
-            var columns = builder.ToString();
-            builder.Clear();
-
-            foreach (DataRow row in _table.Rows)
-            {
-                builder.Append(columns);
-                builder.Append(" VALUES (");
-
-                foreach (var o in row.ItemArray)
+                if (dialog.FileName != "")
                 {
-                    builder.Append($"N\'{o}\', ");
+                    SqlScriptGeneraor.Generate(TableInformation, false, dialog.FileName);
                 }
-
-                if (builder[builder.Length - 1] == ' ')
-                {
-                    builder.Length--;
-                }
-
-                if (builder[builder.Length - 1] == ',')
-                {
-                    builder.Length--;
-                }
-
-                builder.Append(")");
-                builder.Append("\r\n");
             }
-            
-
-            File.WriteAllText(@"C:\Users\Tudor\Desktop\output.sql", builder.ToString());
-
         }
 
         private void withCreateTableToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            var dialog = new SaveFileDialog
+            {
+                Filter = @"Sql|*.sql",
+                Title = @"Save Sql script"
+            };
+            var dialogResult = dialog.ShowDialog();
+            if (dialogResult == DialogResult.OK)
+            {
+                if (dialog.FileName != "")
+                {
+                    SqlScriptGeneraor.Generate(TableInformation, true, dialog.FileName);
+                }
+            }
+        }
 
+        private void tableDataGridView_DataError(object sender, DataGridViewDataErrorEventArgs e) { }
+
+        private void aboutToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show("SQL Server Data Generator\r\nTănăsescu Tudor\r\n2018", @"About", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
     }
 }

@@ -8,50 +8,31 @@ using DataGeneratorLibrary.Constrains.Other;
 using DataGeneratorLibrary.Constrains.Strings;
 using DataGeneratorLibrary.Generators;
 
-namespace DataGeneratorLibrary
+namespace DataGeneratorLibrary.DAL
 {
-    public class Dal
+    public sealed class Dal
     {
-        //TODO: Singleton
+        private static readonly Lazy<Dal> Lazy = new Lazy<Dal>(() => new Dal());
 
-        private readonly string _server;
-        private string _database;
-        private readonly string _username;
-        private readonly string _password;
-        private readonly string _connectionString;
+        public static Dal Instance => Lazy.Value;
 
-        public string ConnectionString
+        private Dal()
         {
-            get => _connectionString == null
-                ? $"DataBase={_database};" +
-                  $"Server={_server};" +
-                  $"User Id={_username};" +
-                  $"Password={_password}"
-                : (_database != null ? $"DataBase={_database};" + _connectionString : _connectionString);
         }
 
-        public string Database
-        {
-            set => _database = value;
-        }
+        private string ConnectionString => SqlConnectionStringBuilder.ConnectionString;
 
-        public Dal(string connectionString)
-        {
-            _connectionString = connectionString;
-        }
+        public SqlConnectionStringBuilder SqlConnectionStringBuilder { get; set; }
 
-        public Dal(string server, string database, string username, string password)
+        public void SetConnectionSctring(string connectionString)
         {
-            _server = server;
-            _database = database;
-            _username = username;
-            _password = password;
+            SqlConnectionStringBuilder = new SqlConnectionStringBuilder(connectionString);
         }
 
         private DataTable ExecuteQuery(string table, string query)
         {
             var dataTable = new DataTable(table);
-            using (var connection = new SqlConnection(ConnectionString))
+            using (var connection = new SqlConnection(SqlConnectionStringBuilder.ConnectionString))
             {
                 connection.Open();
                 using (var command = new SqlCommand(query, connection))
@@ -162,6 +143,8 @@ namespace DataGeneratorLibrary
                 Enum.TryParse(row.Field<string>("DATA_TYPE"), out TSQLDataType dataType);
                 column.DataType = dataType;
 
+                column.OdinalPosition = row.Field<int>("ORDINAL_POSITION");
+
                 switch (column.DataType)
                 {
                     case TSQLDataType.@int:
@@ -243,17 +226,5 @@ namespace DataGeneratorLibrary
 
             return columnPropertieses;
         }
-    }
-
-    public class Column
-    {
-        public Constrains.Constraints Constraints { get; set; }
-        public string Schema { get; set; }
-        public string Name { get; set; }
-        public TSQLDataType DataType { get; set; }
-        public int? CharMaxLength { get; set; }
-        public byte? NumericPrecision { get; set; }
-        public short? NumericPrecisionRadix { get; set; }
-        public int? NumericScale { get; set; }
     }
 }

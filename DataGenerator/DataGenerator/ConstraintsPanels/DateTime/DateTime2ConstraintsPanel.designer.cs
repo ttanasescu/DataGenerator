@@ -79,7 +79,7 @@
             this.groupBox1.Size = new System.Drawing.Size(500, 150);
             this.groupBox1.TabIndex = 8;
             this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "Settings";
+            this.groupBox1.Text = "Constraints";
             // 
             // maxTimePicker
             // 
