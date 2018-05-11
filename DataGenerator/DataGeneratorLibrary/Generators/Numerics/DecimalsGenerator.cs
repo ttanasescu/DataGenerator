@@ -26,6 +26,11 @@ namespace DataGeneratorLibrary.Generators.Numerics
             var minValue = Constraints.MinValue;
             var maxValue = Constraints.MaxValue;
 
+            if (minValue == maxValue)
+            {
+                return minValue;
+            }
+
             var minValueScale = new SqlDecimal(minValue).Scale;
             var maxValueScale = new SqlDecimal(maxValue).Scale;
 

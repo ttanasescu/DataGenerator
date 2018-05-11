@@ -16,7 +16,7 @@ namespace DataGeneratorLibrary.Constrains.DateTime
         public DatetimeOffsetConstraints()
         {
             MinDatetime = new DateTimeOffset(System.DateTime.UtcNow);
-            MaxDatetime = new DateTimeOffset(System.DateTime.UtcNow);
+            MaxDatetime = new DateTimeOffset(System.DateTime.UtcNow.AddDays(7));
 
             MinPossibleDatetime = DateTimeOffset.MinValue;
             MaxPossibleDatetime = DateTimeOffset.MaxValue;

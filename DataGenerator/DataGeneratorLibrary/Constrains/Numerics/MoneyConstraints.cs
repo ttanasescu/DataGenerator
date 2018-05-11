@@ -1,42 +1,29 @@
-﻿namespace DataGeneratorLibrary.Constrains.Numerics
+﻿using DataGeneratorLibrary.Helpers;
+
+namespace DataGeneratorLibrary.Constrains.Numerics
 {
     public class MoneyConstraints : DecimalConstraints
     {
         private decimal _minValue ;
-        private decimal _maxValue = 922337203685477.5807m;
+        private decimal _maxValue;
 
         public override decimal MinValue
         {
             get => _minValue;
-            set
-            {
-                if (value >= -922337203685477.5808m)
-                {
-                    _minValue = value <= MaxValue ? value : MaxValue;
-                }
-                else
-                    _minValue = -922337203685477.5808m;
-            }
+            set => _minValue = Extensions.Constrain(value, MinPossibleValue, MaxPossibleValue);
         }
 
         public override decimal MaxValue
         {
             get => _maxValue;
-            set
-            {
-                if (value <= 922337203685477.5807m)
-                {
-                    _maxValue = value >= MinValue ? value : MinValue;
-                }
-
-                _maxValue = 922337203685477.5807m;
-            }
+            set => _maxValue = Extensions.Constrain(value, MinPossibleValue, MaxPossibleValue);
         }
 
         public MoneyConstraints()
         {
-            MaxPossibleValue = -922337203685477.5808m;
-            MinPossibleValue = 922337203685477.5807m;
+            MinPossibleValue = -922337203685477.5808m;
+            MaxPossibleValue = 922337203685477.5807m;
+            _maxValue = 20000.001m;
         }
 
     }

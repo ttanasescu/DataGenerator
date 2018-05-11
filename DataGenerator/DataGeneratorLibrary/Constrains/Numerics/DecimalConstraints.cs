@@ -5,7 +5,7 @@ namespace DataGeneratorLibrary.Constrains.Numerics
     public class DecimalConstraints : NumericConstraints<decimal>
     {
         private decimal _minValue;
-        private decimal _maxValue = decimal.MaxValue;
+        private decimal _maxValue;
 
         public virtual decimal MinValue
         {
@@ -21,6 +21,7 @@ namespace DataGeneratorLibrary.Constrains.Numerics
 
         public DecimalConstraints(byte precision, int scale)
         {
+            _maxValue = 10000.100m;
             if (precision > 38 || precision < 0)
             {
                 throw new ArgumentOutOfRangeException(precision.ToString());
@@ -45,6 +46,7 @@ namespace DataGeneratorLibrary.Constrains.Numerics
         {
             MaxPossibleValue = decimal.MaxValue;
             MinPossibleValue = decimal.MinValue;
+            _maxValue = 10000.100m;
         }
     }
 }

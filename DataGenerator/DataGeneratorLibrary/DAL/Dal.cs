@@ -164,9 +164,9 @@ namespace DataGeneratorLibrary.DAL
                         break;
                     case TSQLDataType.numeric:
                     case TSQLDataType.@decimal:
-                        column.Constraints = column.NumericPrecision != null && column.NumericScale != null
+                        column.Constraints = /*column.NumericPrecision != null && column.NumericScale != null
                             ? new DecimalConstraints(column.NumericPrecision.Value, column.NumericScale.Value)
-                            : new DecimalConstraints();
+                            :*/ new DecimalConstraints();
                         //column.constrains = new DecimalConstrains(column.NumericPrecision, column.NumericScale);
                         break;
                     case TSQLDataType.bit:
