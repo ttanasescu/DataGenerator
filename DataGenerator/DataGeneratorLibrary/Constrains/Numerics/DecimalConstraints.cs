@@ -4,7 +4,7 @@ namespace DataGeneratorLibrary.Constrains.Numerics
 {
     public class DecimalConstraints : NumericConstraints<decimal>
     {
-        private decimal _minValue = decimal.MinValue;
+        private decimal _minValue;
         private decimal _maxValue = decimal.MaxValue;
 
         public virtual decimal MinValue

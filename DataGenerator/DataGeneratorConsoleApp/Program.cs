@@ -18,7 +18,7 @@ namespace DataGeneratorConsoleApp
             var tablename = "Table_4";
 #else
             var connectionString = ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString;
-            var dal = new Dal(connectionString);
+            var dal = Dal.Instance;//new Dal(connectionString);
             GetDatabaseName(dal);
             var tablename = GetTableName(dal);
 #endif
@@ -128,7 +128,7 @@ namespace DataGeneratorConsoleApp
                 database = Console.ReadLine();
             }
 
-            dal.Database = database;
+            dal.SqlConnectionStringBuilder.InitialCatalog = database;
         }
 #endif
     }

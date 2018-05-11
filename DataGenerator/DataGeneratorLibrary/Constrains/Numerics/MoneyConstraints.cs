@@ -2,7 +2,7 @@
 {
     public class MoneyConstraints : DecimalConstraints
     {
-        private decimal _minValue = -922337203685477.5808m;
+        private decimal _minValue ;
         private decimal _maxValue = 922337203685477.5807m;
 
         public override decimal MinValue
@@ -32,5 +32,12 @@
                 _maxValue = 922337203685477.5807m;
             }
         }
+
+        public MoneyConstraints()
+        {
+            MaxPossibleValue = -922337203685477.5808m;
+            MinPossibleValue = 922337203685477.5807m;
+        }
+
     }
 }
