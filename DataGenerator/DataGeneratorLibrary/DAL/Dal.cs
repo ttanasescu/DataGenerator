@@ -164,9 +164,9 @@ namespace DataGeneratorLibrary.DAL
                         break;
                     case TSQLDataType.numeric:
                     case TSQLDataType.@decimal:
-                        column.Constraints = /*column.NumericPrecision != null && column.NumericScale != null
+                        column.Constraints = column.NumericPrecision != null && column.NumericScale != null
                             ? new DecimalConstraints(column.NumericPrecision.Value, column.NumericScale.Value)
-                            :*/ new DecimalConstraints();
+                            : new DecimalConstraints();
                         //column.constrains = new DecimalConstrains(column.NumericPrecision, column.NumericScale);
                         break;
                     case TSQLDataType.bit:
@@ -197,9 +197,11 @@ namespace DataGeneratorLibrary.DAL
                     case TSQLDataType.datetimeoffset:
                         column.Constraints = new DatetimeOffsetConstraints();
                         break;
+                    case TSQLDataType.binary:
+                        column.Constraints = new BinaryConstraints(column.CharMaxLength);
+                        break;
                     case TSQLDataType.@char:
                     case TSQLDataType.nchar:
-                    case TSQLDataType.binary:
                         column.Constraints = new CharConstraints(column.CharMaxLength);
                         break;
                     case TSQLDataType.text:

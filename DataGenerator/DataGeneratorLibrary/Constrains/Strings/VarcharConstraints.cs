@@ -11,9 +11,5 @@ namespace DataGeneratorLibrary.Constrains.Strings
         {
             //MaxPossibleLength = 8000;
         }
-
-        public VarcharConstraints()
-        {
-        }
     }
 }

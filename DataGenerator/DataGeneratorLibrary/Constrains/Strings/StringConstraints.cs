@@ -12,13 +12,13 @@ namespace DataGeneratorLibrary.Constrains.Strings
 
         public int MaxLength
         {
-            get => MaxLengthValue;
+            get => Extensions.Constrain(MaxLengthValue, MinPossibleLength, MaxPossibleLength);
             set => MaxLengthValue = Extensions.Constrain(value, MinPossibleLength, MaxPossibleLength);
         }
 
         public virtual int MinLength
         {
-            get => MinLengthValue;
+            get => Extensions.Constrain(MinLengthValue, MinPossibleLength, MaxPossibleLength);
             set => MinLengthValue = Extensions.Constrain(value, MinPossibleLength, MaxPossibleLength);
         }
 

@@ -2,8 +2,9 @@
 {
     public class BinaryConstraints : CharConstraints
     {
-        public BinaryConstraints(int maxLength) : base(maxLength)
+        public BinaryConstraints(int? maxLength) : base(maxLength)
         {
+            MaxPossibleLength = maxLength ?? 8000;
         }
     }
 }

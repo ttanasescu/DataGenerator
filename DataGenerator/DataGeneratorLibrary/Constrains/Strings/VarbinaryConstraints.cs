@@ -4,6 +4,7 @@
     {
         public VarbinaryConstraints(int? maxLength) : base(maxLength)
         {
+            MaxPossibleLength = maxLength ?? 8000;
         }
     }
 }
