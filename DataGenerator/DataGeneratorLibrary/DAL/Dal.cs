@@ -203,9 +203,13 @@ namespace DataGeneratorLibrary.DAL
                         column.Constraints = new CharConstraints(column.CharMaxLength);
                         break;
                     case TSQLDataType.text:
+                        column.Constraints = new TextConstraints(column.CharMaxLength);
+                        break;
                     case TSQLDataType.ntext:
-                    case TSQLDataType.nvarchar:
+                        column.Constraints = new NtextConstraints(column.CharMaxLength);
+                        break;
                     case TSQLDataType.varchar:
+                    case TSQLDataType.nvarchar:
                         column.Constraints = new VarcharConstraints(column.CharMaxLength);
                         break;
                     case TSQLDataType.image:

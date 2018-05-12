@@ -2,9 +2,9 @@
 {
     public class TextConstraints : VarcharConstraints
     {
-        public TextConstraints(int maxLength = 50) : base(maxLength)
+        public TextConstraints(int? maxLength) : base(maxLength)
         {
-            MaxPossibleLength = 2147483647;
+            MaxPossibleLength = maxLength ?? 2147483647;
         }
     }
 }

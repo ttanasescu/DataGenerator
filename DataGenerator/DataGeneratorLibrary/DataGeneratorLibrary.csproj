@@ -106,9 +106,11 @@
     <Compile Include="Constrains\Strings\VarcharConstraints.cs" />
     <Compile Include="DAL\Column.cs" />
     <Compile Include="DataExport\Formatter.cs" />
+    <Compile Include="DataSources\TemplateDataEnum.cs" />
     <Compile Include="Generators\DataTypeGenerator.cs" />
     <Compile Include="Generators\Other\UniqueIdentifierGenerator.cs" />
     <Compile Include="Generators\Strings\BinaryGenerator.cs" />
+    <Compile Include="Generators\Strings\VarCharGenerator.cs" />
     <Compile Include="Helpers\Extensions.cs" />
     <Compile Include="Generators\Numerics\BigIntGenerator.cs" />
     <Compile Include="Generators\Numerics\BitGenerator.cs" />
@@ -132,6 +134,16 @@
     <Compile Include="DataExport\SQLScriptGeneraor.cs" />
     <Compile Include="DAL\TableInformation.cs" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Content Include="DataSources\Cities.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="DataSources\Countries.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="DataSources\Names.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -110,13 +110,15 @@ namespace DataGeneratorLibrary.Generators
                 case TSQLDataType.datetimeoffset:
                     return new DatetimeOffsetGenerator(column);
                     
+                case TSQLDataType.@char:
+                case TSQLDataType.nchar:
+                    return new StringGenerator(column);
+
                 case TSQLDataType.text:
                 case TSQLDataType.ntext:
-                case TSQLDataType.@char:
                 case TSQLDataType.varchar:
-                case TSQLDataType.nchar:
                 case TSQLDataType.nvarchar:
-                    return new StringGenerator(column);
+                    return new VarCharGenerator(column);
 
                 case TSQLDataType.image:
                 case TSQLDataType.binary:

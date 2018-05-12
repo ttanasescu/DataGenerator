@@ -165,16 +165,16 @@ namespace DataGeneratorGUI
 
         private void fillDatabaseToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            try
-            {
+//            try
+//            {
                 Dal.Instance.ClearTable(TableInformation.Tablename);
                 Dal.Instance.SaveTable(TableInformation.Table);
                 MessageBox.Show(@"Data successfuly loaded to DataBase!", @"Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            }
-            catch (Exception)
-            {
-                MessageBox.Show(@"Could not save date to DataBase.", @"Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
+//            }
+//            catch (Exception)
+//            {
+//                MessageBox.Show(@"Could not save date to DataBase.", @"Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+//            }
         }
 
         private void insertsOnlyToolStripMenuItem_Click(object sender, EventArgs e)

@@ -2,6 +2,7 @@
 using System.Windows.Forms;
 using DataGeneratorLibrary.Constrains;
 using DataGeneratorLibrary.Constrains.Strings;
+using DataGeneratorLibrary.DataSources;
 
 namespace DataGeneratorGUI.ConstraintsPanels.Strings
 {
@@ -43,6 +44,7 @@ namespace DataGeneratorGUI.ConstraintsPanels.Strings
             }
 
             nullNumericUpDown.Value = _constraints.PercentOfNulls;
+            templatesComboBox.DataSource = Enum.GetValues(typeof(TemplateDataEnum));
         }
 
         private void minNumericUpDown_ValueChanged(object sender, EventArgs e)
@@ -58,6 +60,37 @@ namespace DataGeneratorGUI.ConstraintsPanels.Strings
         private void nullNumericUpDown_ValueChanged(object sender, EventArgs e)
         {
             _constraints.PercentOfNulls = (int) nullNumericUpDown.Value;
+        }
+
+        private void useTemplateCheckBox_CheckedChanged(object sender, EventArgs e)
+        {
+            if (useTemplateCheckBox.Checked)
+            {
+                minNumericUpDown.Enabled = false;
+                maxNumericUpDown.Enabled = false;
+                minLenghtLabel.Enabled = false;
+                maxLenghtLabel.Enabled = false;
+
+                templatesComboBox.Enabled = true;
+                _constraints.UseTemplateData = true;
+            }
+            else
+            {
+                minNumericUpDown.Enabled = true;
+                maxNumericUpDown.Enabled = true;
+                minLenghtLabel.Enabled = true;
+                maxLenghtLabel.Enabled = true;
+
+                templatesComboBox.Enabled = false;
+                _constraints.UseTemplateData = false;
+            }
+        }
+
+        private void templatesComboBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            Enum.TryParse(templatesComboBox.SelectedValue.ToString(), out TemplateDataEnum template);
+
+            _constraints.TemplateData = template;
         }
     }
 }
