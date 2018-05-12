@@ -106,6 +106,7 @@
             this.tableDataGridView.RowTemplate.ReadOnly = true;
             this.tableDataGridView.Size = new System.Drawing.Size(965, 417);
             this.tableDataGridView.TabIndex = 0;
+            this.tableDataGridView.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.tableDataGridView_CellFormatting);
             this.tableDataGridView.DataBindingComplete += new System.Windows.Forms.DataGridViewBindingCompleteEventHandler(this.tableDataGridView_DataBindingComplete);
             this.tableDataGridView.DataError += new System.Windows.Forms.DataGridViewDataErrorEventHandler(this.tableDataGridView_DataError);
             // 

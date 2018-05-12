@@ -144,7 +144,12 @@ namespace DataGeneratorGUI
                 return;
             }
 
-            var form = new SelectTableForm {ServerName = TableInformation.ServerName, DataBase = TableInformation.Database, TableName = TableInformation.Tablename};
+            var form = new SelectTableForm
+            {
+                ServerName = TableInformation.ServerName,
+                DataBase = TableInformation.Database,
+                TableName = TableInformation.Tablename
+            };
 
             var result = form.ShowDialog(this);
             if (result == DialogResult.OK)
@@ -154,27 +159,61 @@ namespace DataGeneratorGUI
 
                 Text = $@"DataGenerator - {TableInformation.ServerName}\{form.DataBase}\{TableInformation.Tablename}";
 
-                
+
                 TableInformation.Columns = Dal.Instance.GetTableInformation(TableInformation.Tablename);
                 LoadColums(TableInformation.Columns);
 
                 TableInformation.Table = Dal.Instance.GetTable(TableInformation.Tablename);
+
+                tableDataGridView.DataBindingComplete += OnDataBindingComplete;
+
                 tableDataGridView.DataSource = TableInformation.Table;
+            }
+        }
+
+        private void OnDataBindingComplete(object o, DataGridViewBindingCompleteEventArgs args)
+        {
+            for (var i = 0; i < tableDataGridView.Columns.Count; i++)
+            {
+                object column = tableDataGridView.Columns[i];
+                if (column is DataGridViewImageColumn imageColumn)
+                {
+                    var textBoxColumn = new DataGridViewTextBoxColumn
+                    {
+                        Name = imageColumn.Name+"_textBox",
+                        DisplayIndex = imageColumn.DisplayIndex,
+                        HeaderText = imageColumn.HeaderText,
+                        DataPropertyName = imageColumn.Name + "_textBox",
+                                           ReadOnly = imageColumn.ReadOnly
+                    };
+                    
+                    tableDataGridView.Columns.Add(textBoxColumn);
+
+                    for (var index = 0; index < TableInformation.Table.Rows.Count; index++)
+                    {
+                        tableDataGridView.Rows[index].Cells[textBoxColumn.Name].Value =
+                            TableInformation.Table.Rows[index][imageColumn.Name];
+                    }
+
+                    tableDataGridView.Columns.Remove(imageColumn.Name);
+                    textBoxColumn.Name = textBoxColumn.Name.Replace("_textBox", "");
+                    textBoxColumn.DataPropertyName = textBoxColumn.Name;
+                }
             }
         }
 
         private void fillDatabaseToolStripMenuItem_Click(object sender, EventArgs e)
         {
-//            try
-//            {
+            try
+            {
                 Dal.Instance.ClearTable(TableInformation.Tablename);
                 Dal.Instance.SaveTable(TableInformation.Table);
                 MessageBox.Show(@"Data successfuly loaded to DataBase!", @"Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
-//            }
-//            catch (Exception)
-//            {
-//                MessageBox.Show(@"Could not save date to DataBase.", @"Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-//            }
+            }
+            catch (Exception)
+            {
+                MessageBox.Show(@"Could not save date to DataBase.", @"Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         private void insertsOnlyToolStripMenuItem_Click(object sender, EventArgs e)
@@ -216,6 +255,28 @@ namespace DataGeneratorGUI
         private void aboutToolStripMenuItem_Click(object sender, EventArgs e)
         {
             MessageBox.Show("SQL Server Data Generator\r\nTănăsescu Tudor\r\n2018", @"About", MessageBoxButtons.OK, MessageBoxIcon.Information);
+        }
+
+        private void tableDataGridView_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
+        {
+            if (e.Value is byte[] array)
+            {
+                var s = tableDataGridView.Columns;
+                var str = "0x";
+
+                foreach (byte b in array)
+                {
+                    str += $"{b:X}";
+                }
+
+                e.Value = str;
+
+                e.FormattingApplied = true;
+            }
+            else
+            {
+                e.FormattingApplied = false;
+            }
         }
     }
 }
