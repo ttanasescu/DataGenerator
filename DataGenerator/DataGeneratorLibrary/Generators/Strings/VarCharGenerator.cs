@@ -43,7 +43,14 @@ namespace DataGeneratorLibrary.Generators.Strings
 
             var lines = File.ReadAllLines(templateFileName);
             var lineNumber = Random.Next(0, lines.Length - 1);
-            return lines[lineNumber];
+            var str = lines[lineNumber];
+
+            if (str.Length>Constraints.MaxLength)
+            {
+                return str.Substring(0, Constraints.MaxLength);
+            }
+
+            return str;
         }
 
         private object GenerateRandomString()
