@@ -33,7 +33,6 @@ namespace DataGeneratorGUI.ConstraintsPanels.Strings
             minNumericUpDown.Value = _constraints.MinLength;
             maxNumericUpDown.Value = _constraints.MaxLength;
 
-
             minNumericUpDown.ValueChanged += minNumericUpDown_ValueChanged;
             maxNumericUpDown.ValueChanged += maxNumericUpDown_ValueChanged;
 

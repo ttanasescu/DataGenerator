@@ -27,92 +27,6 @@ namespace DataGeneratorGUI
             connectToDatabaseToolStripMenuItem_Click(null, null);
         }
 
-        private void LoadColums(IList<Column> columns)
-        {
-            columnsListView.Items.Clear();
-
-            foreach (var column in columns)
-            {
-                var item = new ListViewItem(column.Name);
-
-                var typeName = column.DataType.ToString();
-
-                switch (column.DataType)
-                {
-                    case TSQLDataType.@decimal:
-                    case TSQLDataType.numeric:
-                        if (column.NumericPrecision != null)
-                            if (column.NumericScale != null)
-                                typeName += $"({column.NumericPrecision}, {column.NumericScale})";
-                        break;
-                    case TSQLDataType.time:
-                    case TSQLDataType.datetime:
-                    case TSQLDataType.datetime2:
-                    case TSQLDataType.datetimeoffset:
-                    case TSQLDataType.@char:
-                    case TSQLDataType.nchar:
-                    case TSQLDataType.binary:
-                    case TSQLDataType.varchar:
-                    case TSQLDataType.nvarchar:
-                    case TSQLDataType.varbinary:
-                        if (column.CharMaxLength != null) typeName += $"({column.CharMaxLength})";
-                        break;
-                }
-
-                item.SubItems.Add(typeName);
-                item.SubItems.Add(column.Constraints.AllowsNulls.ToString());
-                columnsListView.Items.Add(item);
-            }
-
-            if (columnsListView.Items.Count > 0) columnsListView.Items[0].Selected = true;
-        }
-
-        private void tableDataGridView_DataBindingComplete(object sender, DataGridViewBindingCompleteEventArgs e)
-        {
-            if (sender is DataGridView gridView)
-            {
-                foreach (DataGridViewRow r in gridView.Rows)
-                {
-                    gridView.Rows[r.Index].HeaderCell.Value = (r.Index + 1).ToString();
-                }
-            }
-        }
-
-        private void tablesListView_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            if (!(sender is ListView tablesListView)) return;
-            if (tablesListView.SelectedItems.Count == 0) return;
-
-            var name = tablesListView.SelectedItems[0].Text;
-
-            var currentColumn = TableInformation.Columns.Single(column => column.Name == name);
-
-            var panel = PanelProvider.GetPanel(currentColumn);
-            splitContainer2.Panel1.Controls.Clear();
-            splitContainer2.Panel1.Controls.Add(panel);
-        }
-
-        private void generateToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            if (string.IsNullOrEmpty(TableInformation.ServerName?.Trim() ?? TableInformation.ServerName))
-            {
-                System.Media.SystemSounds.Asterisk.Play();
-                connectToDatabaseToolStripMenuItem_Click(null, null);
-                return;
-            }
-
-            if (string.IsNullOrEmpty(TableInformation.Tablename?.Trim() ?? TableInformation.Tablename))
-            {
-                System.Media.SystemSounds.Asterisk.Play();
-                selectTableToolStripMenuItem_Click(null, null);
-                return;
-            }
-
-            var generator = new Generator();
-
-            generator.FillTable(TableInformation.Table, TableInformation.Columns, (int) rowCountUpDown.Value, false);
-        }
-
         private void connectToDatabaseToolStripMenuItem_Click(object sender, EventArgs e)
         {
             var form = new ConnectToDataBaseForm();
@@ -131,6 +45,7 @@ namespace DataGeneratorGUI
 
                 TableInformation.ServerName = Dal.Instance.GetServerName();
                 Text = $@"DataGenerator - {TableInformation.ServerName}";
+                
                 selectTableToolStripMenuItem_Click(null, null);
             }
         }
@@ -171,6 +86,46 @@ namespace DataGeneratorGUI
             }
         }
 
+        private void LoadColums(IList<Column> columns)
+        {
+            columnsListView.Items.Clear();
+
+            foreach (var column in columns)
+            {
+                var item = new ListViewItem(column.Name);
+
+                var typeName = column.DataType.ToString();
+
+                switch (column.DataType)
+                {
+                    case TSQLDataType.@decimal:
+                    case TSQLDataType.numeric:
+                        if (column.NumericPrecision != null)
+                            if (column.NumericScale != null)
+                                typeName += $"({column.NumericPrecision}, {column.NumericScale})";
+                        break;
+                    case TSQLDataType.time:
+                    case TSQLDataType.datetime:
+                    case TSQLDataType.datetime2:
+                    case TSQLDataType.datetimeoffset:
+                    case TSQLDataType.@char:
+                    case TSQLDataType.nchar:
+                    case TSQLDataType.binary:
+                    case TSQLDataType.varchar:
+                    case TSQLDataType.nvarchar:
+                    case TSQLDataType.varbinary:
+                        if (column.CharMaxLength != null) typeName += $"({column.CharMaxLength})";
+                        break;
+                }
+
+                item.SubItems.Add(typeName);
+                item.SubItems.Add(column.Constraints.AllowsNulls.ToString());
+                columnsListView.Items.Add(item);
+            }
+
+            if (columnsListView.Items.Count > 0) columnsListView.Items[0].Selected = true;
+        }
+
         private void OnDataBindingComplete(object o, DataGridViewBindingCompleteEventArgs args)
         {
             for (var i = 0; i < tableDataGridView.Columns.Count; i++)
@@ -184,7 +139,7 @@ namespace DataGeneratorGUI
                         DisplayIndex = imageColumn.DisplayIndex,
                         HeaderText = imageColumn.HeaderText,
                         DataPropertyName = imageColumn.Name + "_textBox",
-                                           ReadOnly = imageColumn.ReadOnly
+                        ReadOnly = imageColumn.ReadOnly
                     };
                     
                     tableDataGridView.Columns.Add(textBoxColumn);
@@ -200,6 +155,52 @@ namespace DataGeneratorGUI
                     textBoxColumn.DataPropertyName = textBoxColumn.Name;
                 }
             }
+        }
+
+        private void tablesListView_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (!(sender is ListView tablesListView)) return;
+            if (tablesListView.SelectedItems.Count == 0) return;
+
+            var name = tablesListView.SelectedItems[0].Text;
+
+            var currentColumn = TableInformation.Columns.Single(column => column.Name == name);
+
+            var panel = PanelProvider.GetPanel(currentColumn);
+            splitContainer2.Panel1.Controls.Clear();
+            splitContainer2.Panel1.Controls.Add(panel);
+        }
+
+        private void tableDataGridView_DataBindingComplete(object sender, DataGridViewBindingCompleteEventArgs e)
+        {
+            if (sender is DataGridView gridView)
+            {
+                foreach (DataGridViewRow r in gridView.Rows)
+                {
+                    gridView.Rows[r.Index].HeaderCell.Value = (r.Index + 1).ToString();
+                }
+            }
+        }
+
+        private void generateToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (string.IsNullOrEmpty(TableInformation.ServerName?.Trim() ?? TableInformation.ServerName))
+            {
+                System.Media.SystemSounds.Asterisk.Play();
+                connectToDatabaseToolStripMenuItem_Click(null, null);
+                return;
+            }
+
+            if (string.IsNullOrEmpty(TableInformation.Tablename?.Trim() ?? TableInformation.Tablename))
+            {
+                System.Media.SystemSounds.Asterisk.Play();
+                selectTableToolStripMenuItem_Click(null, null);
+                return;
+            }
+
+            var generator = new Generator();
+
+            generator.FillTable(TableInformation.Table, TableInformation.Columns, (int) rowCountUpDown.Value, false);
         }
 
         private void fillDatabaseToolStripMenuItem_Click(object sender, EventArgs e)
@@ -250,24 +251,11 @@ namespace DataGeneratorGUI
             }
         }
 
-        private void tableDataGridView_DataError(object sender, DataGridViewDataErrorEventArgs e) { }
-
-        private void aboutToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            MessageBox.Show("SQL Server Data Generator\r\nTănăsescu Tudor\r\n2018", @"About", MessageBoxButtons.OK, MessageBoxIcon.Information);
-        }
-
         private void tableDataGridView_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
         {
             if (e.Value is byte[] array)
             {
-                var s = tableDataGridView.Columns;
-                var str = "0x";
-
-                foreach (byte b in array)
-                {
-                    str += $"{b:X}";
-                }
+                var str = array.Aggregate("0x", (current, b) => current + $"{b:X}");
 
                 e.Value = str;
 
@@ -277,6 +265,13 @@ namespace DataGeneratorGUI
             {
                 e.FormattingApplied = false;
             }
+        }
+
+        private void tableDataGridView_DataError(object sender, DataGridViewDataErrorEventArgs e) { }
+
+        private void aboutToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show("SQL Server Data Generator\r\nTănăsescu Tudor\r\n2018", @"About", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
     }
 }

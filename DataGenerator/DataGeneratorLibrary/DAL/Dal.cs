@@ -115,7 +115,7 @@ namespace DataGeneratorLibrary.DAL
                 connection.Open();
                 using (var bulkCopy = new SqlBulkCopy(connection))
                 {
-                    bulkCopy.DestinationTableName = "["+table.TableName+"]";
+                    bulkCopy.DestinationTableName = $"[{table.TableName}]";
 
                     bulkCopy.WriteToServer(table);
                 }
@@ -139,11 +139,11 @@ namespace DataGeneratorLibrary.DAL
                 column.NumericPrecision = row.Field<byte?>("NUMERIC_PRECISION");
                 column.NumericPrecisionRadix = row.Field<short?>("NUMERIC_PRECISION_RADIX");
                 column.NumericScale = row.Field<int?>("NUMERIC_SCALE");
+                column.OdinalPosition = row.Field<int>("ORDINAL_POSITION");
 
                 Enum.TryParse(row.Field<string>("DATA_TYPE"), out TSQLDataType dataType);
                 column.DataType = dataType;
 
-                column.OdinalPosition = row.Field<int>("ORDINAL_POSITION");
 
                 switch (column.DataType)
                 {

@@ -6,7 +6,7 @@ namespace DataGeneratorLibrary.DataExport
 {
     internal static class Formatter
     {
-        private static string ByteArrayToHexViaLookup32(byte[] bytes)
+        private static string ByteArrayToHex(byte[] bytes)
         {
             var lookup = new uint[256];
             for (var i = 0; i < 256; i++)
@@ -87,7 +87,7 @@ namespace DataGeneratorLibrary.DataExport
                 case TSQLDataType.image:
                 case TSQLDataType.binary:
                 case TSQLDataType.varbinary:
-                    var s = ByteArrayToHexViaLookup32(o as byte[]??new byte[0]);
+                    var s = ByteArrayToHex(o as byte[]??new byte[0]);
                     return s.Length>0? $"0x{s}" :"NULL";
                 case TSQLDataType.uniqueidentifier:
                     break;

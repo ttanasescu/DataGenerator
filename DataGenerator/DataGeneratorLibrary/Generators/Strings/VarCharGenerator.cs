@@ -1,5 +1,6 @@
 ﻿using System.IO;
 using DataGeneratorLibrary.Constrains.Strings;
+using DataGeneratorLibrary.DataSources;
 using DataGeneratorLibrary.DAL;
 
 namespace DataGeneratorLibrary.Generators.Strings
@@ -10,6 +11,8 @@ namespace DataGeneratorLibrary.Generators.Strings
             " !\"#$%&\'()*+,-./30123456789:;<=>?4@ABCDEFGHIJKLMNO5PQRSTUVWXYZ[\\]^_6`abcdefghijklmno7pqrstuvwxyz{|}~";
 
         private VarcharConstraints Constraints { get; set; }
+        private string[] Lines { get; set; } = null;
+        private TemplateDataEnum? PreviousTemplateData { get; set; } = null;
 
         public VarCharGenerator(Column column) : base(column)
         {
@@ -39,11 +42,15 @@ namespace DataGeneratorLibrary.Generators.Strings
 
         private object GenerateFromTemplate()
         {
-            var templateFileName = $"{nameof(DataSources)}\\{Constraints.TemplateData}.txt";
+            if (Lines == null || PreviousTemplateData != Constraints.TemplateData)
+            {
+                PreviousTemplateData = Constraints.TemplateData;
+                var templateFileName = $"{nameof(DataSources)}\\{PreviousTemplateData}.txt";
+                Lines = File.ReadAllLines(templateFileName);
+            }
 
-            var lines = File.ReadAllLines(templateFileName);
-            var lineNumber = Random.Next(0, lines.Length - 1);
-            var str = lines[lineNumber];
+            var lineNumber = Random.Next(0, Lines.Length - 1);
+            var str = Lines[lineNumber];
 
             if (str.Length>Constraints.MaxLength)
             {

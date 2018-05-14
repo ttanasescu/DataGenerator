@@ -44,7 +44,6 @@ namespace DataGeneratorGUI.Forms
                         o.Expand();
                     }
                 }
-                
             }
         }
 
