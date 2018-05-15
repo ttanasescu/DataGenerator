@@ -44,6 +44,14 @@ namespace DataGeneratorGUI.ConstraintsPanels.Strings
 
             nullNumericUpDown.Value = _constraints.PercentOfNulls;
             templatesComboBox.DataSource = Enum.GetValues(typeof(TemplateDataEnum));
+
+            useTemplateCheckBox.Checked = _constraints.UseTemplateData;
+            if (_constraints.UseTemplateData)
+            {
+                templatesComboBox.SelectedItem = _constraints.TemplateData;
+            }
+
+            templatesComboBox.SelectedIndexChanged += templatesComboBox_SelectedIndexChanged;
         }
 
         private void minNumericUpDown_ValueChanged(object sender, EventArgs e)

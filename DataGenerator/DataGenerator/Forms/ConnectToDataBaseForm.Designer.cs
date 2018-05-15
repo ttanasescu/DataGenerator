@@ -46,7 +46,7 @@
             this.serverNameTextBox.Name = "serverNameTextBox";
             this.serverNameTextBox.Size = new System.Drawing.Size(250, 20);
             this.serverNameTextBox.TabIndex = 0;
-            this.serverNameTextBox.Text = ".";
+            this.serverNameTextBox.Text = "localhost";
             // 
             // label1
             // 
@@ -86,6 +86,7 @@
             // 
             // authenticationComboBox
             // 
+            this.authenticationComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.authenticationComboBox.FormattingEnabled = true;
             this.authenticationComboBox.Items.AddRange(new object[] {
             "Windows Authentication",
@@ -107,6 +108,7 @@
             // 
             this.passwordTextBox.Location = new System.Drawing.Point(120, 91);
             this.passwordTextBox.Name = "passwordTextBox";
+            this.passwordTextBox.PasswordChar = '*';
             this.passwordTextBox.Size = new System.Drawing.Size(250, 20);
             this.passwordTextBox.TabIndex = 7;
             // 

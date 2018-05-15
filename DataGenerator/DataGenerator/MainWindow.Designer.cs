@@ -95,11 +95,13 @@
             this.tableDataGridView.Location = new System.Drawing.Point(0, 0);
             this.tableDataGridView.Name = "tableDataGridView";
             this.tableDataGridView.ReadOnly = true;
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Control;
             dataGridViewCellStyle2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.WindowText;
             dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
             dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
             this.tableDataGridView.RowHeadersDefaultCellStyle = dataGridViewCellStyle2;
             this.tableDataGridView.RowHeadersVisible = false;
             this.tableDataGridView.RowHeadersWidth = 40;
@@ -195,6 +197,7 @@
             this.columnHeader3});
             this.columnsListView.Dock = System.Windows.Forms.DockStyle.Fill;
             this.columnsListView.FullRowSelect = true;
+            this.columnsListView.HideSelection = false;
             this.columnsListView.Location = new System.Drawing.Point(0, 0);
             this.columnsListView.MultiSelect = false;
             this.columnsListView.Name = "columnsListView";

@@ -106,13 +106,13 @@
             // 
             // templatesComboBox
             // 
+            this.templatesComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.templatesComboBox.Enabled = false;
             this.templatesComboBox.FormattingEnabled = true;
             this.templatesComboBox.Location = new System.Drawing.Point(257, 55);
             this.templatesComboBox.Name = "templatesComboBox";
             this.templatesComboBox.Size = new System.Drawing.Size(138, 21);
             this.templatesComboBox.TabIndex = 0;
-            this.templatesComboBox.SelectedIndexChanged += new System.EventHandler(this.templatesComboBox_SelectedIndexChanged);
             // 
             // nullPercentLabel
             // 

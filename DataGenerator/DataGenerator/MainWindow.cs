@@ -5,6 +5,7 @@ using System.Windows.Forms;
 using DataGeneratorLibrary;
 using DataGeneratorLibrary.Generators;
 using System.Data.SqlClient;
+using System.Drawing;
 using DataGeneratorGUI.ConstraintsPanels;
 using DataGeneratorGUI.Forms;
 using DataGeneratorLibrary.DataExport;
@@ -43,8 +44,15 @@ namespace DataGeneratorGUI
 
                 Dal.Instance.SetConnectionSctring(builder.ConnectionString);
 
-                TableInformation.ServerName = Dal.Instance.GetServerName();
-                Text = $@"DataGenerator - {TableInformation.ServerName}";
+                try
+                {
+                    TableInformation.ServerName = Dal.Instance.GetServerName();
+                    Text = $@"DataGenerator - {TableInformation.ServerName}";
+                }
+                catch (SqlException sqlException)
+                {
+                    MessageBox.Show(sqlException.InnerException?.Message ?? sqlException.Message, @"Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
                 
                 selectTableToolStripMenuItem_Click(null, null);
             }
@@ -154,6 +162,8 @@ namespace DataGeneratorGUI
                     textBoxColumn.Name = textBoxColumn.Name.Replace("_textBox", "");
                     textBoxColumn.DataPropertyName = textBoxColumn.Name;
                 }
+
+                ((DataGridViewColumn) column).SortMode = DataGridViewColumnSortMode.NotSortable;
             }
         }
 
@@ -230,6 +240,7 @@ namespace DataGeneratorGUI
                 if (dialog.FileName != "")
                 {
                     SqlScriptGeneraor.Generate(TableInformation, false, dialog.FileName);
+                    MessageBox.Show(@"Succsess", $"Data saved as\r\n{dialog.FileName}");
                 }
             }
         }
@@ -247,12 +258,18 @@ namespace DataGeneratorGUI
                 if (dialog.FileName != "")
                 {
                     SqlScriptGeneraor.Generate(TableInformation, true, dialog.FileName);
+                    MessageBox.Show(@"Succsess", $"Data saved as\r\n{dialog.FileName}");
                 }
             }
         }
 
         private void tableDataGridView_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
         {
+            if (e.Value is DBNull)
+            {
+                e.CellStyle.BackColor = Color.LightYellow;
+            }
+
             if (e.Value is byte[] array)
             {
                 var str = array.Aggregate("0x", (current, b) => current + $"{b:X}");

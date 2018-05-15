@@ -135,15 +135,15 @@
     <Compile Include="DAL\TableInformation.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="DataSources\Cities.txt">
+    <AdditionalFiles Include="DataSources\Cities.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="DataSources\Countries.txt">
+    </AdditionalFiles>
+    <AdditionalFiles Include="DataSources\Countries.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="DataSources\Names.txt">
+    </AdditionalFiles>
+    <AdditionalFiles Include="DataSources\Names.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
+    </AdditionalFiles>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
