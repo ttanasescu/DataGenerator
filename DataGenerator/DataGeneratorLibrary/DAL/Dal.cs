@@ -116,7 +116,8 @@ namespace DataGeneratorLibrary.DAL
                 using (var bulkCopy = new SqlBulkCopy(connection))
                 {
                     bulkCopy.DestinationTableName = $"[{table.TableName}]";
-
+                    bulkCopy.BatchSize = 1000;
+                    bulkCopy.BulkCopyTimeout = 420;
                     bulkCopy.WriteToServer(table);
                 }
             }

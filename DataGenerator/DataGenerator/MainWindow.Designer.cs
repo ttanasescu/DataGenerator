@@ -167,7 +167,7 @@
             // 
             this.rowCountUpDown.Location = new System.Drawing.Point(68, 45);
             this.rowCountUpDown.Maximum = new decimal(new int[] {
-            1000,
+            1000000,
             0,
             0,
             0});

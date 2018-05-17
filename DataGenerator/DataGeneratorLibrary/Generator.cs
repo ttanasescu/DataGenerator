@@ -10,13 +10,12 @@ namespace DataGeneratorLibrary
         public void FillTable(DataTable table, IEnumerable<Column> columns, int rowCount,
             bool append)
         {
-            var rowdata = new Dictionary<string, IList<object>>(table.Columns.Count);
+            var generators = new Dictionary<string, DataTypeGenerator>();
 
             foreach (var column in columns)
             {
                 var generator = DataTypeGenerator.GetGenerator(column);
-                var data = generator.Generate(rowCount);
-                rowdata.Add(column.Name, data);
+                generators.Add(column.Name, generator);
             }
 
             if (!append)
@@ -31,7 +30,7 @@ namespace DataGeneratorLibrary
                 for (var j = 0; j < table.Columns.Count; j++)
                 {
                     var columnName = table.Columns[j].ColumnName;
-                    row[columnName] = rowdata[columnName][i];
+                    row[columnName] = generators[columnName].Generate();
                 }
 
                 table.Rows.Add(row);

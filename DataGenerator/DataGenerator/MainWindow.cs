@@ -8,8 +8,10 @@ using System.Data.SqlClient;
 using System.Drawing;
 using DataGeneratorGUI.ConstraintsPanels;
 using DataGeneratorGUI.Forms;
+using DataGeneratorGUI.Helpers;
 using DataGeneratorLibrary.DataExport;
 using DataGeneratorLibrary.DAL;
+
 
 namespace DataGeneratorGUI
 {
@@ -26,8 +28,9 @@ namespace DataGeneratorGUI
         private void MainWindow_Load(object sender, EventArgs e)
         {
             connectToDatabaseToolStripMenuItem_Click(null, null);
+            tableDataGridView.DoubleBuffered(true);
         }
-
+        
         private void connectToDatabaseToolStripMenuItem_Click(object sender, EventArgs e)
         {
             var form = new ConnectToDataBaseForm();
@@ -46,12 +49,15 @@ namespace DataGeneratorGUI
 
                 try
                 {
-                    TableInformation.ServerName = Dal.Instance.GetServerName();
-                    Text = $@"DataGenerator - {TableInformation.ServerName}";
+                    using (new WaitCursor())
+                    {
+                        TableInformation.ServerName = Dal.Instance.GetServerName();
+                        Text = $@"DataGenerator - {TableInformation.ServerName}";
+                    }
                 }
                 catch (SqlException sqlException)
                 {
-                    MessageBox.Show(sqlException.InnerException?.Message ?? sqlException.Message, @"Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                     MessageBox.Show(sqlException.Message, @"Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
                 
                 selectTableToolStripMenuItem_Click(null, null);
@@ -77,20 +83,24 @@ namespace DataGeneratorGUI
             var result = form.ShowDialog(this);
             if (result == DialogResult.OK)
             {
-                TableInformation.Database = form.DataBase;
-                TableInformation.Tablename = form.TableName;
 
-                Text = $@"DataGenerator - {TableInformation.ServerName}\{form.DataBase}\{TableInformation.Tablename}";
+                using (new WaitCursor())
+                {
+                    TableInformation.Database = form.DataBase;
+                    TableInformation.Tablename = form.TableName;
+
+                    Text = $@"DataGenerator - {TableInformation.ServerName}\{form.DataBase}\{TableInformation.Tablename}";
 
 
-                TableInformation.Columns = Dal.Instance.GetTableInformation(TableInformation.Tablename);
-                LoadColums(TableInformation.Columns);
+                    TableInformation.Columns = Dal.Instance.GetTableInformation(TableInformation.Tablename);
+                    LoadColums(TableInformation.Columns);
 
-                TableInformation.Table = Dal.Instance.GetTable(TableInformation.Tablename);
+                    TableInformation.Table = Dal.Instance.GetTable(TableInformation.Tablename);
 
-                tableDataGridView.DataBindingComplete += OnDataBindingComplete;
+                    tableDataGridView.DataBindingComplete += OnDataBindingComplete;
 
-                tableDataGridView.DataSource = TableInformation.Table;
+                    tableDataGridView.DataSource = TableInformation.Table;
+                }
             }
         }
 
@@ -208,17 +218,25 @@ namespace DataGeneratorGUI
                 return;
             }
 
-            var generator = new Generator();
+            using (new WaitCursor())
+            {
+                var generator = new Generator();
 
-            generator.FillTable(TableInformation.Table, TableInformation.Columns, (int) rowCountUpDown.Value, false);
+                tableDataGridView.DataSource = null;
+                generator.FillTable(TableInformation.Table, TableInformation.Columns, (int) rowCountUpDown.Value, false);
+                tableDataGridView.DataSource = TableInformation.Table;
+            }
         }
 
         private void fillDatabaseToolStripMenuItem_Click(object sender, EventArgs e)
         {
             try
             {
-                Dal.Instance.ClearTable(TableInformation.Tablename);
-                Dal.Instance.SaveTable(TableInformation.Table);
+                using (new WaitCursor())
+                {
+                    Dal.Instance.ClearTable(TableInformation.Tablename);
+                    Dal.Instance.SaveTable(TableInformation.Table);
+                }
                 MessageBox.Show(@"Data successfuly loaded to DataBase!", @"Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             catch (Exception)
@@ -234,13 +252,18 @@ namespace DataGeneratorGUI
                 Filter = @"Sql|*.sql",
                 Title = @"Save Sql script"
             };
+
             var dialogResult = dialog.ShowDialog();
             if (dialogResult == DialogResult.OK)
             {
                 if (dialog.FileName != "")
                 {
-                    SqlScriptGeneraor.Generate(TableInformation, false, dialog.FileName);
-                    MessageBox.Show(@"Succsess", $"Data saved as\r\n{dialog.FileName}");
+                    using (new WaitCursor())
+                    {
+                        SqlScriptGeneraor.Generate(TableInformation, false, dialog.FileName);
+                    }
+
+                    MessageBox.Show($"Data saved as\r\n{dialog.FileName}", @"Succsess");
                 }
             }
         }
@@ -252,13 +275,18 @@ namespace DataGeneratorGUI
                 Filter = @"Sql|*.sql",
                 Title = @"Save Sql script"
             };
+
             var dialogResult = dialog.ShowDialog();
             if (dialogResult == DialogResult.OK)
             {
                 if (dialog.FileName != "")
                 {
-                    SqlScriptGeneraor.Generate(TableInformation, true, dialog.FileName);
-                    MessageBox.Show(@"Succsess", $"Data saved as\r\n{dialog.FileName}");
+                    using (new WaitCursor())
+                    {
+                        SqlScriptGeneraor.Generate(TableInformation, true, dialog.FileName);
+                    }
+
+                    MessageBox.Show($"Data saved as\r\n{dialog.FileName}", @"Succsess");
                 }
             }
         }

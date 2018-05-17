@@ -233,6 +233,7 @@
     <Compile Include="Forms\SelectTableForm.Designer.cs">
       <DependentUpon>SelectTableForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Helpers\Extensions.cs" />
     <Compile Include="MainWindow.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -242,6 +243,7 @@
     <Compile Include="ConstraintsPanels\PanelProvider.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Helpers\WaitCursor.cs" />
     <EmbeddedResource Include="ConstraintsPanels\DateTime\DateConstraintsPanel.resx">
       <DependentUpon>DateConstraintsPanel.cs</DependentUpon>
     </EmbeddedResource>
