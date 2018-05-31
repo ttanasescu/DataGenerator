@@ -341,5 +341,10 @@ namespace DataGeneratorGUI
         {
             MessageBox.Show("SQL Server Data Generator\r\nTănăsescu Tudor\r\n2018", @"About", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
+
+        private void ToolStripMenuItem_Opened(object sender, EventArgs e)
+        {
+            rowCountUpDown.Focus();
+        }
     }
 }

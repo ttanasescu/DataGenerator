@@ -53,9 +53,9 @@
             this.sQLInsertScriptToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.withCreateTableToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.insertsOnlyToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.cSVToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.cSVToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.tableDataGridView)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
@@ -259,6 +259,7 @@
             this.menuToolStripMenuItem.Name = "menuToolStripMenuItem";
             this.menuToolStripMenuItem.Size = new System.Drawing.Size(50, 20);
             this.menuToolStripMenuItem.Text = "Menu";
+            this.menuToolStripMenuItem.DropDownOpened += new System.EventHandler(this.ToolStripMenuItem_Opened);
             // 
             // connectToDatabaseToolStripMenuItem
             // 
@@ -284,6 +285,7 @@
             this.dataToolStripMenuItem.Name = "dataToolStripMenuItem";
             this.dataToolStripMenuItem.Size = new System.Drawing.Size(43, 20);
             this.dataToolStripMenuItem.Text = "Data";
+            this.dataToolStripMenuItem.DropDownOpened += new System.EventHandler(this.ToolStripMenuItem_Opened);
             // 
             // generateToolStripMenuItem
             // 
@@ -319,7 +321,7 @@
             this.withCreateTableToolStripMenuItem,
             this.insertsOnlyToolStripMenuItem});
             this.sQLInsertScriptToolStripMenuItem.Name = "sQLInsertScriptToolStripMenuItem";
-            this.sQLInsertScriptToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.sQLInsertScriptToolStripMenuItem.Size = new System.Drawing.Size(128, 22);
             this.sQLInsertScriptToolStripMenuItem.Text = "SQL Script";
             // 
             // withCreateTableToolStripMenuItem
@@ -336,6 +338,13 @@
             this.insertsOnlyToolStripMenuItem.Text = "Inserts only";
             this.insertsOnlyToolStripMenuItem.Click += new System.EventHandler(this.insertsOnlyToolStripMenuItem_Click);
             // 
+            // cSVToolStripMenuItem
+            // 
+            this.cSVToolStripMenuItem.Name = "cSVToolStripMenuItem";
+            this.cSVToolStripMenuItem.Size = new System.Drawing.Size(128, 22);
+            this.cSVToolStripMenuItem.Text = "CSV";
+            this.cSVToolStripMenuItem.Click += new System.EventHandler(this.cSVToolStripMenuItem_Click);
+            // 
             // helpToolStripMenuItem
             // 
             this.helpToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -343,20 +352,14 @@
             this.helpToolStripMenuItem.Name = "helpToolStripMenuItem";
             this.helpToolStripMenuItem.Size = new System.Drawing.Size(44, 20);
             this.helpToolStripMenuItem.Text = "Help";
+            this.helpToolStripMenuItem.DropDownOpened += new System.EventHandler(this.ToolStripMenuItem_Opened);
             // 
             // aboutToolStripMenuItem
             // 
             this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
-            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(107, 22);
+            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.aboutToolStripMenuItem.Text = "About";
             this.aboutToolStripMenuItem.Click += new System.EventHandler(this.aboutToolStripMenuItem_Click);
-            // 
-            // cSVToolStripMenuItem
-            // 
-            this.cSVToolStripMenuItem.Name = "cSVToolStripMenuItem";
-            this.cSVToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.cSVToolStripMenuItem.Text = "CSV";
-            this.cSVToolStripMenuItem.Click += new System.EventHandler(this.cSVToolStripMenuItem_Click);
             // 
             // MainWindow
             // 
