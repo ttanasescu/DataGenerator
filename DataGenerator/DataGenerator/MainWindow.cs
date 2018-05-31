@@ -239,9 +239,9 @@ namespace DataGeneratorGUI
                 }
                 MessageBox.Show(@"Data successfuly loaded to DataBase!", @"Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
-            catch (Exception)
+            catch (Exception exception)
             {
-                MessageBox.Show(@"Could not save date to DataBase.", @"Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show($"Could not save data to DataBase.\r\n\r\n{exception.Message}", @"Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -263,7 +263,7 @@ namespace DataGeneratorGUI
                         SqlScriptGeneraor.Generate(TableInformation, false, dialog.FileName);
                     }
 
-                    MessageBox.Show($"Data saved as\r\n{dialog.FileName}", @"Succsess");
+                    MessageBox.Show($"Data saved as:\r\n\r\n{dialog.FileName}", @"Succsess", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
             }
         }
@@ -286,7 +286,30 @@ namespace DataGeneratorGUI
                         SqlScriptGeneraor.Generate(TableInformation, true, dialog.FileName);
                     }
 
-                    MessageBox.Show($"Data saved as\r\n{dialog.FileName}", @"Succsess");
+                    MessageBox.Show($"Data saved as:\r\n\r\n{dialog.FileName}", @"Succsess", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+            }
+        }
+
+        private void cSVToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var dialog = new SaveFileDialog
+            {
+                Filter = @"CSV|*.csv",
+                Title = @"Save as CSV file"
+            };
+
+            var dialogResult = dialog.ShowDialog();
+            if (dialogResult == DialogResult.OK)
+            {
+                if (dialog.FileName != "")
+                {
+                    using (new WaitCursor())
+                    {
+                        CSVGenerator.Generate(TableInformation, dialog.FileName);
+                    }
+
+                    MessageBox.Show($"Data saved as:\r\n\r\n{dialog.FileName}", @"Succsess", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
             }
         }

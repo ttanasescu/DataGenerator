@@ -1,4 +1,5 @@
-﻿using System.Data;
+﻿using System;
+using System.Data;
 using System.IO;
 using System.Text;
 using DataGeneratorLibrary.DAL;
@@ -11,7 +12,7 @@ namespace DataGeneratorLibrary.DataExport
         public static void Generate(TableInformation tableInformation, bool addCreateTable, string filePath)
         {
             var builder = new StringBuilder();
-            
+
             builder.Append("INSERT ");
             builder.Append($"[{tableInformation.Columns[0].Schema}].[{tableInformation.Tablename}] "); //TODO Schema
 
@@ -35,7 +36,7 @@ namespace DataGeneratorLibrary.DataExport
 
             var columns = builder.ToString();
             builder.Clear();
-            
+
 
             builder.Append($"USE [{tableInformation.Database}]");
             builder.Append("\r\n");
@@ -53,9 +54,17 @@ namespace DataGeneratorLibrary.DataExport
                 builder.Append(columns);
                 builder.Append(" VALUES (");
 
+                IFormatter formatter = new SqlFormatter();
+
                 for (var i = 0; i < row.ItemArray.Length; i++)
                 {
-                    builder.Append($"{Formatter.GetString(row[i], tableInformation.Columns[i], i + 1)}, ");
+                    var column = tableInformation.Columns[i];
+                    if (i + 1 != column.OdinalPosition)
+                    {
+                        throw new ArgumentException(nameof(i));
+                    }
+
+                    builder.Append($"{formatter.GetString(row[i], column)}, ");
                 }
 
                 if (builder[builder.Length - 1] == ' ')
@@ -119,6 +128,7 @@ namespace DataGeneratorLibrary.DataExport
                         if (column.CharMaxLength != null) builder.Append($"({column.CharMaxLength})");
                         break;
                 }
+
                 builder.Append($"{(column.Constraints.AllowsNulls ? " NULL," : ",")}");
             }
 

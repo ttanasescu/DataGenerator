@@ -105,7 +105,10 @@
     <Compile Include="Constrains\Strings\VarbinaryConstraints.cs" />
     <Compile Include="Constrains\Strings\VarcharConstraints.cs" />
     <Compile Include="DAL\Column.cs" />
+    <Compile Include="DataExport\CsvFormatter.cs" />
+    <Compile Include="DataExport\CSVGenerator.cs" />
     <Compile Include="DataExport\Formatter.cs" />
+    <Compile Include="DataExport\IFormatter.cs" />
     <Compile Include="DataSources\TemplateDataEnum.cs" />
     <Compile Include="Generators\DataTypeGenerator.cs" />
     <Compile Include="Generators\Other\UniqueIdentifierGenerator.cs" />

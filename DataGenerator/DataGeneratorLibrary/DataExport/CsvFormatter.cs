@@ -6,13 +6,11 @@ using DataGeneratorLibrary.Helpers;
 
 namespace DataGeneratorLibrary.DataExport
 {
-    internal class SqlFormatter : IFormatter
+    internal class CsvFormatter : IFormatter
     {
         public string GetString(object @object, Column column)
         {
             var str = @object.ToString();
-
-            bool addQuotes = false;
 
             switch (column.DataType)
             {
@@ -21,7 +19,6 @@ namespace DataGeneratorLibrary.DataExport
                 case TSQLDataType.numeric:
                     break;
                 case TSQLDataType.bit:
-                    addQuotes = true;
                     break;
                 case TSQLDataType.smallint:
                     break;
@@ -32,40 +29,34 @@ namespace DataGeneratorLibrary.DataExport
                 case TSQLDataType.@float:
                     break;
                 case TSQLDataType.real:
-                    str = ((float) @object).ToString(CultureInfo.GetCultureInfo("en-US"));
+                    str = ((float)@object).ToString(CultureInfo.GetCultureInfo("en-US"));
                     break;
                 case TSQLDataType.@decimal:
-                    str = ((decimal) @object).ToString(CultureInfo.GetCultureInfo("en-US"));
+                    str = ((decimal)@object).ToString(CultureInfo.GetCultureInfo("en-US"));
                     break;
                 case TSQLDataType.money:
-                    str = ((decimal) @object).ToString(CultureInfo.GetCultureInfo("en-US"));
+                    str = ((decimal)@object).ToString(CultureInfo.GetCultureInfo("en-US"));
                     break;
                 case TSQLDataType.smallmoney:
-                    str = ((decimal) @object).ToString(CultureInfo.GetCultureInfo("en-US"));
+                    str = ((decimal)@object).ToString(CultureInfo.GetCultureInfo("en-US"));
                     break;
                 case TSQLDataType.time:
-                    str = ((TimeSpan) @object).ToString(@"hh\:mm\:ss\.fffffff");
-                    addQuotes = true;
+                    str = ((TimeSpan)@object).ToString(@"hh\:mm\:ss\.fffffff");
                     break;
                 case TSQLDataType.date:
-                    str = ((DateTime) @object).ToString("yyyy-MM-dd");
-                    addQuotes = true;
+                    str = ((DateTime)@object).ToString("yyyy-MM-dd");
                     break;
                 case TSQLDataType.smalldatetime:
-                    str = ((DateTime) @object).ToString("yyyy-MM-dd HH:mm:ss");
-                    addQuotes = true;
+                    str = ((DateTime)@object).ToString("yyyy-MM-dd HH:mm:ss");
                     break;
                 case TSQLDataType.datetime:
-                    str = ((DateTime) @object).ToString("yyyy-MM-dd HH:mm:ss.fff");
-                    addQuotes = true;
+                    str = ((DateTime)@object).ToString("yyyy-MM-dd HH:mm:ss.fff");
                     break;
                 case TSQLDataType.datetime2:
-                    str = ((DateTime) @object).ToString("yyyy-MM-dd HH:mm:ss.fffffff");
-                    addQuotes = true;
+                    str = ((DateTime)@object).ToString("yyyy-MM-dd HH:mm:ss.fffffff");
                     break;
                 case TSQLDataType.datetimeoffset:
-                    str = ((DateTimeOffset) @object).ToString("yyyy-MM-dd HH:mm:ss.fffffff zzz");
-                    addQuotes = true;
+                    str = ((DateTimeOffset)@object).ToString("yyyy-MM-dd HH:mm:ss.fffffff zzz");
                     break;
                 case TSQLDataType.ntext:
                 case TSQLDataType.text:
@@ -73,8 +64,7 @@ namespace DataGeneratorLibrary.DataExport
                 case TSQLDataType.varchar:
                 case TSQLDataType.nchar:
                 case TSQLDataType.nvarchar:
-                    str = @object.ToString().Replace("'", "''");
-                    addQuotes = true;
+                    str = @object.ToString().Replace("\"", "\"\"");
                     break;
                 case TSQLDataType.image:
                 case TSQLDataType.binary:
@@ -82,18 +72,17 @@ namespace DataGeneratorLibrary.DataExport
                     var s = (@object as byte[] ?? new byte[0]).ByteArrayToHex();
                     return s.Length > 0 ? $"0x{s}" : "NULL";
                 case TSQLDataType.uniqueidentifier:
-                    addQuotes = true;
                     break;
                 default:
                     throw new ArgumentOutOfRangeException();
             }
 
-            if (string.IsNullOrEmpty(str))
+            if (str.Contains("\"") || str.Contains(","))
             {
-                return "NULL";
+                return $"\"{str}\"";
             }
 
-            return addQuotes ? $"N'{str}'" : str;
+            return str;
         }
     }
 }
