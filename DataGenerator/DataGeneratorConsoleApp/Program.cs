@@ -5,6 +5,7 @@ using DataGeneratorLibrary;
 using DataGeneratorLibrary.Constrains.Numerics;
 using DataGeneratorLibrary.DAL;
 using DataGeneratorLibrary.Generators;
+using RegExGenerator;
 
 namespace DataGeneratorConsoleApp
 {
@@ -12,6 +13,14 @@ namespace DataGeneratorConsoleApp
     {
         static void Main(string[] args)
         {
+            var parser = new RegExParser(@"[--5-6-\]]{2,5}|[\w-C-y]?\"); //RegExParser("(a*)|(x|z){2,5}");
+
+            var regEx = parser.Parse();
+
+            regEx.Print("", true);
+
+            Console.ReadKey();
+            /*
 #if DEBUG
             var connectionString = ConfigurationManager.ConnectionStrings["TestDBConnection"].ConnectionString;
             var dal = Dal.Instance;//new Dal(connectionString);
@@ -83,9 +92,10 @@ namespace DataGeneratorConsoleApp
 
             dal.SaveTable(table);
 
-
-            Console.ReadKey();
+            Console.ReadKey();*/
         }
+
+
 #if !DEBUG
         
         private static string GetTableName(Dal dal)
