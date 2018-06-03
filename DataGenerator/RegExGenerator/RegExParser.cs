@@ -18,7 +18,7 @@ namespace RegExGenerator
             var regEx = Expression();
             if (NotDone())
             {
-                throw new Exception($"Unexpected character: \'{Peek()}\' at position {_position}");
+                throw new RegExParsingException($"Unexpected character: \'{Peek()}\' at position {_position}.", _position);
             }
 
             return regEx;
@@ -33,7 +33,10 @@ namespace RegExGenerator
 
         private char Peek()
         {
-            return _input.Length < 1 ? '\0' : _input[0];
+            if (_input.Length < 1)
+                throw new RegExParsingException($"Nothing found at position {_position}.",_position);
+            else
+                return _input[0];
         }
 
         private void Remove(char c)
@@ -45,7 +48,7 @@ namespace RegExGenerator
             }
             else
             {
-                throw new Exception($"At position {_position} expecting character: '{c}'.\nFound: '{Peek()}'.");
+                throw new RegExParsingException($"At position {_position} expecting character: '{c}'.\nFound: '{Peek()}'.", _position);
             }
         }
 
@@ -131,8 +134,8 @@ namespace RegExGenerator
 
                     if (min == null)
                     {
-                        throw new Exception($"Unexpected character: \'{Peek()}\' at position {_position}.");
-                    }
+                        throw new RegExParsingException($"Unexpected character: \'{Peek()}\' at position {_position}.", _position);
+                        }
 
                     if (Peek() == ',')
                     {
@@ -152,7 +155,7 @@ namespace RegExGenerator
                     return occuranceces;
                 }
                 default:
-                    throw new Exception($"Unexpected character: \'{Peek()}\' at position {_position}.");
+                    throw new RegExParsingException($"Unexpected character: \'{Peek()}\' at position {_position}.", _position);
             }
         }
 
@@ -193,7 +196,7 @@ namespace RegExGenerator
                 case '*':
                 case '+':
                 case '?':
-                    throw new Exception($"Unexpected character: \'{Peek()}\' at position {_position}.");
+                    throw new RegExParsingException($"Unexpected character: \'{Peek()}\' at position {_position}.", _position);
                 default:
                     return Basic();
             }
@@ -213,6 +216,7 @@ namespace RegExGenerator
             
             while (NotDone() && Peek() != ']')
             {
+                var firstsPosition = _position;
                 var first = Basic();
 
                 if (first is Terminal f)
@@ -224,6 +228,7 @@ namespace RegExGenerator
 
                         if (NotDone())
                         {
+                            var lastPosition = _position;
                             var last = Basic();
 
                             if (last is Terminal l)
@@ -232,14 +237,14 @@ namespace RegExGenerator
 
                                 if (current > next)
                                 {
-                                    throw new Exception("Character range is out of order.");
+                                    throw new RegExParsingException("Character range is out of order.", firstsPosition, _position-firstsPosition);
                                 }
 
                                 pick.Picks.Add(new Range(new Terminal(current), new Terminal(next)));
                             }
                             else
                             {
-                                throw new Exception("Could not include in range.");
+                                throw new RegExParsingException("Could not include in range.", lastPosition, 2);
                             }
                         }
                         else
@@ -261,7 +266,7 @@ namespace RegExGenerator
 
             if (pick.Picks.Count == 0)
             {
-                throw new Exception($"Unexpected character: \'{Peek()}\' at position {_position}.");
+                throw new RegExParsingException($"Unexpected character: \'{Peek()}\' at position {_position}.", _position);
             }
 
             return pick;
@@ -275,7 +280,7 @@ namespace RegExGenerator
                     Remove('\\');
                     if (!NotDone())
                     {
-                        throw new Exception($"Nothing to escape at {_position}.");
+                        throw new RegExParsingException($"Nothing to escape at {_position}.", _position);
                     }
                     var esc = Pop();
                     switch (esc)
@@ -301,5 +306,17 @@ namespace RegExGenerator
         }
 
         #endregion
+    }
+
+    public class RegExParsingException :Exception
+    {
+        public int Position { get; set; }
+        public int Lenght { get; set; }
+
+        public RegExParsingException(string message, int position, int lenght = 1) : base(message)
+        {
+            Position = position;
+            Lenght = lenght;
+        }
     }
 }

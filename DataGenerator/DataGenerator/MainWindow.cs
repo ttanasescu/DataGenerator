@@ -11,6 +11,7 @@ using DataGeneratorGUI.Forms;
 using DataGeneratorGUI.Helpers;
 using DataGeneratorLibrary.DataExport;
 using DataGeneratorLibrary.DAL;
+using RegExGenerator;
 
 
 namespace DataGeneratorGUI
@@ -223,7 +224,15 @@ namespace DataGeneratorGUI
                 var generator = new Generator();
 
                 tableDataGridView.DataSource = null;
-                generator.FillTable(TableInformation.Table, TableInformation.Columns, (int) rowCountUpDown.Value, appendRowsCheckBox.Checked);
+                try
+                {
+                    generator.FillTable(TableInformation.Table, TableInformation.Columns, (int) rowCountUpDown.Value, appendRowsCheckBox.Checked);
+                }
+                catch (Generator.ColumnInitializationException exception)
+                {
+                    MessageBox.Show($"Error parsing RegEx for column \"{exception.Column.Name}\".\n{exception.InnerException?.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
                 tableDataGridView.DataSource = TableInformation.Table;
             }
         }

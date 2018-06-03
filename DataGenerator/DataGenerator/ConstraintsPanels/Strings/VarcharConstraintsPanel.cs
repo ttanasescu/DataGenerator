@@ -1,14 +1,17 @@
 ﻿using System;
+using System.Drawing;
 using System.Windows.Forms;
 using DataGeneratorLibrary.Constrains;
 using DataGeneratorLibrary.Constrains.Strings;
 using DataGeneratorLibrary.DataSources;
+using RegExGenerator;
 
 namespace DataGeneratorGUI.ConstraintsPanels.Strings
 {
     public partial class VarcharConstraintsPanel : UserControl
     {
         private readonly VarcharConstraints _constraints;
+        private ToolTip _toolTip;
 
         public VarcharConstraintsPanel(Constraints constraints)
         {
@@ -18,6 +21,7 @@ namespace DataGeneratorGUI.ConstraintsPanels.Strings
             }
 
             _constraints = constrains;
+            _toolTip = new ToolTip();
             InitializeComponent();
         }
 
@@ -52,6 +56,10 @@ namespace DataGeneratorGUI.ConstraintsPanels.Strings
             }
 
             templatesComboBox.SelectedIndexChanged += templatesComboBox_SelectedIndexChanged;
+
+            regExTextBox.Text = _constraints.RegEx;
+            useRegExCheckBox.Checked = _constraints.UseRegEx;
+
         }
 
         private void minNumericUpDown_ValueChanged(object sender, EventArgs e)
@@ -136,6 +144,33 @@ namespace DataGeneratorGUI.ConstraintsPanels.Strings
         private void regExTextBox_TextChanged(object sender, EventArgs e)
         {
             _constraints.RegEx = regExTextBox.Text;
+
+            var currentPosition = regExTextBox.SelectionStart;
+
+            regExTextBox.SelectionStart = 0;
+            regExTextBox.SelectionLength = regExTextBox.Text.Length;
+            regExTextBox.SelectionFont = new Font(regExTextBox.SelectionFont, FontStyle.Regular);
+            regExTextBox.SelectionColor = Color.Black;
+            regExTextBox.SelectionLength = 0;
+
+            try
+            {
+                _constraints.ParseRegEx();
+                _toolTip.RemoveAll();
+            }
+            catch (RegExParsingException ex)
+            {
+                regExTextBox.SelectionStart = ex.Position-1;
+                regExTextBox.SelectionLength = ex.Lenght;
+                regExTextBox.SelectionFont = new Font(regExTextBox.SelectionFont, FontStyle.Underline);
+                regExTextBox.SelectionColor = Color.Red;
+                regExTextBox.SelectionLength = 0;
+                //MessageBox.Show(ex.Message);
+
+                _toolTip.SetToolTip(regExTextBox,ex.Message);
+            }
+
+            regExTextBox.SelectionStart = currentPosition;
         }
     }
 }

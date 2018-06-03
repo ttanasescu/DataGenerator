@@ -333,6 +333,10 @@
       <Project>{c718c20a-ee72-44c0-9e9e-379af2b671a3}</Project>
       <Name>DataGeneratorLibrary</Name>
     </ProjectReference>
+    <ProjectReference Include="..\RegExGenerator\RegExGenerator.csproj">
+      <Project>{DCAA0317-CC45-410B-8C94-2FD8CE5A5674}</Project>
+      <Name>RegExGenerator</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.6.1">

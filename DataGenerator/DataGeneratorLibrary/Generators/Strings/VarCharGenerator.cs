@@ -3,6 +3,7 @@ using DataGeneratorLibrary.Constrains.Strings;
 using DataGeneratorLibrary.DataSources;
 using DataGeneratorLibrary.DAL;
 using RegExGenerator;
+using RegExGenerator.Tokens;
 
 namespace DataGeneratorLibrary.Generators.Strings
 {
@@ -14,12 +15,17 @@ namespace DataGeneratorLibrary.Generators.Strings
         private VarcharConstraints Constraints { get; set; }
         private string[] Lines { get; set; } = null;
         private TemplateDataEnum? PreviousTemplateData { get; set; } = null;
+        private RegEx RegEx { get; set; }
 
         public VarCharGenerator(Column column) : base(column)
         {
             if (Column.Constraints is VarcharConstraints constrains)
             {
                 Constraints = constrains;
+                if (Constraints.UseRegEx)
+                {
+                    RegEx = new RegExParser(Constraints.RegEx).Parse();
+                }
             }
             else
                 switch (column.DataType)

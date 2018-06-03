@@ -1,4 +1,5 @@
 ﻿using DataGeneratorLibrary.DataSources;
+using RegExGenerator;
 
 namespace DataGeneratorLibrary.Constrains.Strings
 {
@@ -12,6 +13,12 @@ namespace DataGeneratorLibrary.Constrains.Strings
         public VarcharConstraints(int? maxLength) : base(maxLength)
         {
             //MaxPossibleLength = 8000;
+        }
+
+        public void ParseRegEx()
+        {
+            var parser = new RegExParser(RegEx);
+            parser.Parse();
         }
     }
 }

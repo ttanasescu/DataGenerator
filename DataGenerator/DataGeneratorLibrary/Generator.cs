@@ -1,7 +1,9 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Data;
 using DataGeneratorLibrary.DAL;
 using DataGeneratorLibrary.Generators;
+using RegExGenerator;
 
 namespace DataGeneratorLibrary
 {
@@ -14,9 +16,16 @@ namespace DataGeneratorLibrary
 
             foreach (var column in columns)
             {
-                var generator = DataTypeGenerator.GetGenerator(column);
-                var data = generator.Generate(rowCount);
-                rowdata.Add(column.Name, data);
+                try
+                {
+                    var generator = DataTypeGenerator.GetGenerator(column);
+                    var data = generator.Generate(rowCount);
+                    rowdata.Add(column.Name, data);
+                }
+                catch (RegExParsingException e)
+                {
+                    throw new ColumnInitializationException("Error initializing generator.", column, e);
+                }
             }
 
             if (!append)
@@ -35,6 +44,16 @@ namespace DataGeneratorLibrary
                 }
 
                 table.Rows.Add(row);
+            }
+        }
+
+        public class ColumnInitializationException : Exception
+        {
+            public Column Column { get; set; }
+
+            public ColumnInitializationException(string message, Column column, Exception exception = null) : base(message, exception)
+            {
+                Column = column;
             }
         }
     }

@@ -33,8 +33,8 @@
             this.maxNumericUpDown = new System.Windows.Forms.NumericUpDown();
             this.minNumericUpDown = new System.Windows.Forms.NumericUpDown();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.regExTextBox = new System.Windows.Forms.RichTextBox();
             this.useRegExCheckBox = new System.Windows.Forms.CheckBox();
-            this.regExTextBox = new System.Windows.Forms.TextBox();
             this.useTemplateCheckBox = new System.Windows.Forms.CheckBox();
             this.templatesComboBox = new System.Windows.Forms.ComboBox();
             this.nullPercentLabel = new System.Windows.Forms.Label();
@@ -79,8 +79,8 @@
             // 
             // groupBox1
             // 
-            this.groupBox1.Controls.Add(this.useRegExCheckBox);
             this.groupBox1.Controls.Add(this.regExTextBox);
+            this.groupBox1.Controls.Add(this.useRegExCheckBox);
             this.groupBox1.Controls.Add(this.useTemplateCheckBox);
             this.groupBox1.Controls.Add(this.templatesComboBox);
             this.groupBox1.Controls.Add(this.nullPercentLabel);
@@ -97,6 +97,18 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Constraints";
             // 
+            // regExTextBox
+            // 
+            this.regExTextBox.DetectUrls = false;
+            this.regExTextBox.Enabled = false;
+            this.regExTextBox.Font = new System.Drawing.Font("Courier New", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.regExTextBox.Location = new System.Drawing.Point(226, 80);
+            this.regExTextBox.Name = "regExTextBox";
+            this.regExTextBox.Size = new System.Drawing.Size(268, 64);
+            this.regExTextBox.TabIndex = 13;
+            this.regExTextBox.Text = "";
+            this.regExTextBox.TextChanged += new System.EventHandler(this.regExTextBox_TextChanged);
+            // 
             // useRegExCheckBox
             // 
             this.useRegExCheckBox.AutoSize = true;
@@ -107,16 +119,6 @@
             this.useRegExCheckBox.Text = "Use RegEx";
             this.useRegExCheckBox.UseVisualStyleBackColor = true;
             this.useRegExCheckBox.CheckedChanged += new System.EventHandler(this.regExCheckBox_CheckedChanged);
-            // 
-            // regExTextBox
-            // 
-            this.regExTextBox.Enabled = false;
-            this.regExTextBox.Location = new System.Drawing.Point(226, 82);
-            this.regExTextBox.Multiline = true;
-            this.regExTextBox.Name = "regExTextBox";
-            this.regExTextBox.Size = new System.Drawing.Size(268, 62);
-            this.regExTextBox.TabIndex = 11;
-            this.regExTextBox.TextChanged += new System.EventHandler(this.regExTextBox_TextChanged);
             // 
             // useTemplateCheckBox
             // 
@@ -187,6 +189,6 @@
         private System.Windows.Forms.ComboBox templatesComboBox;
         private System.Windows.Forms.CheckBox useTemplateCheckBox;
         private System.Windows.Forms.CheckBox useRegExCheckBox;
-        private System.Windows.Forms.TextBox regExTextBox;
+        private System.Windows.Forms.RichTextBox regExTextBox;
     }
 }
