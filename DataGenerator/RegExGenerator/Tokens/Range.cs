@@ -4,13 +4,23 @@ namespace RegExGenerator.Tokens
 {
     public class Range : RegEx
     {
-        private RegEx _first;
-        private RegEx _second;
+        private readonly RegEx _first;
+        private readonly RegEx _last;
 
-        public Range(RegEx first, RegEx second)
+        public Range(RegEx first, RegEx last)
         {
             _first = first;
-            _second = second;
+            _last = last;
+        }
+
+        public override string Generate()
+        {
+            if (!(_first is Terminal first) || !(_last is Terminal last))
+            {
+                throw new Exception("Only terminal chars allowed.");
+            }
+
+            return ((char) Random.Next(first.Char, last.Char + 1)).ToString();
         }
 
         public override void Print(string indent, bool last)
@@ -28,7 +38,7 @@ namespace RegExGenerator.Tokens
             }
             Console.WriteLine("R");
             _first.Print(indent);
-            _second.Print(indent, true);
+            _last.Print(indent, true);
         }
     }
 }

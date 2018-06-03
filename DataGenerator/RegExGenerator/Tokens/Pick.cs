@@ -14,6 +14,11 @@ namespace RegExGenerator.Tokens
             Picks = new List<RegEx>();
         }
 
+        public override string Generate()
+        {
+            return Picks[Random.Next(Picks.Count)].Generate();
+        }
+
         public override void Print(string indent, bool last)
         {
             Console.Write(indent);

@@ -40,6 +40,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Characters.cs" />
     <Compile Include="Tokens\AnyCharacter.cs" />
     <Compile Include="Tokens\Digit.cs" />
     <Compile Include="Tokens\NonDigit.cs" />
@@ -49,7 +50,7 @@
     <Compile Include="Tokens\Choice.cs" />
     <Compile Include="Tokens\Epsilon.cs" />
     <Compile Include="Tokens\Pick.cs" />
-    <Compile Include="Tokens\Primitive.cs" />
+    <Compile Include="Tokens\Terminal.cs" />
     <Compile Include="Tokens\Range.cs" />
     <Compile Include="Tokens\RegEx.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

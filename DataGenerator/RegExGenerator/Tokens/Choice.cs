@@ -13,6 +13,11 @@ namespace RegExGenerator.Tokens
             _secondChoice = secondChoice;
         }
 
+        public override string Generate()
+        {
+            return Random.Next(2)==0 ? _firstChoice.Generate() : _secondChoice.Generate();
+        }
+
         public override void Print(string indent, bool last)
         {
             Console.Write(indent);

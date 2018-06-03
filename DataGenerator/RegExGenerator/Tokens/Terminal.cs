@@ -2,13 +2,18 @@
 
 namespace RegExGenerator.Tokens
 {
-    public class Primitive : RegEx
+    public class Terminal : RegEx
     {
         public char Char { get; }
 
-        public Primitive(char c)
+        public Terminal(char c)
         {
             Char = c;
+        }
+
+        public override string Generate()
+        {
+            return Char.ToString();
         }
 
         public override void Print(string indent, bool last)

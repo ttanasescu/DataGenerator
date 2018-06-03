@@ -140,7 +140,7 @@ namespace RegExGenerator
                         max = Number();
                     }
 
-                    var occuranceces = new Quantifier((int) min);
+                    var occuranceces = new Quantifier((int) min, (int)min);
 
                     if (max != null)
                     {
@@ -215,7 +215,7 @@ namespace RegExGenerator
             {
                 var first = Basic();
 
-                if (first is Primitive f)
+                if (first is Terminal f)
                 {
                     char current = f.Char;
                     if (NotDone() && Peek() == '-')
@@ -226,7 +226,7 @@ namespace RegExGenerator
                         {
                             var last = Basic();
 
-                            if (last is Primitive l)
+                            if (last is Terminal l)
                             {
                                 char next = l.Char;
 
@@ -235,7 +235,7 @@ namespace RegExGenerator
                                     throw new Exception("Character range is out of order.");
                                 }
 
-                                pick.Picks.Add(new Range(new Primitive(current), new Primitive(next)));
+                                pick.Picks.Add(new Range(new Terminal(current), new Terminal(next)));
                             }
                             else
                             {
@@ -245,12 +245,12 @@ namespace RegExGenerator
                         else
                         {
                             pick.Picks.Add(first);
-                            pick.Picks.Add(new Primitive('-'));
+                            pick.Picks.Add(new Terminal('-'));
                         }
                     }
                     else
                     {
-                        pick.Picks.Add(new Primitive(current));
+                        pick.Picks.Add(new Terminal(current));
                     }
                 }
                 else
@@ -293,10 +293,10 @@ namespace RegExGenerator
                         case 'S':
                             return new NonWhiteSpace();
                         default:
-                            return new Primitive(esc);
+                            return new Terminal(esc);
                     }
                 default:
-                    return new Primitive(Pop());
+                    return new Terminal(Pop());
             }
         }
 

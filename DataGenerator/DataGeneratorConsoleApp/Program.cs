@@ -13,11 +13,15 @@ namespace DataGeneratorConsoleApp
     {
         static void Main(string[] args)
         {
-            var parser = new RegExParser(@"[--5-6-\]]{2,5}|[\w-C-y]?\"); //RegExParser("(a*)|(x|z){2,5}");
+            var parser = //new RegExParser(@"[--5-6-\]]{2,5}|[\w-C-y]?");
+                //new RegExParser("(a*)|(x|z){2,5}");
+                new RegExParser("[A-Z]{2} \\d{2,3}");
 
             var regEx = parser.Parse();
 
             regEx.Print("", true);
+
+            Console.WriteLine(regEx.Generate());
 
             Console.ReadKey();
             /*

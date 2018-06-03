@@ -13,6 +13,18 @@ namespace RegExGenerator.Tokens
             _quantifier = quantifier;
         }
 
+        public override string Generate()
+        {
+            var count = Random.Next(_quantifier.Minimum, _quantifier.Maximum + 1);
+            var output = "";
+            for (var i = 0; i < count; i++)
+            {
+                output += _internal.Generate();
+            }
+
+            return output;
+        }
+
         public override void Print(string indent, bool last)
         {
             Console.WriteLine(
