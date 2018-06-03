@@ -2,6 +2,7 @@
 using DataGeneratorLibrary.Constrains.Strings;
 using DataGeneratorLibrary.DataSources;
 using DataGeneratorLibrary.DAL;
+using RegExGenerator;
 
 namespace DataGeneratorLibrary.Generators.Strings
 {
@@ -37,7 +38,21 @@ namespace DataGeneratorLibrary.Generators.Strings
 
         public override object Generate()
         {
-            return Constraints.UseTemplateData ? GenerateFromTemplate() : GenerateRandomString();
+            if (Constraints.UseTemplateData)
+                return GenerateFromTemplate();
+            else if (Constraints.UseRegEx)
+            {
+                return GenerateFromRegEx();
+            }
+            else
+                return GenerateRandomString();
+        }
+
+        private object GenerateFromRegEx()
+        {
+            var parser = new RegExParser(Constraints.RegEx);
+            var regEx = parser.Parse();
+            return regEx.Generate(Constraints.MaxPossibleLength);
         }
 
         private object GenerateFromTemplate()

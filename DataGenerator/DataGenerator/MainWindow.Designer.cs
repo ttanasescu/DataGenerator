@@ -56,6 +56,7 @@
             this.cSVToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.appendRowsCheckBox = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.tableDataGridView)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
@@ -154,6 +155,7 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.appendRowsCheckBox);
             this.groupBox1.Controls.Add(this.rowCountUpDown);
             this.groupBox1.Controls.Add(this.label1);
             this.groupBox1.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -290,19 +292,19 @@
             // generateToolStripMenuItem
             // 
             this.generateToolStripMenuItem.Name = "generateToolStripMenuItem";
-            this.generateToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.generateToolStripMenuItem.Size = new System.Drawing.Size(139, 22);
             this.generateToolStripMenuItem.Text = "Generate";
             this.generateToolStripMenuItem.Click += new System.EventHandler(this.generateToolStripMenuItem_Click);
             // 
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(149, 6);
+            this.toolStripSeparator1.Size = new System.Drawing.Size(136, 6);
             // 
             // fillDatabaseToolStripMenuItem
             // 
             this.fillDatabaseToolStripMenuItem.Name = "fillDatabaseToolStripMenuItem";
-            this.fillDatabaseToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.fillDatabaseToolStripMenuItem.Size = new System.Drawing.Size(139, 22);
             this.fillDatabaseToolStripMenuItem.Text = "Fill database";
             this.fillDatabaseToolStripMenuItem.Click += new System.EventHandler(this.fillDatabaseToolStripMenuItem_Click);
             // 
@@ -312,7 +314,7 @@
             this.sQLInsertScriptToolStripMenuItem,
             this.cSVToolStripMenuItem});
             this.exportToolStripMenuItem.Name = "exportToolStripMenuItem";
-            this.exportToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.exportToolStripMenuItem.Size = new System.Drawing.Size(139, 22);
             this.exportToolStripMenuItem.Text = "Export";
             // 
             // sQLInsertScriptToolStripMenuItem
@@ -357,9 +359,19 @@
             // aboutToolStripMenuItem
             // 
             this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
-            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(107, 22);
             this.aboutToolStripMenuItem.Text = "About";
             this.aboutToolStripMenuItem.Click += new System.EventHandler(this.aboutToolStripMenuItem_Click);
+            // 
+            // appendRowsCheckBox
+            // 
+            this.appendRowsCheckBox.AutoSize = true;
+            this.appendRowsCheckBox.Location = new System.Drawing.Point(68, 80);
+            this.appendRowsCheckBox.Name = "appendRowsCheckBox";
+            this.appendRowsCheckBox.Size = new System.Drawing.Size(93, 17);
+            this.appendRowsCheckBox.TabIndex = 2;
+            this.appendRowsCheckBox.Text = "Append Rows";
+            this.appendRowsCheckBox.UseVisualStyleBackColor = true;
             // 
             // MainWindow
             // 
@@ -423,6 +435,7 @@
         private System.Windows.Forms.ToolStripMenuItem helpToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem aboutToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem cSVToolStripMenuItem;
+        private System.Windows.Forms.CheckBox appendRowsCheckBox;
     }
 }
 

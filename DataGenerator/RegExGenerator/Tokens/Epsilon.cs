@@ -4,7 +4,7 @@ namespace RegExGenerator.Tokens
 {
     public class Epsilon : RegEx
     {
-        public override string Generate()
+        public override string Generate(int maxLength = 10)
         {
             return string.Empty;
         }

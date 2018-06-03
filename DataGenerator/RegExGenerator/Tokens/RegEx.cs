@@ -9,7 +9,7 @@ namespace RegExGenerator.Tokens
 
         public static Random Random { get; } = new Random();
 
-        public abstract string Generate();
+        public abstract string Generate(int maxLength = 10);
 
         [Conditional("DEBUG")]
         public abstract void Print(string indent = "", bool last = false);

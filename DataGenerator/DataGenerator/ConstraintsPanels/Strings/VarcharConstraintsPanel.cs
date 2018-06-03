@@ -77,6 +77,8 @@ namespace DataGeneratorGUI.ConstraintsPanels.Strings
                 maxNumericUpDown.Enabled = false;
                 minLenghtLabel.Enabled = false;
                 maxLenghtLabel.Enabled = false;
+                regExTextBox.Enabled = false;
+                useRegExCheckBox.Enabled = false;
 
                 templatesComboBox.Enabled = true;
                 _constraints.UseTemplateData = true;
@@ -90,6 +92,37 @@ namespace DataGeneratorGUI.ConstraintsPanels.Strings
 
                 templatesComboBox.Enabled = false;
                 _constraints.UseTemplateData = false;
+
+                useRegExCheckBox.Enabled = true;
+                
+                regExTextBox.Enabled = useRegExCheckBox.Checked;
+            }
+        }
+
+        private void regExCheckBox_CheckedChanged(object sender, EventArgs e)
+        {
+            if (useRegExCheckBox.Checked)
+            {
+                minNumericUpDown.Enabled = false;
+                maxNumericUpDown.Enabled = false;
+                minLenghtLabel.Enabled = false;
+                maxLenghtLabel.Enabled = false;
+                templatesComboBox.Enabled = false;
+                useTemplateCheckBox.Enabled = false;
+
+                regExTextBox.Enabled = true;
+                _constraints.UseRegEx = true;
+            }
+            else
+            {
+                minNumericUpDown.Enabled = true;
+                maxNumericUpDown.Enabled = true;
+                minLenghtLabel.Enabled = true;
+                maxLenghtLabel.Enabled = true;
+                templatesComboBox.Enabled = useTemplateCheckBox.Checked;
+                useTemplateCheckBox.Enabled = true;
+
+                regExTextBox.Enabled = false;
             }
         }
 
@@ -98,6 +131,11 @@ namespace DataGeneratorGUI.ConstraintsPanels.Strings
             Enum.TryParse(templatesComboBox.SelectedValue.ToString(), out TemplateDataEnum template);
 
             _constraints.TemplateData = template;
+        }
+
+        private void regExTextBox_TextChanged(object sender, EventArgs e)
+        {
+            _constraints.RegEx = regExTextBox.Text;
         }
     }
 }

@@ -13,9 +13,9 @@ namespace RegExGenerator.Tokens
             _quantifier = quantifier;
         }
 
-        public override string Generate()
+        public override string Generate(int maxLength = 10)
         {
-            var count = Random.Next(_quantifier.Minimum, _quantifier.Maximum + 1);
+            var count = Random.Next(_quantifier.Minimum, Math.Min(_quantifier.Maximum, maxLength) + 1);
             var output = "";
             for (var i = 0; i < count; i++)
             {

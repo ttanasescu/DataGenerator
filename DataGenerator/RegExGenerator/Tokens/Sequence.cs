@@ -13,9 +13,9 @@ namespace RegExGenerator.Tokens
             _second = second;
         }
 
-        public override string Generate()
+        public override string Generate(int maxLength)
         {
-            return _first.Generate() + _second.Generate();
+            return _first.Generate(maxLength) + _second.Generate(maxLength);
         }
 
         public override void Print(string indent, bool last)

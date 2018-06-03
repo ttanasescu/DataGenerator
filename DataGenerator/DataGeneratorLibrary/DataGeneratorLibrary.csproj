@@ -148,5 +148,11 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\RegExGenerator\RegExGenerator.csproj">
+      <Project>{dcaa0317-cc45-410b-8c94-2fd8ce5a5674}</Project>
+      <Name>RegExGenerator</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

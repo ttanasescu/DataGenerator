@@ -223,7 +223,7 @@ namespace DataGeneratorGUI
                 var generator = new Generator();
 
                 tableDataGridView.DataSource = null;
-                generator.FillTable(TableInformation.Table, TableInformation.Columns, (int) rowCountUpDown.Value, false);
+                generator.FillTable(TableInformation.Table, TableInformation.Columns, (int) rowCountUpDown.Value, appendRowsCheckBox.Checked);
                 tableDataGridView.DataSource = TableInformation.Table;
             }
         }

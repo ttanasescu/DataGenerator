@@ -13,7 +13,7 @@ namespace RegExGenerator.Tokens
             _last = last;
         }
 
-        public override string Generate()
+        public override string Generate(int maxLength)
         {
             if (!(_first is Terminal first) || !(_last is Terminal last))
             {

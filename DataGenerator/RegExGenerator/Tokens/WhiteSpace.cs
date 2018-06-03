@@ -4,7 +4,7 @@ namespace RegExGenerator.Tokens
 {
     public class WhiteSpace : RegEx
     {
-        public override string Generate()
+        public override string Generate(int maxLength = 10)
         {
             var chars = Characters.WhiteSpaces;
             return chars[Random.Next(chars.Length)].ToString();
