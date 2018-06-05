@@ -37,6 +37,11 @@ namespace DataGeneratorGUI.ConstraintsPanels.Numerics
                 nullNumericUpDown.Enabled = false;
                 nullPercentLabel.Enabled = false;
             }
+            
+            useIncrementedCheckBox.Checked = _constraints.UseIncrement;
+
+            stepUpDown.Maximum = int.MaxValue;
+            stepUpDown.Value = _constraints.IncrementStep;
 
             nullNumericUpDown.Value = _constraints.PercentOfNulls;
         }
@@ -54,6 +59,27 @@ namespace DataGeneratorGUI.ConstraintsPanels.Numerics
         private void nullNumericUpDown_ValueChanged(object sender, EventArgs e)
         {
             _constraints.PercentOfNulls = (int) nullNumericUpDown.Value;
+        }
+
+        private void useIncrementedCheckBox_CheckedChanged(object sender, EventArgs e)
+        {
+            _constraints.UseIncrement = useIncrementedCheckBox.Checked;
+
+            if (useIncrementedCheckBox.Checked)
+            {
+                maxNumericUpDown.Enabled = false;
+                stepUpDown.Enabled = true;
+            }
+            else
+            {
+                maxNumericUpDown.Enabled = true;
+                stepUpDown.Enabled = false;
+            }
+        }
+
+        private void stepUpDown_ValueChanged(object sender, EventArgs e)
+        {
+            _constraints.IncrementStep = (int) stepUpDown.Value;
         }
     }
 }

@@ -24,7 +24,7 @@ namespace DataGeneratorGUI.ConstraintsPanels.Strings
             _toolTip = new ToolTip();
             InitializeComponent();
         }
-
+        
         private void VarcharConstraintsPanel_Load(object sender, EventArgs e)
         {
             Dock = DockStyle.Fill;

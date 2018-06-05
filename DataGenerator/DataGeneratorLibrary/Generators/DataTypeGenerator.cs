@@ -33,7 +33,7 @@ namespace DataGeneratorLibrary.Generators
                 nullCount = (int) (count * Column.Constraints.PercentOfNulls / 100f);
             }
 
-            for (var i = 0; i < count-nullCount; i++)
+            for (var i = 0; i < count - nullCount; i++)
             {
                 values.Add(Generate());
             }
@@ -42,14 +42,19 @@ namespace DataGeneratorLibrary.Generators
             {
                 values.Add(DBNull.Value);
             }
-            var n = count;
-            while (n > 1)
+
+            if (Column.Constraints.PercentOfNulls != 0)
             {
-                n--;
-                var k = Random.Next(n + 1);
-                var value = values[k];
-                values[k] = values[n];
-                values[n] = value;
+
+                var n = count;
+                while (n > 1)
+                {
+                    n--;
+                    var k = Random.Next(n + 1);
+                    var value = values[k];
+                    values[k] = values[n];
+                    values[n] = value;
+                }
             }
 
             return values;

@@ -35,10 +35,13 @@
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.nullPercentLabel = new System.Windows.Forms.Label();
             this.nullNumericUpDown = new System.Windows.Forms.NumericUpDown();
+            this.useIncrementedCheckBox = new System.Windows.Forms.CheckBox();
+            this.stepUpDown = new System.Windows.Forms.NumericUpDown();
             ((System.ComponentModel.ISupportInitialize)(this.maxNumericUpDown)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.minNumericUpDown)).BeginInit();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nullNumericUpDown)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.stepUpDown)).BeginInit();
             this.SuspendLayout();
             // 
             // label2
@@ -77,6 +80,8 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.stepUpDown);
+            this.groupBox1.Controls.Add(this.useIncrementedCheckBox);
             this.groupBox1.Controls.Add(this.nullPercentLabel);
             this.groupBox1.Controls.Add(this.nullNumericUpDown);
             this.groupBox1.Controls.Add(this.minNumericUpDown);
@@ -108,6 +113,26 @@
             this.nullNumericUpDown.TabIndex = 8;
             this.nullNumericUpDown.ValueChanged += new System.EventHandler(this.nullNumericUpDown_ValueChanged);
             // 
+            // useIncrementedCheckBox
+            // 
+            this.useIncrementedCheckBox.AutoSize = true;
+            this.useIncrementedCheckBox.Location = new System.Drawing.Point(226, 31);
+            this.useIncrementedCheckBox.Name = "useIncrementedCheckBox";
+            this.useIncrementedCheckBox.Size = new System.Drawing.Size(85, 17);
+            this.useIncrementedCheckBox.TabIndex = 10;
+            this.useIncrementedCheckBox.Text = "Incremented";
+            this.useIncrementedCheckBox.UseVisualStyleBackColor = true;
+            this.useIncrementedCheckBox.CheckedChanged += new System.EventHandler(this.useIncrementedCheckBox_CheckedChanged);
+            // 
+            // stepUpDown
+            // 
+            this.stepUpDown.Enabled = false;
+            this.stepUpDown.Location = new System.Drawing.Point(226, 56);
+            this.stepUpDown.Name = "stepUpDown";
+            this.stepUpDown.Size = new System.Drawing.Size(120, 20);
+            this.stepUpDown.TabIndex = 11;
+            this.stepUpDown.ValueChanged += new System.EventHandler(this.stepUpDown_ValueChanged);
+            // 
             // IntConstraintsPanel
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -123,6 +148,7 @@
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nullNumericUpDown)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.stepUpDown)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -136,5 +162,7 @@
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.Label nullPercentLabel;
         private System.Windows.Forms.NumericUpDown nullNumericUpDown;
+        private System.Windows.Forms.NumericUpDown stepUpDown;
+        private System.Windows.Forms.CheckBox useIncrementedCheckBox;
     }
 }
